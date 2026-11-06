@@ -48,7 +48,7 @@ def tank():
         t = Part('track_' + side, (0, 0, 0), 'hull'); P.append(t)
         t.cube(x, -14, -36, 8, 14, 72, 'rubber')            # track run
         t.cube(x - 1, -16, -38, 10, 3, 76, 'rubber')        # fender
-        for i, z in enumerate((-28, -14, 0, 'camo')):
+        for i, z in enumerate((-28, -14, 0, 14, 28)):
             w = Part(f'wheel_{side}{i}', (x + 4, -7, z), 'track_' + side); P.append(w)
             w.cube(-4.5, -5, -5, 9, 10, 10, 'rubber')      # road wheel
             w.cube(-5, -3, -3, 10, 6, 6, 'steel')        # hub

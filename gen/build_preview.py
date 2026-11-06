@@ -32,7 +32,12 @@ for line in open(os.path.join(ROOT, 'src', 'main', 'java', 'com', 'messickmedia'
         stats[gid] = {'kind': kind, 'sightY': float(nums[0].rstrip('F')), 'gripY': float(nums[1].rstrip('F')), 'gripZ': float(nums[2].rstrip('F')),
                       'muzzle': [float(parts[18].rstrip('F')), float(parts[19].rstrip('F')), float(parts[20].rstrip('F'))], 'scope': parts[17] == 'true'}
 
+vehicles = json.load(open(os.path.join(os.path.dirname(__file__), 'vehicles_spec.json')))
 textures = {
+    'tank': b64(os.path.join(ASSETS, 'textures', 'entity', 'tank.png')),
+    'plane': b64(os.path.join(ASSETS, 'textures', 'entity', 'plane.png')),
+    'heli': b64(os.path.join(ASSETS, 'textures', 'entity', 'heli.png')),
+    'jeep': b64(os.path.join(ASSETS, 'textures', 'entity', 'jeep.png')),
     'atlas': b64(os.path.join(ASSETS, 'textures', 'item', 'gun_atlas.png')),
     'soldier': b64(os.path.join(ASSETS, 'textures', 'entity', 'soldier.png')),
     'flag': b64(os.path.join(ASSETS, 'textures', 'entity', 'flag.png')),
@@ -72,10 +77,11 @@ const SPEC = __SPEC__;
 const MODELS = __MODELS__;
 const STATS = __STATS__;
 const TEX = __TEX__;
+const VEHICLES = __VEHICLES__;
 
 const loader = new THREE.TextureLoader();
 function tex(uri) { const t = loader.load(uri); t.magFilter = THREE.NearestFilter; t.minFilter = THREE.NearestFilter; return t; }
-const T = { atlas: tex(TEX.atlas), soldier: tex(TEX.soldier), flag: tex(TEX.flag), pole: tex(TEX.pole) };
+const T = { atlas: tex(TEX.atlas), soldier: tex(TEX.soldier), flag: tex(TEX.flag), pole: tex(TEX.pole), tank: tex(TEX.tank), plane: tex(TEX.plane), heli: tex(TEX.heli), jeep: tex(TEX.jeep) };
 const MAT = {};
 function mat(name, opts) {
   const key = name + JSON.stringify(opts || {});
@@ -315,6 +321,45 @@ function showFlag() {
   info('Command Flag', 'Planting your first one founds your nation (a naming screen opens); the cloth is tinted the nation colour. Later flags are outposts that claim land.');
 }
 
+// vehicles: the generated part tree (entity model space, y down), animated like VehicleRenderer
+function vehicleModel(vid) {
+  const spec = VEHICLES[vid];
+  const parts = {};
+  const rig = new THREE.Group();
+  for (const p of spec.parts) {
+    const g = new THREE.Group();
+    g.position.set(p.pivot[0], p.pivot[1], p.pivot[2]);
+    g.rotation.set(p.rot[0], p.rot[1], p.rot[2]);
+    for (const c of p.cubes) g.add(mcCube(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], 512, 512, mat(vid), c[8] || 0));
+    parts[p.name] = g;
+    (p.parent ? parts[p.parent] : rig).add(g);
+  }
+  const world = new THREE.Group(); world.scale.set(-1 / 16, -1 / 16, 1 / 16); world.add(rig);
+  world.userData.parts = parts; world.userData.vid = vid;
+  return world;
+}
+
+function showVehicles() {
+  clear(); mode = 'turntable';
+  const layout = { tank: [-3.2, 0, -1.5], jeep: [3.0, 0, -2.0], plane: [-2.0, 0, 4.0], heli: [3.5, 0, 3.0] };
+  root.userData.vehicles = [];
+  for (const vid of Object.keys(layout)) {
+    const v = vehicleModel(vid);
+    v.position.set(...layout[vid]);
+    v.rotation.y = vid === 'plane' ? 0.5 : vid === 'heli' ? -0.6 : 0.3;
+    root.add(v); root.userData.vehicles.push(v);
+  }
+  target.set(0, 1.2, 1); orbitDist = 14; auto = true;
+  info('Vehicles', 'Tank (turret follows the driver, explosive shells + coax MG), jeep (ring-mounted MG, three seats), fighter plane (wing guns, bombs) and attack helicopter (chin gun, rockets). Models animate like in game.');
+}
+
+function showVehicle(vid) {
+  clear(); mode = 'turntable';
+  const v = vehicleModel(vid); root.add(v); root.userData.vehicles = [v];
+  target.set(0, 1.0, 0); orbitDist = vid === 'plane' ? 9 : 8; auto = true;
+  info(VEHICLES[vid].name, `${VEHICLES[vid].parts.reduce((n, p) => n + p.cubes.length, 0)} cuboids. Drag to orbit.`);
+}
+
 // ---------------------------------------------------------------- ui
 const ui = document.getElementById('ui');
 const buttons = [];
@@ -326,6 +371,8 @@ addBtn('FPS: marksman', () => showFps(SPEC.guns.find(g => g.id === 'r7_marksman'
 addBtn('Icons', showIcons);
 addBtn('Soldiers', showSoldier);
 addBtn('Command Flag', showFlag);
+addBtn('Vehicles', showVehicles);
+for (const vid of ['tank', 'plane', 'heli', 'jeep']) addBtn(VEHICLES[vid].name, () => showVehicle(vid));
 const params = new URLSearchParams(location.search);
 const start = params.get('view');
 const startBtn = buttons.find(b => b.textContent.toLowerCase().startsWith((start || 'fl-4').toLowerCase())) || buttons[2];
@@ -355,6 +402,13 @@ function animate() {
     if (auto) orbitYaw += 0.004;
     camera.position.set(target.x + Math.sin(orbitYaw) * Math.cos(orbitPitch) * orbitDist, target.y + Math.sin(orbitPitch) * orbitDist, target.z + Math.cos(orbitYaw) * Math.cos(orbitPitch) * orbitDist);
     camera.lookAt(target);
+    if (root.userData.vehicles) for (const v of root.userData.vehicles) {
+      const P = v.userData.parts, t = clock;
+      if (v.userData.vid === 'tank') { P.turret.rotation.y = Math.sin(t * 0.7) * 0.8; P.gun.rotation.x = Math.sin(t * 0.9) * 0.12 - 0.05; for (const k in P) if (k.startsWith('wheel')) P[k].rotation.x = t * 3; }
+      if (v.userData.vid === 'plane') P.prop.rotation.z = t * 40;
+      if (v.userData.vid === 'heli') { P.rotor.rotation.y = t * 25; P.tail_rotor.rotation.x = t * 50; }
+      if (v.userData.vid === 'jeep') { for (const k in P) if (k.startsWith('wheel')) P[k].rotation.x = t * 4; P.mg.rotation.y = Math.sin(t * 0.8) * 1.2; }
+    }
     if (root.userData.strips) root.userData.strips.forEach((s, i) => { const ph = clock * 3.6 - i * 0.55, amp = 0.9 * (i + 1) / 8; s.position.z = Math.sin(ph) * amp; s.rotation.y = -Math.cos(ph) * amp * 0.55 * 0.31; });
   }
   renderer.render(scene, camera);
@@ -364,7 +418,7 @@ animate();
 </body>
 </html>
 '''
-html = html.replace('__SPEC__', json.dumps(spec)).replace('__MODELS__', json.dumps(models)).replace('__STATS__', json.dumps(stats)).replace('__TEX__', json.dumps(textures))
+html = html.replace('__VEHICLES__', json.dumps(vehicles)).replace('__SPEC__', json.dumps(spec)).replace('__MODELS__', json.dumps(models)).replace('__STATS__', json.dumps(stats)).replace('__TEX__', json.dumps(textures))
 os.makedirs(OUT, exist_ok=True)
 with open(os.path.join(OUT, 'index.html'), 'w') as f:
     f.write(html)

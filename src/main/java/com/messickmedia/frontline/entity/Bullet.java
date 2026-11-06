@@ -66,7 +66,7 @@ public class Bullet extends Projectile {
 
     private void detonate(ServerLevel level, Vec3 at) {
         Entity owner = this.getOwner();
-        Level.ExplosionInteraction mode = level.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_MOB_GRIEFING) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+        Level.ExplosionInteraction mode = level.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
         level.explode(owner == null ? this : owner, at.x, at.y, at.z, this.blast, mode);
         level.sendParticles(ModRegistries.SMOKE.get(), at.x, at.y + 0.5, at.z, 12, 0.6, 0.4, 0.6, 0.05);
         level.sendParticles(ModRegistries.SPARK.get(), at.x, at.y, at.z, 16, 0.3, 0.3, 0.3, 0.5);
