@@ -1,0 +1,1128 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Calculating task graph as no cached configuration is available for tasks: runClient
+
+> Configure project :
+Creating Minecraft artifacts without recompilation.
+
+> Task :generateModMetadata UP-TO-DATE
+> Task :downloadAssets UP-TO-DATE
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :writeClientLegacyClasspath
+> Task :compileJava UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :prepareClientRun
+
+> Task :runClient
+WARN StatusConsoleListener Advanced terminal features are not available in this environment
+[22:53:34] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientdev, --version, 21.1.265, --assetIndex, 17, --assetsDir, /home/runner/.gradle/caches/neoformruntime/assets, --gameDir, ., --fml.fmlVersion, 4.0.45, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.265, --fml.neoFormVersion, 20240808.144430]
+[22:53:34] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.13+9-LTS
+[22:53:34] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.13 by Eclipse Adoptium; OS Linux arch amd64 version 7.0.0-1019-azure
+[22:53:34] [main/DEBUG] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Found launch services [minecraft,forgeclient,forgedatauserdev,testharness,forgeserverdev,forgeserveruserdev,forgejunitdev,forgeclientdev,forgeclientuserdev,forgeserver,forgejunituserdev,forgedatadev]
+[22:53:34] [main/DEBUG] [cp.mo.mo.LaunchPluginHandler/MODLAUNCHER]: Found launch plugins: [mixin,slf4jfixer,runtime_enum_extender,accesstransformer,runtimedistcleaner]
+[22:53:34] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Discovering transformation services
+[22:53:34] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path GAMEDIR is /home/runner/work/frontline/frontline/run
+[22:53:34] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path MODSDIR is /home/runner/work/frontline/frontline/run/mods
+[22:53:34] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path CONFIGDIR is /home/runner/work/frontline/frontline/run/config
+[22:53:34] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path FMLCONFIG is /home/runner/work/frontline/frontline/run/config/fml.toml
+[22:53:34] [main/DEBUG] [ne.ne.fm.lo.ta.CommonLaunchHandler/CORE]: Got mod coordinates frontline%%/home/runner/work/frontline/frontline/build/classes/java/main:frontline%%/home/runner/work/frontline/frontline/build/resources/main from env
+[22:53:34] [main/DEBUG] [ne.ne.fm.lo.ta.CommonLaunchHandler/CORE]: Found supplied mod coordinates [{frontline=[/home/runner/work/frontline/frontline/build/classes/java/main, /home/runner/work/frontline/frontline/build/resources/main]}]
+[22:53:34] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Found additional transformation services from discovery services: 
+[22:53:34] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[22:53:34] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[22:53:34] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.5
+[22:53:36] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.5 got version 4.5
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Found transformer services : [mixin,fml]
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Loading service mixin
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Loaded service mixin
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Loading service fml
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/CORE]: FML 4.0.45 loading
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/CORE]: FML found ModLauncher version : 11.0.5+main.901c6ea8
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/CORE]: FML found AccessTransformer version : 10.0.1+139da711
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/CORE]: FML found EventBus version : null
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/CORE]: Found Runtime Dist Cleaner
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Loaded service fml
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Configuring option handling for services
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Received command line version data  : VersionInfo[neoForgeVersion=21.1.265, fmlVersion=4.0.45, mcVersion=1.21.1, neoFormVersion=20240808.144430]
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Transformation services initializing
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service mixin
+[22:53:36] [main/DEBUG] [mixin/]: MixinService [ModLauncher] was successfully booted in cpw.mods.cl.ModuleClassLoader@6043cd28
+[22:53:36] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.4+mixin.0.8.7/26d01f0567ab46e9ca0d2ed89d0ecc11aadbd433/sponge-mixin-0.16.4+mixin.0.8.7.jar%23126!/ Service=ModLauncher Env=CLIENT
+[22:53:36] [main/DEBUG] [mixin/]: Initialising Mixin Platform Manager
+[22:53:36] [main/DEBUG] [mixin/]: Adding mixin platform agents for container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[22:53:36] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[22:53:36] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[22:53:36] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[22:53:36] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service mixin
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service fml
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Setting up basic FML game directories
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path GAMEDIR is /home/runner/work/frontline/frontline/run
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path MODSDIR is /home/runner/work/frontline/frontline/run/mods
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path CONFIGDIR is /home/runner/work/frontline/frontline/run/config
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path FMLCONFIG is /home/runner/work/frontline/frontline/run/config/fml.toml
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Loading configuration
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Preparing launch handler
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/CORE]: Using forgeclientdev as launch service
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service fml
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Transformation services begin scanning
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service mixin
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service mixin
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service fml
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Initiating mod scan
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ta.CommonLaunchHandler/CORE]: Got mod coordinates frontline%%/home/runner/work/frontline/frontline/build/classes/java/main:frontline%%/home/runner/work/frontline/frontline/build/resources/main from env
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ta.CommonLaunchHandler/CORE]: Found supplied mod coordinates [{frontline=[/home/runner/work/frontline/frontline/build/classes/java/main, /home/runner/work/frontline/frontline/build/resources/main]}]
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ta.CommonDevLaunchHandler/]: Launching with NeoForge from /home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 4 implementations of IModFileCandidateLocator:
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - [built-in] net.neoforged.fml.loading.moddiscovery.locators.NeoForgeDevProvider from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - net.neoforged.fml.loading.moddiscovery.locators.ModsFolderLocator from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - net.neoforged.fml.loading.moddiscovery.locators.MavenDirectoryLocator from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	   -1000 - [built-in] net.neoforged.fml.loading.moddiscovery.locators.UserdevLocator from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 2 implementations of IModFileReader:
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - net.neoforged.fml.loading.moddiscovery.readers.JarModsDotTomlModFileReader from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	   -1000 - net.neoforged.fml.loading.moddiscovery.readers.NestedLibraryModReader from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 1 implementations of IDependencyLocator:
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator from loader-4.0.45.jar
+[22:53:36] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: llvmpipe (LLVM 21.1.8, 256 bits) GL version 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3, Mesa
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file neoforge-21.1.265.jar with {minecraft} mods - versions {1.21.1}
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate /home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file neoforge-21.1.265.jar with {neoforge} mods - versions {21.1.265}
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModListHandler/CORE]: Found mod coordinates from lists: []
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate /home/runner/work/frontline/frontline/build/classes/java/main
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file main with {frontline} mods - versions {1.0.0}
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate /home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file neoforge-21.1.265.jar with {neoforge} mods - versions {21.1.265}
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/4.0.45/dc7a8b1370054dd0e2d70c1db4ddf4092793c115/earlydisplay-4.0.45.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/4.0.45/4a0968c2ec6234d58e0a9ed97acafc08cc8f33b5/loader-4.0.45.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.accesstransformers/at-modlauncher/10.0.1/5aba50202aceead086bc09fbc2751c9f05cb4890/at-modlauncher-10.0.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/accesstransformers/10.0.1/fd83b5725f76eae9115e9355fa1c456a6a441400/accesstransformers-10.0.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/bus/8.0.5/5b2d33285ab5d1554e9798ad98c40d6ea3868bd5/bus-8.0.5.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/coremods/7.0.3/9147e6f638b4272b3bd5fc8f92ad37802512c6c/coremods-7.0.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/11.0.5/b8f0d49294f733fdb6173931b263553e943dc950/modlauncher-11.0.5.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/mergetool/2.0.0/52fe1949be64e3303aabaaa21e315f551db9c9f4/mergetool-2.0.0-api.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/toml/3.8.3/90b2fd6efcb4a7d5b9810cf78f9d824994d717f2/toml-3.8.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/core/3.8.3/b442a95f09e349927f5a945ecb594455870fcf4f/core-3.8.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarSelector/0.4.1/fb3cc7a58af22ad2880adb98af6d518128c47dae/JarJarSelector-0.4.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarMetadata/0.4.1/f8da03683dc81694556dc3e177c5e3bb77ae6fcb/JarJarMetadata-0.4.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.8.5/4433f50c07debefaed0553bd0068f4f48d449313/maven-artifact-3.8.5.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.6.3/a01aaa6ddaea9ec07ec4f209487b7a46a526283a/typetools-0.6.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.minecrell/terminalconsoleappender/1.3.0/b562e9bb61235c9520e26282cdee71f8f802d1fc/terminalconsoleappender-1.3.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.4+mixin.0.8.7/26d01f0567ab46e9ca0d2ed89d0ecc11aadbd433/sponge-mixin-0.16.4+mixin.0.8.7.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.openjdk.nashorn/nashorn-core/15.4/f67f5ffaa5f5130cf6fb9b133da00c7df3b532a5/nashorn-core-15.4.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.14.0/1ed471194b02f2c6cb734a0cd6f6f107c673afae/commons-lang3-3.14.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/5.0.4/4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c/jopt-simple-5.0.4.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.15.1/f11560da189ab563a5c8e351941415430e9304ea/commons-io-2.15.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/logging/1.2.7/24cb95ffb0e3433fd6e844c04e68009e504ca1c0/logging-1.2.7.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-slf4j2-impl/2.22.1/d7e6693c2606cb7e7335047d7bb96dec52db5665/log4j-slf4j2-impl-2.22.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.22.1/7183a25510a02ad00cc6a95d3b3d2a7d3c5a8dc4/log4j-core-2.22.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.22.1/bea6fede6328fabafd7e68363161a7ea6605abd1/log4j-api-2.22.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/32.1.2-jre/5e64ec7e056456bef3a4bc4c6fdaef71e8ab6318/guava-32.1.2-jre.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.10.1/b3add478d4382b78ea20b1671390a858002feb6c/gson-2.10.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.9/7cf2726fdcfbc8610f9a71fb3ed639871f315340/slf4j-api-2.0.9.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.13.1/17125bae1d965624e265ef49552f6465a2bfa307/antlr4-runtime-4.13.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/srgutils/0.4.15/ca408b131759478f164e010fae0d73997e125fb5/srgutils-0.4.15.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.3.0/cf43b5391de623b36fe066a21127baef82c64022/plexus-utils-3.3.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.jline/jline-reader/3.20.0/8f15415b022a25b473e8e16c28ae913186ffb9c4/jline-reader-3.20.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.machinezoo.noexception/noexception/1.7.1/b65330c98e38a1f915fa54a6e5eca496505e3f0a/noexception-1.7.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.github.oshi/oshi-core/6.4.10/b1d8ab82d11d92fd639b56d639f8f46f739dd5fa/oshi-core-6.4.10.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.ibm.icu/icu4j/73.2/61ad4ef7f9131fcf6d25c34b817f90d6da06c9e9/icu4j-73.2.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/6.0.54/de8bc95660e1b2fe8793fd427a7a10dcec5b3ea7/authlib-6.0.54.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/blocklist/1.0.10/5c685c5ffa94c4cd39496c7184c1d122e515ecef/blocklist-1.0.10.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.3.10/d15b53a14cf20fdcaa98f731af5dda654452c010/brigadier-1.3.10.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/8.0.16/67d4de6d7f95d89bcf5862995fb854ebaec02a34/datafixerupper-8.0.16.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/2.2.10/da05971b07cbb379d002cf7eaec6a2048211fefc/patchy-2.2.10.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.17.9/3cad216e3a7f0c19b4b394388bc9ffc446f13b14/text2speech-1.17.9.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.16.0/4e3eb3d79888d76b54e28b350915b5dc3919c9de/commons-codec-1.16.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.97.Final/f8f3d8644afa5e6e1a40a3a6aeb9d9aa970ecb4f/netty-buffer-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.97.Final/384ba4d75670befbedb45c4d3b497a93639c206d/netty-codec-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.97.Final/7cceacaf11df8dc63f23d0fb58e9d4640fc88404/netty-common-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.97.Final/abb86c6906bf512bf2b797a41cd7d2e8d3cd7c36/netty-handler-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.97.Final/cec8348108dc76c47cf87c669d514be52c922144/netty-resolver-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-classes-epoll/4.1.97.Final/795da37ded759e862457a82d9d92c4d39ce8ecee/netty-transport-classes-epoll-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-unix-common/4.1.97.Final/d469d84265ab70095b01b40886cabdd433b6e664/netty-transport-native-unix-common-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.97.Final/f37380d23c9bb079bc702910833b2fd532c9abd0/netty-transport-4.1.97.Final.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/8.5.12/c24946d46824bd528054bface3231d2ecb7e95e8/fastutil-8.5.12.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna-platform/5.14.0/28934d48aed814f11e4c584da55c49fa7032b31b/jna-platform-5.14.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.14.0/67bf3eaea4f0718cb376a181a629e5f88fa1c9dd/jna-5.14.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.26.0/659feffdd12280201c8aacb8f7be94f9a883c824/commons-compress-1.26.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.13/e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada/httpclient-4.5.13.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.16/51cf043c87253c9f58b539c9f7e44c8894223850/httpcore-4.4.16.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.10.5/22566d58af70ad3d72308bab63b8339906deb649/joml-1.10.5.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.3.3/a0db6c84a8becc8ca05f9dbfa985edc348a824c7/lwjgl-freetype-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.3.3/149070a5480900347071b7074779531f25a6e3dc/lwjgl-freetype-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/efa1eb78c5ccd840e9f329717109b5e892d72f8e/lwjgl-glfw-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/a03684c5e4b1b1dbbe0d29dbbdc27b985b6840f2/lwjgl-glfw-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/b543467b7ff3c6920539a88ee602d34098628be5/lwjgl-jemalloc-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/4f86728bf449b1dd61251c4e0ac01df1389cb51e/lwjgl-jemalloc-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/daada81ceb5fc0c291fbfdd4433cb8d9423577f2/lwjgl-openal-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/3037360cc4595079bea240af250b6d1a527e0905/lwjgl-openal-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/2f6b0147078396a58979125a4c947664e98293a/lwjgl-opengl-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/62c70a4b00ca5391882b0f4b787c1588d24f1c86/lwjgl-opengl-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/25dd6161988d7e65f71d5065c99902402ee32746/lwjgl-stb-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/fd1271ccd9d85eff2fa31f3fd543e02ccfaf5041/lwjgl-stb-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.3.3/82d755ca94b102e9ca77283b9e2dc46d1b15fbe5/lwjgl-tinyfd-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.3.3/d8d58daa0c3e5fd906fee96f5fddbcbc07cc308b/lwjgl-tinyfd-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/29589b5f87ed335a6c7e7ee6a5775f81f97ecb84/lwjgl-3.3.3.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/1713758e3660ba66e1e954396fd18126038b33c0/lwjgl-3.3.3-natives-linux.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.lz4/lz4-java/1.8.0/4b986a99445e49ea5fbf5d149c4b63f6ed6c6780/lz4-java-1.8.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.20.0/d0ddcc708ddf527a3454c941b7b9225cc83a15ff/jline-terminal-3.20.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-epoll/4.1.97.Final/5514744c588190ffda076b35a9b8c9f24946a960/netty-transport-native-epoll-4.1.97.Final-linux-aarch_64.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-epoll/4.1.97.Final/54188f271e388e7f313aea995e82f58ce2cdb809/netty-transport-native-epoll-4.1.97.Final-linux-x86_64.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/3.33.0/de2b60b62da487644fc11f734e73c8b0b431238f/checker-qual-3.33.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.18.0/89b684257096f548fa39a7df9fdaa409d4d4df91/error_prone_annotations-2.18.0.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping /home/runner/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/2.8/c85270e307e7b822f1086b93689124b89768e273/j2objc-annotations-2.8.jar because it was already located earlier
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.UniqueModListBuilder/]: Found 2 mods for first modid neoforge, selecting most recent based on version data
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.UniqueModListBuilder/]: Selected file neoforge-21.1.265.jar for modid neoforge with version 21.1.265
+[22:53:36] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[22:53:36] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Frontline 1.0.0 (frontline)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.265 (neoforge)
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file neoforge-21.1.265.jar with {minecraft} mods - versions {1.21.1}
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file /home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar with languages [LanguageSpec[languageName=minecraft, acceptedVersions=1]]
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate /home/runner/work/frontline/frontline/build/classes/java/main
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file main with {frontline} mods - versions {1.0.0}
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file /home/runner/work/frontline/frontline/build/classes/java/main with languages [LanguageSpec[languageName=javafml, acceptedVersions=[1,)]]
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate /home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file neoforge-21.1.265.jar with {neoforge} mods - versions {21.1.265}
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file /home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[3,]]]
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Found mixin config MixinConfig[config=neoforge.mixins.json, requiredMods=[]]
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file  with languages []
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service fml
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 3 implementations of IModLanguageLoader:
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.fml.javafmlmod.FMLJavaModLanguageProvider from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.fml.lowcodemod.LowCodeModLanguageProvider from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.fml.mclanguageprovider.MinecraftModLanguageProvider from loader-4.0.45.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.LanguageProviderLoader/CORE]: Found language provider javafml, version 4.0.45
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.LanguageProviderLoader/CORE]: Found language provider lowcodefml, version 4.0.45
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.LanguageProviderLoader/CORE]: Found language provider minecraft, version 4.0.45
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ModSorter/]: Configured system mods: [minecraft, neoforge]
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ModSorter/]: Found system mod: minecraft
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ModSorter/]: Found system mod: neoforge
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ModSorter/LOADING]: Found 2 mod requirements (2 mandatory, 0 optional)
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.ModSorter/LOADING]: Found 0 mod requirements missing (0 mandatory, 0 optional)
+[22:53:36] [main/DEBUG] [mixin/]: Adding mixin platform agents for container net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9
+[22:53:36] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9
+[22:53:36] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9
+[22:53:36] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9
+[22:53:36] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9
+[22:53:36] [main/DEBUG] [mixin/]: Instancing new FMLMixinPlatformAgent for net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9
+[22:53:36] [main/DEBUG] [mixin/]: FMLMixinPlatformAgent accepted container net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading transformers
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service mixin
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service mixin
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service fml
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/LOADING]: Loading coremod transformers
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Not loading coremod script-engine since no mod requested it
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 1 implementations of ICoreMod:
+[22:53:36] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.neoforge.coremods.NeoForgeCoreMod from neoforge-21.1.265.jar > net.neoforged.neoforge-coremods-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Adding [Target[className=net.minecraft.world.level.biome.Biome, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65]] transformer from core-mod net.neoforged.neoforge.coremods.NeoForgeCoreMod@1b29d52b in neoforge-21.1.265.jar > net.neoforged.neoforge-coremods-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Adding [Target[className=net.minecraft.world.level.levelgen.structure.Structure, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65]] transformer from core-mod net.neoforged.neoforge.coremods.NeoForgeCoreMod@1b29d52b in neoforge-21.1.265.jar > net.neoforged.neoforge-coremods-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Adding [Target[className=net.minecraft.world.level.block.FlowerPotBlock, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65]] transformer from core-mod net.neoforged.neoforge.coremods.NeoForgeCoreMod@1b29d52b in neoforge-21.1.265.jar > net.neoforged.neoforge-coremods-21.1.265.jar
+[22:53:36] [main/DEBUG] [ne.ne.fm.lo.FMLServiceProvider/CORE]: Adding [Target[className=net/minecraft/world/entity/monster/ZombieVillager, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/levelgen/PatrolSpawner, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/ai/village/VillageSiege, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/server/commands/RaidCommand, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/server/commands/SummonCommand, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/levelgen/structure/structures/WoodlandMansionPieces$WoodlandMansionPiece, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/levelgen/structure/structures/OceanMonumentPieces$OceanMonumentPiece, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/raid/Raid, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/monster/Zombie, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/NaturalSpawner, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/npc/Villager, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/levelgen/structure/structures/OceanRuinPieces$OceanRuinPiece, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/monster/Spider, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/animal/horse/SkeletonTrapGoal, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/npc/CatSpawner, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/EntityType, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/monster/Strider, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/animal/frog/Tadpole, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/entity/monster/Evoker$EvokerSummonSpellGoal, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/levelgen/PhantomSpawner, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65], Target[className=net/minecraft/world/level/levelgen/structure/structures/SwampHutPiece, elementName=, elementDescriptor=, targetType=cpw.mods.modlauncher.api.TargetType@6622fc65]] transformer from core-mod net.neoforged.neoforge.coremods.NeoForgeCoreMod@1b29d52b in neoforge-21.1.265.jar > net.neoforged.neoforge-coremods-21.1.265.jar
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.ReplaceFieldWithGetterAccess@6e0cff20 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/biome/Biome;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.ReplaceFieldWithGetterAccess@453d496b to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/structure/Structure;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.ReplaceFieldWithGetterAccess@66bacdbc to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/block/FlowerPotBlock;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/monster/ZombieVillager;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/PatrolSpawner;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/ai/village/VillageSiege;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/server/commands/RaidCommand;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/server/commands/SummonCommand;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/structure/structures/WoodlandMansionPieces$WoodlandMansionPiece;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/structure/structures/OceanMonumentPieces$OceanMonumentPiece;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/raid/Raid;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/monster/Zombie;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/NaturalSpawner;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/npc/Villager;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/structure/structures/OceanRuinPieces$OceanRuinPiece;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/monster/Spider;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/animal/horse/SkeletonTrapGoal;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/npc/CatSpawner;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/EntityType;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/monster/Strider;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/animal/frog/Tadpole;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/entity/monster/Evoker$EvokerSummonSpellGoal;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/PhantomSpawner;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformStore/MODLAUNCHER]: Adding transformer net.neoforged.neoforge.coremods.MethodRedirector@2c6ee758 to Target : cpw.mods.modlauncher.api.TargetType@6622fc65 {Lnet/minecraft/world/level/levelgen/structure/structures/SwampHutPiece;} {} {V}
+[22:53:36] [main/DEBUG] [cp.mo.mo.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service fml
+[22:53:37] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[22:53:37] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9]
+[22:53:37] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[FMLMixinPlatformAgent:null]
+[22:53:37] [main/DEBUG] [mixin/]: Processing launch tasks for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[22:53:37] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(mixin_synthetic)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(mixin_synthetic)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(mixin_synthetic)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(mixin_synthetic)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(mixin_synthetic)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new FMLMixinPlatformAgent for SecureJarResource(mixin_synthetic)
+[22:53:37] [main/DEBUG] [mixin/]: FMLMixinPlatformAgent rejected container SecureJarResource(mixin_synthetic)
+[22:53:37] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(mixin_synthetic)]
+[22:53:37] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(minecraft)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(minecraft)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(minecraft)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(minecraft)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(minecraft)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new FMLMixinPlatformAgent for SecureJarResource(minecraft)
+[22:53:37] [main/DEBUG] [mixin/]: FMLMixinPlatformAgent rejected container SecureJarResource(minecraft)
+[22:53:37] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[22:53:37] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(frontline)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(frontline)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(frontline)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(frontline)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(frontline)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new FMLMixinPlatformAgent for SecureJarResource(frontline)
+[22:53:37] [main/DEBUG] [mixin/]: FMLMixinPlatformAgent rejected container SecureJarResource(frontline)
+[22:53:37] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(frontline)]
+[22:53:37] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: Instancing new FMLMixinPlatformAgent for SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: FMLMixinPlatformAgent rejected container SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(mixinextras.neoforge)]
+[22:53:37] [main/DEBUG] [mixin/]: Registering mixin config: mixinextras.init.mixins.json source=SecureJarResource(mixinextras.neoforge)
+[22:53:37] [main/DEBUG] [mixin/]: inject() running with 6 agents
+[22:53:37] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[22:53:37] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:net.neoforged.fml.loading.mixin.FMLMixinContainerHandle@6345e7b9]
+[22:53:37] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[FMLMixinPlatformAgent:null]
+[22:53:37] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(mixin_synthetic)]
+[22:53:37] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[22:53:37] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(frontline)]
+[22:53:37] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(mixinextras.neoforge)]
+[22:53:37] [main/INFO] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientdev' with arguments [--version, 21.1.265, --gameDir, ., --assetsDir, /home/runner/.gradle/caches/neoformruntime/assets, --assetIndex, 17]
+[22:53:37] [main/DEBUG] [mixin/]: Preparing mixins for MixinEnvironment[DEFAULT]
+[22:53:37] [main/DEBUG] [mixin/]: Selecting config neoforge.mixins.json
+[22:53:37] [main/DEBUG] [mixin/]: Selecting config mixinextras.init.mixins.json
+[22:53:37] [main/DEBUG] [MixinExtras|Service/]: com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5) is taking over from null
+[22:53:37] [main/DEBUG] [mixin/]: Registering new injector for @Inject with org.spongepowered.asm.mixin.injection.struct.CallbackInjectionInfo
+[22:53:37] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArg with org.spongepowered.asm.mixin.injection.struct.ModifyArgInjectionInfo
+[22:53:37] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArgs with org.spongepowered.asm.mixin.injection.struct.ModifyArgsInjectionInfo
+[22:53:37] [main/DEBUG] [mixin/]: Registering new injector for @Redirect with org.spongepowered.asm.mixin.injection.struct.RedirectInjectionInfo
+[22:53:37] [main/DEBUG] [mixin/]: Registering new injector for @ModifyVariable with org.spongepowered.asm.mixin.injection.struct.ModifyVariableInjectionInfo
+[22:53:37] [main/DEBUG] [mixin/]: Registering new injector for @ModifyConstant with org.spongepowered.asm.mixin.injection.struct.ModifyConstantInjectionInfo
+[22:53:37] [main/DEBUG] [mixin/]: Preparing neoforge.mixins.json (2)
+[22:53:37] [main/DEBUG] [mixin/]: Preparing mixinextras.init.mixins.json (0)
+[22:53:37] [main/DEBUG] [io.ne.ut.in.lo.InternalLoggerFactory/]: Using SLF4J as the default logging framework
+[22:53:37] [main/DEBUG] [io.ne.ut.ResourceLeakDetector/]: -Dio.netty.leakDetection.level: simple
+[22:53:37] [main/DEBUG] [io.ne.ut.ResourceLeakDetector/]: -Dio.netty.leakDetection.targetRecords: 4
+[22:53:38] [main/DEBUG] [os.ut.FileUtil/]: No oshi.properties file found from ClassLoader cpw.mods.modlauncher.TransformingClassLoader@16073fa8
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /proc/self/auxv
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /proc/self/auxv
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /proc/stat
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/core_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/physical_package_id
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cpu_capacity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/level
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/type
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/ways_of_associativity
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/coherency_line_size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/size
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /proc/cpuinfo
+[22:53:39] [Datafixer Bootstrap/INFO] [mojang/DataFixerBuilder]: 229 Datafixer optimizations took 526 milliseconds
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /proc/self/auxv
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: No oshi.architecture.properties file found from ClassLoader cpw.mods.modlauncher.TransformingClassLoader@16073fa8
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /proc/meminfo
+[22:53:39] [main/DEBUG] [os.ut.FileUtil/]: Reading file /proc/meminfo
+[22:53:39] [pool-7-thread-1/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[22:53:39] [pool-7-thread-1/DEBUG] [mixin/]: Registering new injector for @SugarWrapper with com.llamalad7.mixinextras.sugar.impl.SugarWrapperInjectionInfo
+[22:53:39] [pool-7-thread-1/DEBUG] [mixin/]: Registering new injector for @FactoryRedirectWrapper with com.llamalad7.mixinextras.wrapper.factory.FactoryRedirectWrapperInjectionInfo
+[22:53:39] [pool-7-thread-1/DEBUG] [mixin/]: Registering new injector for @ExpressionInjectorWrapper with com.llamalad7.mixinextras.expression.impl.wrapper.ExpressionInjectorWrapperInjectionInfo
+[22:53:39] [pool-7-thread-1/DEBUG] [mixin/]: Mixing MappedRegistryAccessor from neoforge.mixins.json into net.minecraft.core.MappedRegistry
+[22:53:39] [pool-7-thread-1/DEBUG] [mixin/]: neoforge.mixins.json:MappedRegistryAccessor from mod neoforge: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_16 supports class version 60)
+[22:53:40] [pool-7-thread-1/DEBUG] [mixin/]: Mixing BlockEntityTypeAccessor from neoforge.mixins.json into net.minecraft.world.level.block.entity.BlockEntityType
+[22:53:40] [pool-7-thread-1/DEBUG] [mixin/]: neoforge.mixins.json:BlockEntityTypeAccessor from mod neoforge: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_16 supports class version 60)
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: -Dio.netty.noUnsafe: false
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: Java version: 21
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: sun.misc.Unsafe.theUnsafe: available
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: sun.misc.Unsafe.copyMemory: available
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: sun.misc.Unsafe.storeFence: available
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: java.nio.Buffer.address: available
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$7 (in module io.netty.common) cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to module io.netty.common
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, {int,long}): unavailable
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent/]: sun.misc.Unsafe: available
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent/]: maxDirectMemory: 4190109696 bytes (maybe)
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.maxDirectMemory: -1 bytes
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
+[22:53:42] [pool-7-thread-1/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.noPreferDirect: false
+[22:53:45] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[22:53:45] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[22:53:45] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[22:53:45] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[22:53:45] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[22:53:45] [Render thread/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar%23177!/assets/.mcassetsroot' uses unexpected schema
+[22:53:45] [Render thread/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar%23177!/data/.mcassetsroot' uses unexpected schema
+[22:53:45] [Render thread/INFO] [mojang/YggdrasilAuthenticationService]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[22:53:45] [Render thread/INFO] [minecraft/Minecraft]: Setting user: Dev
+[22:53:45] [Render thread/INFO] [minecraft/Minecraft]: Backend library: LWJGL version 3.3.3+5
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu0/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu1/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu2/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/core_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/topology/physical_package_id
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cpu_capacity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index2/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index0/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index3/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/level
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/type
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/ways_of_associativity
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/coherency_line_size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /sys/devices/system/cpu/cpu3/cache/index1/size
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /proc/cpuinfo
+[22:53:45] [Render thread/DEBUG] [os.ut.FileUtil/]: Reading file /proc/self/auxv
+[22:53:45] [Render thread/DEBUG] [ne.ne.fm.ModWorkManager/LOADING]: Using 4 threads for parallel mod-loading
+[22:53:46] [Render thread/DEBUG] [ne.ne.fm.ja.FMLModContainer/LOADING]: Creating FMLModContainer instance for [com.messickmedia.frontline.Frontline, com.messickmedia.frontline.client.FrontlineClient]
+[22:53:46] [Render thread/DEBUG] [ne.ne.fm.ja.FMLModContainer/LOADING]: Creating FMLModContainer instance for [net.neoforged.neoforge.common.NeoForgeMod, net.neoforged.neoforge.client.ClientNeoForgeMod]
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.ne.in.ve.ne.NeoForgeVersion/CORE]: Found NeoForge version 21.1.265
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.ne.in.ve.ne.NeoForgeVersion/CORE]: Found FML version 4.0.45
+[22:53:46] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.265, for MC 1.21.1
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file frontline-server.toml for frontline tracking
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file neoforge-client.toml for neoforge tracking
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file neoforge-server.toml for neoforge tracking
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file neoforge-common.toml for neoforge tracking
+[22:53:46] [modloading-worker-0/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE enabled
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for frontline
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for neoforge
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.server.command.ConfigCommand for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/server/command/ConfigCommand; to the game event bus
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.network.filters.GenericPacketSplitter for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.AbstractByteBuf/]: -Dio.netty.buffer.checkAccessible: true
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.AbstractByteBuf/]: -Dio.netty.buffer.checkBounds: true
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.ut.ResourceLeakDetectorFactory/]: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@15821e40
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.ut.in.InternalThreadLocalMap/]: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.ut.in.InternalThreadLocalMap/]: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.numHeapArenas: 8
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.numDirectArenas: 8
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.pageSize: 8192
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.maxOrder: 9
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.chunkSize: 4194304
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.smallCacheSize: 256
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.normalCacheSize: 64
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.cacheTrimInterval: 8192
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.useCacheForAllThreads: false
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.PooledByteBufAllocator/]: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.ByteBufUtil/]: -Dio.netty.allocator.type: pooled
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.ByteBufUtil/]: -Dio.netty.threadLocalDirectBufferSize: 0
+[22:53:46] [modloading-worker-0/DEBUG] [io.ne.bu.ByteBufUtil/]: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/network/filters/GenericPacketSplitter; to the mod event bus of mod neoforge
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.network.NetworkInitialization for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/network/NetworkInitialization; to the mod event bus of mod neoforge
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.network.ConfigurationInitialization for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/network/ConfigurationInitialization; to the mod event bus of mod neoforge
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.common.MonsterRoomHooks for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/common/MonsterRoomHooks; to the game event bus
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.common.DeferredSpawnEggItem$CommonHandler for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/common/DeferredSpawnEggItem$CommonHandler; to the mod event bus of mod neoforge
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.common.DeferredSpawnEggItem$ColorRegisterHandler for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/common/DeferredSpawnEggItem$ColorRegisterHandler; to the mod event bus of mod neoforge
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.client.model.data.ModelDataManager for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/client/model/data/ModelDataManager; to the game event bus
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.client.ParticleBoundsDebugRenderer for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/client/ParticleBoundsDebugRenderer; to the game event bus
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.client.ClientHooks$ClientEvents for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/client/ClientHooks$ClientEvents; to the mod event bus of mod neoforge
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.client.BlockEntityRenderBoundsDebugRenderer for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/client/BlockEntityRenderBoundsDebugRenderer; to the game event bus
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.attachment.AttachmentSync for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/attachment/AttachmentSync; to the game event bus
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.attachment.AttachmentInternals for @SubscribeEvent-annotated methods
+[22:53:46] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/]: Subscribing @EventBusSubscriber class Lnet/neoforged/neoforge/attachment/AttachmentInternals; to the game event bus
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loading configs type CLIENT
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.ne.co.NeoForgeConfig/FORGEMOD]: Loaded NeoForge config file neoforge-client.toml
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/frontline/frontline/run/config/neoforge-client.toml
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/frontline/frontline/run/config/neoforge-client.toml for changes
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loading configs type COMMON
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.ne.co.NeoForgeConfig/FORGEMOD]: Loaded NeoForge config file neoforge-common.toml
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/frontline/frontline/run/config/neoforge-common.toml
+[22:53:46] [modloading-sync-worker/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/frontline/frontline/run/config/neoforge-common.toml for changes
+[22:53:46] [Render thread/INFO] [ne.ne.ne.ga.GameTestHooks/]: Enabled Gametest Namespaces: [frontline]
+[22:53:47] [Render thread/ERROR] [mojang/Narrator]: Error while loading the narrator
+com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
+	at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:69) ~[text2speech-1.17.9.jar%23110!/:?] {}
+	at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:18) ~[text2speech-1.17.9.jar%23110!/:?] {}
+	at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.Narrator.getNarrator(Narrator.java:41) ~[text2speech-1.17.9.jar%23110!/:?] {}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.GameNarrator.<init>(GameNarrator.java:21) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.<init>(Minecraft.java:609) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:214) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:124) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.NeoForgeClientDevLaunchHandler.runService(NeoForgeClientDevLaunchHandler.java:23) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.run(Launcher.java:103) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.main(Launcher.java:74) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210) [bootstraplauncher-2.0.2.jar:?] {}
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69) [bootstraplauncher-2.0.2.jar:?] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+Caused by: java.lang.UnsatisfiedLinkError: Unable to load library 'flite':
+libflite.so: cannot open shared object file: No such file or directory
+libflite.so: cannot open shared object file: No such file or directory
+Native library (linux-x86-64/libflite.so) not found in resource path (/home/runner/work/frontline/frontline/build/classes/java/main:/home/runner/work/frontline/frontline/build/resources/main:/home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar:/home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265-client-extra-aka-minecraft-resources.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/DevLaunch/1.0.2/2e0e9a67793d5bfdedee4f9ea00934dbf3f2e22d/DevLaunch-1.0.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/4.0.45/dc7a8b1370054dd0e2d70c1db4ddf4092793c115/earlydisplay-4.0.45.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/4.0.45/4a0968c2ec6234d58e0a9ed97acafc08cc8f33b5/loader-4.0.45.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.accesstransformers/at-modlauncher/10.0.1/5aba50202aceead086bc09fbc2751c9f05cb4890/at-modlauncher-10.0.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/accesstransformers/10.0.1/fd83b5725f76eae9115e9355fa1c456a6a441400/accesstransformers-10.0.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/bus/8.0.5/5b2d33285ab5d1554e9798ad98c40d6ea3868bd5/bus-8.0.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/coremods/7.0.3/9147e6f638b4272b3bd5fc8f92ad37802512c6c/coremods-7.0.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/11.0.5/b8f0d49294f733fdb6173931b263553e943dc950/modlauncher-11.0.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/mergetool/2.0.0/52fe1949be64e3303aabaaa21e315f551db9c9f4/mergetool-2.0.0-api.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/toml/3.8.3/90b2fd6efcb4a7d5b9810cf78f9d824994d717f2/toml-3.8.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/core/3.8.3/b442a95f09e349927f5a945ecb594455870fcf4f/core-3.8.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarSelector/0.4.1/fb3cc7a58af22ad2880adb98af6d518128c47dae/JarJarSelector-0.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarMetadata/0.4.1/f8da03683dc81694556dc3e177c5e3bb77ae6fcb/JarJarMetadata-0.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.8.5/4433f50c07debefaed0553bd0068f4f48d449313/maven-artifact-3.8.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.6.3/a01aaa6ddaea9ec07ec4f209487b7a46a526283a/typetools-0.6.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.minecrell/terminalconsoleappender/1.3.0/b562e9bb61235c9520e26282cdee71f8f802d1fc/terminalconsoleappender-1.3.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.4+mixin.0.8.7/26d01f0567ab46e9ca0d2ed89d0ecc11aadbd433/sponge-mixin-0.16.4+mixin.0.8.7.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.openjdk.nashorn/nashorn-core/15.4/f67f5ffaa5f5130cf6fb9b133da00c7df3b532a5/nashorn-core-15.4.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.14.0/1ed471194b02f2c6cb734a0cd6f6f107c673afae/commons-lang3-3.14.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/cpw.mods/bootstraplauncher/2.0.2/1a2d076cbc33b0520cbacd591224427b2a20047d/bootstraplauncher-2.0.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/3.0.8/c0ef95cecd8699a0449053ac7d9c160748d902cd/securejarhandler-3.0.8.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/9.10.1/4229e4c55fd8e01c23f9fe9884075cc628aacc50/asm-commons-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/9.10.1/7bb9d450e8d4cbf9f9e04096c44bbfe7fba80b15/asm-util-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/9.10.1/8d49f14d51f632cb1d87c88d1ceaf50db0d8af1b/asm-analysis-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/9.10.1/e244332a17564c1d1572449399a842de35881be2/asm-tree-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.10.1/ada2141c0cc52ee8f5c48cd5fa4ce0e794f22236/asm-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarFileSystems/0.4.1/78f59f89defcd032ed788b151ca6a0d40ace796a/JarJarFileSystems-0.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/5.0.4/4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c/jopt-simple-5.0.4.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.15.1/f11560da189ab563a5c8e351941415430e9304ea/commons-io-2.15.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/logging/1.2.7/24cb95ffb0e3433fd6e844c04e68009e504ca1c0/logging-1.2.7.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-slf4j2-impl/2.22.1/d7e6693c2606cb7e7335047d7bb96dec52db5665/log4j-slf4j2-impl-2.22.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.22.1/7183a25510a02ad00cc6a95d3b3d2a7d3c5a8dc4/log4j-core-2.22.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.22.1/bea6fede6328fabafd7e68363161a7ea6605abd1/log4j-api-2.22.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/32.1.2-jre/5e64ec7e056456bef3a4bc4c6fdaef71e8ab6318/guava-32.1.2-jre.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.10.1/b3add478d4382b78ea20b1671390a858002feb6c/gson-2.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.9/7cf2726fdcfbc8610f9a71fb3ed639871f315340/slf4j-api-2.0.9.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.13.1/17125bae1d965624e265ef49552f6465a2bfa307/antlr4-runtime-4.13.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/srgutils/0.4.15/ca408b131759478f164e010fae0d73997e125fb5/srgutils-0.4.15.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.3.0/cf43b5391de623b36fe066a21127baef82c64022/plexus-utils-3.3.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jline/jline-reader/3.20.0/8f15415b022a25b473e8e16c28ae913186ffb9c4/jline-reader-3.20.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.machinezoo.noexception/noexception/1.7.1/b65330c98e38a1f915fa54a6e5eca496505e3f0a/noexception-1.7.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.github.oshi/oshi-core/6.4.10/b1d8ab82d11d92fd639b56d639f8f46f739dd5fa/oshi-core-6.4.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.ibm.icu/icu4j/73.2/61ad4ef7f9131fcf6d25c34b817f90d6da06c9e9/icu4j-73.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/6.0.54/de8bc95660e1b2fe8793fd427a7a10dcec5b3ea7/authlib-6.0.54.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/blocklist/1.0.10/5c685c5ffa94c4cd39496c7184c1d122e515ecef/blocklist-1.0.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.3.10/d15b53a14cf20fdcaa98f731af5dda654452c010/brigadier-1.3.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/8.0.16/67d4de6d7f95d89bcf5862995fb854ebaec02a34/datafixerupper-8.0.16.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/2.2.10/da05971b07cbb379d002cf7eaec6a2048211fefc/patchy-2.2.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.17.9/3cad216e3a7f0c19b4b394388bc9ffc446f13b14/text2speech-1.17.9.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.16.0/4e3eb3d79888d76b54e28b350915b5dc3919c9de/commons-codec-1.16.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.97.Final/f8f3d8644afa5e6e1a40a3a6aeb9d9aa970ecb4f/netty-buffer-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.97.Final/384ba4d75670befbedb45c4d3b497a93639c206d/netty-codec-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.97.Final/7cceacaf11df8dc63f23d0fb58e9d4640fc88404/netty-common-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.97.Final/abb86c6906bf512bf2b797a41cd7d2e8d3cd7c36/netty-handler-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.97.Final/cec8348108dc76c47cf87c669d514be52c922144/netty-resolver-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-classes-epoll/4.1.97.Final/795da37ded759e862457a82d9d92c4d39ce8ecee/netty-transport-classes-epoll-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-unix-common/4.1.97.Final/d469d84265ab70095b01b40886cabdd433b6e664/netty-transport-native-unix-common-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.97.Final/f37380d23c9bb079bc702910833b2fd532c9abd0/netty-transport-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/8.5.12/c24946d46824bd528054bface3231d2ecb7e95e8/fastutil-8.5.12.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna-platform/5.14.0/28934d48aed814f11e4c584da55c49fa7032b31b/jna-platform-5.14.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.14.0/67bf3eaea4f0718cb376a181a629e5f88fa1c9dd/jna-5.14.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.26.0/659feffdd12280201c8aacb8f7be94f9a883c824/commons-compress-1.26.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.13/e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada/httpclient-4.5.13.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.16/51cf043c87253c9f58b539c9f7e44c8894223850/httpcore-4.4.16.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.10.5/22566d58af70ad3d72308bab63b8339906deb649/joml-1.10.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.3.3/a0db6c84a8becc8ca05f9dbfa985edc348a824c7/lwjgl-freetype-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.3.3/149070a5480900347071b7074779531f25a6e3dc/lwjgl-freetype-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/efa1eb78c5ccd840e9f329717109b5e892d72f8e/lwjgl-glfw-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/a03684c5e4b1b1dbbe0d29dbbdc27b985b6840f2/lwjgl-glfw-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/b543467b7ff3c6920539a88ee602d34098628be5/lwjgl-jemalloc-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/4f86728bf449b1dd61251c4e0ac01df1389cb51e/lwjgl-jemalloc-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/daada81ceb5fc0c291fbfdd4433cb8d9423577f2/lwjgl-openal-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/3037360cc4595079bea240af250b6d1a527e0905/lwjgl-openal-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/2f6b0147078396a58979125a4c947664e98293a/lwjgl-opengl-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/62c70a4b00ca5391882b0f4b787c1588d24f1c86/lwjgl-opengl-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/25dd6161988d7e65f71d5065c99902402ee32746/lwjgl-stb-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/fd1271ccd9d85eff2fa31f3fd543e02ccfaf5041/lwjgl-stb-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.3.3/82d755ca94b102e9ca77283b9e2dc46d1b15fbe5/lwjgl-tinyfd-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.3.3/d8d58daa0c3e5fd906fee96f5fddbcbc07cc308b/lwjgl-tinyfd-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/29589b5f87ed335a6c7e7ee6a5775f81f97ecb84/lwjgl-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/1713758e3660ba66e1e954396fd18126038b33c0/lwjgl-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lz4/lz4-java/1.8.0/4b986a99445e49ea5fbf5d149c4b63f6ed6c6780/lz4-java-1.8.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.20.0/d0ddcc708ddf527a3454c941b7b9225cc83a15ff/jline-terminal-3.20.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-epoll/4.1.97.Final/5514744c588190ffda076b35a9b8c9f24946a960/netty-transport-native-epoll-4.1.97.Final-linux-aarch_64.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-epoll/4.1.97.Final/54188f271e388e7f313aea995e82f58ce2cdb809/netty-transport-native-epoll-4.1.97.Final-linux-x86_64.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/3.33.0/de2b60b62da487644fc11f734e73c8b0b431238f/checker-qual-3.33.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.18.0/89b684257096f548fa39a7df9fdaa409d4d4df91/error_prone_annotations-2.18.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/2.8/c85270e307e7b822f1086b93689124b89768e273/j2objc-annotations-2.8.jar)
+	at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:325) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+	at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:481) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+	at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:423) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+	at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:67) ~[text2speech-1.17.9.jar%23110!/:?] {}
+	... 23 more
+	Suppressed: java.lang.UnsatisfiedLinkError: libflite.so: cannot open shared object file: No such file or directory
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.Native.open(Native Method) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:213) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:481) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:423) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:67) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:18) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.Narrator.getNarrator(Narrator.java:41) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.GameNarrator.<init>(GameNarrator.java:21) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.<init>(Minecraft.java:609) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:214) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:124) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.NeoForgeClientDevLaunchHandler.runService(NeoForgeClientDevLaunchHandler.java:23) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.run(Launcher.java:103) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.main(Launcher.java:74) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210) [bootstraplauncher-2.0.2.jar:?] {}
+		at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69) [bootstraplauncher-2.0.2.jar:?] {}
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+		at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+	Suppressed: java.lang.UnsatisfiedLinkError: libflite.so: cannot open shared object file: No such file or directory
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.Native.open(Native Method) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:226) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:481) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:423) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:67) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:18) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.Narrator.getNarrator(Narrator.java:41) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.GameNarrator.<init>(GameNarrator.java:21) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.<init>(Minecraft.java:609) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:214) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:124) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.NeoForgeClientDevLaunchHandler.runService(NeoForgeClientDevLaunchHandler.java:23) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.run(Launcher.java:103) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.main(Launcher.java:74) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210) [bootstraplauncher-2.0.2.jar:?] {}
+		at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69) [bootstraplauncher-2.0.2.jar:?] {}
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+		at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+	Suppressed: java.io.IOException: Native library (linux-x86-64/libflite.so) not found in resource path (/home/runner/work/frontline/frontline/build/classes/java/main:/home/runner/work/frontline/frontline/build/resources/main:/home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265.jar:/home/runner/work/frontline/frontline/build/moddev/artifacts/neoforge-21.1.265-client-extra-aka-minecraft-resources.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/DevLaunch/1.0.2/2e0e9a67793d5bfdedee4f9ea00934dbf3f2e22d/DevLaunch-1.0.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/4.0.45/dc7a8b1370054dd0e2d70c1db4ddf4092793c115/earlydisplay-4.0.45.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/4.0.45/4a0968c2ec6234d58e0a9ed97acafc08cc8f33b5/loader-4.0.45.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged.accesstransformers/at-modlauncher/10.0.1/5aba50202aceead086bc09fbc2751c9f05cb4890/at-modlauncher-10.0.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/accesstransformers/10.0.1/fd83b5725f76eae9115e9355fa1c456a6a441400/accesstransformers-10.0.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/bus/8.0.5/5b2d33285ab5d1554e9798ad98c40d6ea3868bd5/bus-8.0.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/coremods/7.0.3/9147e6f638b4272b3bd5fc8f92ad37802512c6c/coremods-7.0.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/11.0.5/b8f0d49294f733fdb6173931b263553e943dc950/modlauncher-11.0.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/mergetool/2.0.0/52fe1949be64e3303aabaaa21e315f551db9c9f4/mergetool-2.0.0-api.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/toml/3.8.3/90b2fd6efcb4a7d5b9810cf78f9d824994d717f2/toml-3.8.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.electronwill.night-config/core/3.8.3/b442a95f09e349927f5a945ecb594455870fcf4f/core-3.8.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarSelector/0.4.1/fb3cc7a58af22ad2880adb98af6d518128c47dae/JarJarSelector-0.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarMetadata/0.4.1/f8da03683dc81694556dc3e177c5e3bb77ae6fcb/JarJarMetadata-0.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.8.5/4433f50c07debefaed0553bd0068f4f48d449313/maven-artifact-3.8.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.6.3/a01aaa6ddaea9ec07ec4f209487b7a46a526283a/typetools-0.6.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.minecrell/terminalconsoleappender/1.3.0/b562e9bb61235c9520e26282cdee71f8f802d1fc/terminalconsoleappender-1.3.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.4+mixin.0.8.7/26d01f0567ab46e9ca0d2ed89d0ecc11aadbd433/sponge-mixin-0.16.4+mixin.0.8.7.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.openjdk.nashorn/nashorn-core/15.4/f67f5ffaa5f5130cf6fb9b133da00c7df3b532a5/nashorn-core-15.4.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.14.0/1ed471194b02f2c6cb734a0cd6f6f107c673afae/commons-lang3-3.14.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/cpw.mods/bootstraplauncher/2.0.2/1a2d076cbc33b0520cbacd591224427b2a20047d/bootstraplauncher-2.0.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/3.0.8/c0ef95cecd8699a0449053ac7d9c160748d902cd/securejarhandler-3.0.8.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/9.10.1/4229e4c55fd8e01c23f9fe9884075cc628aacc50/asm-commons-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/9.10.1/7bb9d450e8d4cbf9f9e04096c44bbfe7fba80b15/asm-util-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/9.10.1/8d49f14d51f632cb1d87c88d1ceaf50db0d8af1b/asm-analysis-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/9.10.1/e244332a17564c1d1572449399a842de35881be2/asm-tree-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.10.1/ada2141c0cc52ee8f5c48cd5fa4ce0e794f22236/asm-9.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.neoforged/JarJarFileSystems/0.4.1/78f59f89defcd032ed788b151ca6a0d40ace796a/JarJarFileSystems-0.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/5.0.4/4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c/jopt-simple-5.0.4.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.15.1/f11560da189ab563a5c8e351941415430e9304ea/commons-io-2.15.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/logging/1.2.7/24cb95ffb0e3433fd6e844c04e68009e504ca1c0/logging-1.2.7.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-slf4j2-impl/2.22.1/d7e6693c2606cb7e7335047d7bb96dec52db5665/log4j-slf4j2-impl-2.22.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.22.1/7183a25510a02ad00cc6a95d3b3d2a7d3c5a8dc4/log4j-core-2.22.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.22.1/bea6fede6328fabafd7e68363161a7ea6605abd1/log4j-api-2.22.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/32.1.2-jre/5e64ec7e056456bef3a4bc4c6fdaef71e8ab6318/guava-32.1.2-jre.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.10.1/b3add478d4382b78ea20b1671390a858002feb6c/gson-2.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.9/7cf2726fdcfbc8610f9a71fb3ed639871f315340/slf4j-api-2.0.9.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.13.1/17125bae1d965624e265ef49552f6465a2bfa307/antlr4-runtime-4.13.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/srgutils/0.4.15/ca408b131759478f164e010fae0d73997e125fb5/srgutils-0.4.15.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.3.0/cf43b5391de623b36fe066a21127baef82c64022/plexus-utils-3.3.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jline/jline-reader/3.20.0/8f15415b022a25b473e8e16c28ae913186ffb9c4/jline-reader-3.20.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.machinezoo.noexception/noexception/1.7.1/b65330c98e38a1f915fa54a6e5eca496505e3f0a/noexception-1.7.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.github.oshi/oshi-core/6.4.10/b1d8ab82d11d92fd639b56d639f8f46f739dd5fa/oshi-core-6.4.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.ibm.icu/icu4j/73.2/61ad4ef7f9131fcf6d25c34b817f90d6da06c9e9/icu4j-73.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/6.0.54/de8bc95660e1b2fe8793fd427a7a10dcec5b3ea7/authlib-6.0.54.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/blocklist/1.0.10/5c685c5ffa94c4cd39496c7184c1d122e515ecef/blocklist-1.0.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.3.10/d15b53a14cf20fdcaa98f731af5dda654452c010/brigadier-1.3.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/8.0.16/67d4de6d7f95d89bcf5862995fb854ebaec02a34/datafixerupper-8.0.16.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/2.2.10/da05971b07cbb379d002cf7eaec6a2048211fefc/patchy-2.2.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.17.9/3cad216e3a7f0c19b4b394388bc9ffc446f13b14/text2speech-1.17.9.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.16.0/4e3eb3d79888d76b54e28b350915b5dc3919c9de/commons-codec-1.16.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.97.Final/f8f3d8644afa5e6e1a40a3a6aeb9d9aa970ecb4f/netty-buffer-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.97.Final/384ba4d75670befbedb45c4d3b497a93639c206d/netty-codec-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.97.Final/7cceacaf11df8dc63f23d0fb58e9d4640fc88404/netty-common-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.97.Final/abb86c6906bf512bf2b797a41cd7d2e8d3cd7c36/netty-handler-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.97.Final/cec8348108dc76c47cf87c669d514be52c922144/netty-resolver-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-classes-epoll/4.1.97.Final/795da37ded759e862457a82d9d92c4d39ce8ecee/netty-transport-classes-epoll-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-unix-common/4.1.97.Final/d469d84265ab70095b01b40886cabdd433b6e664/netty-transport-native-unix-common-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.97.Final/f37380d23c9bb079bc702910833b2fd532c9abd0/netty-transport-4.1.97.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/8.5.12/c24946d46824bd528054bface3231d2ecb7e95e8/fastutil-8.5.12.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna-platform/5.14.0/28934d48aed814f11e4c584da55c49fa7032b31b/jna-platform-5.14.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.14.0/67bf3eaea4f0718cb376a181a629e5f88fa1c9dd/jna-5.14.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.26.0/659feffdd12280201c8aacb8f7be94f9a883c824/commons-compress-1.26.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.13/e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada/httpclient-4.5.13.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.16/51cf043c87253c9f58b539c9f7e44c8894223850/httpcore-4.4.16.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.10.5/22566d58af70ad3d72308bab63b8339906deb649/joml-1.10.5.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.3.3/a0db6c84a8becc8ca05f9dbfa985edc348a824c7/lwjgl-freetype-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.3.3/149070a5480900347071b7074779531f25a6e3dc/lwjgl-freetype-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/efa1eb78c5ccd840e9f329717109b5e892d72f8e/lwjgl-glfw-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/a03684c5e4b1b1dbbe0d29dbbdc27b985b6840f2/lwjgl-glfw-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/b543467b7ff3c6920539a88ee602d34098628be5/lwjgl-jemalloc-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/4f86728bf449b1dd61251c4e0ac01df1389cb51e/lwjgl-jemalloc-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/daada81ceb5fc0c291fbfdd4433cb8d9423577f2/lwjgl-openal-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/3037360cc4595079bea240af250b6d1a527e0905/lwjgl-openal-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/2f6b0147078396a58979125a4c947664e98293a/lwjgl-opengl-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/62c70a4b00ca5391882b0f4b787c1588d24f1c86/lwjgl-opengl-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/25dd6161988d7e65f71d5065c99902402ee32746/lwjgl-stb-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/fd1271ccd9d85eff2fa31f3fd543e02ccfaf5041/lwjgl-stb-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.3.3/82d755ca94b102e9ca77283b9e2dc46d1b15fbe5/lwjgl-tinyfd-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.3.3/d8d58daa0c3e5fd906fee96f5fddbcbc07cc308b/lwjgl-tinyfd-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/29589b5f87ed335a6c7e7ee6a5775f81f97ecb84/lwjgl-3.3.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/1713758e3660ba66e1e954396fd18126038b33c0/lwjgl-3.3.3-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lz4/lz4-java/1.8.0/4b986a99445e49ea5fbf5d149c4b63f6ed6c6780/lz4-java-1.8.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.20.0/d0ddcc708ddf527a3454c941b7b9225cc83a15ff/jline-terminal-3.20.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-epoll/4.1.97.Final/5514744c588190ffda076b35a9b8c9f24946a960/netty-transport-native-epoll-4.1.97.Final-linux-aarch_64.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-epoll/4.1.97.Final/54188f271e388e7f313aea995e82f58ce2cdb809/netty-transport-native-epoll-4.1.97.Final-linux-x86_64.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/3.33.0/de2b60b62da487644fc11f734e73c8b0b431238f/checker-qual-3.33.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.18.0/89b684257096f548fa39a7df9fdaa409d4d4df91/error_prone_annotations-2.18.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/2.8/c85270e307e7b822f1086b93689124b89768e273/j2objc-annotations-2.8.jar)
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.Native.extractFromResourcePath(Native.java:1141) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:297) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:481) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/com.sun.jna@5.14.0/com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:423) ~[jna-5.14.0.jar%23128!/:5.14.0 (b0)] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:67) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:18) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at MC-BOOTSTRAP/text2speech@1.17.9/com.mojang.text2speech.Narrator.getNarrator(Narrator.java:41) ~[text2speech-1.17.9.jar%23110!/:?] {}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.GameNarrator.<init>(GameNarrator.java:21) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.<init>(Minecraft.java:609) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:214) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:124) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.NeoForgeClientDevLaunchHandler.runService(NeoForgeClientDevLaunchHandler.java:23) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118) ~[loader-4.0.45.jar%23134!/:4.0] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.run(Launcher.java:103) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.main(Launcher.java:74) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) [modlauncher-11.0.5.jar%23114!/:?] {}
+		at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210) [bootstraplauncher-2.0.2.jar:?] {}
+		at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69) [bootstraplauncher-2.0.2.jar:?] {}
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+		at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+[22:53:47] [Render thread/INFO] [minecraft/ReloadableResourceManager]: Reloading ResourceManager: vanilla, mod_resources, mod/frontline, mod/neoforge
+[22:53:47] [Render thread/DEBUG] [ne.ne.fm.DeferredWorkQueue/LOADING]: Dispatching synchronous work for work queue Common setup: 1 jobs
+[22:53:47] [Render thread/DEBUG] [ne.ne.fm.DeferredWorkQueue/LOADING]: Synchronous work queue completed in 5.702 ms
+[22:53:47] [Worker-Main-1/INFO] [minecraft/UnihexProvider]: Found unifont_all_no_pua-15.1.05.hex, loading
+[22:53:48] [Worker-Main-1/INFO] [minecraft/UnihexProvider]: Found unifont_jp_patch-15.1.05.hex, loading
+[22:53:50] [Render thread/WARN] [minecraft/SoundEngine]: Missing sound for event: minecraft:item.goat_horn.play
+[22:53:50] [Render thread/WARN] [minecraft/SoundEngine]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+ALSA lib confmisc.c:855:(parse_card) [error.core] cannot find card '0'
+ALSA lib conf.c:5211:(_snd_config_evaluate) [error.core] function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) [error.core] error evaluating strings
+ALSA lib conf.c:5211:(_snd_config_evaluate) [error.core] function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) [error.core] error evaluating name
+ALSA lib conf.c:5211:(_snd_config_evaluate) [error.core] function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5734:(snd_config_expand) [error.core] Evaluate error: No such file or directory
+ALSA lib pcm.c:2722:(snd_pcm_open_noupdate) [error.pcm] Unknown PCM default
+ALSA lib confmisc.c:855:(parse_card) [error.core] cannot find card '0'
+ALSA lib conf.c:5211:(_snd_config_evaluate) [error.core] function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) [error.core] error evaluating strings
+ALSA lib conf.c:5211:(_snd_config_evaluate) [error.core] function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) [error.core] error evaluating name
+ALSA lib conf.c:5211:(_snd_config_evaluate) [error.core] function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5734:(snd_config_expand) [error.core] Evaluate error: No such file or directory
+ALSA lib pcm.c:2722:(snd_pcm_open_noupdate) [error.pcm] Unknown PCM default
+[22:53:50] [Render thread/ERROR] [minecraft/SoundEngine]: Error starting SoundSystem. Turning off sounds & music
+java.lang.IllegalStateException: Failed to open OpenAL device
+	at TRANSFORMER/minecraft@1.21.1/com.mojang.blaze3d.audio.Library.openDeviceOrFallback(Library.java:302) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/com.mojang.blaze3d.audio.Library.init(Library.java:154) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.sounds.SoundEngine.loadLibrary(SoundEngine.java:107) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.sounds.SoundEngine.reload(SoundEngine.java:99) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.sounds.SoundManager.apply(SoundManager.java:128) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.sounds.SoundManager.apply(SoundManager.java:42) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:19) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading}
+	at java.base/java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:718) ~[?:?] {}
+	at java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:69) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:148) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:accesstransformer:B}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:122) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:accesstransformer:B}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:111) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:accesstransformer:B}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.runTick(Minecraft.java:1155) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.run(Minecraft.java:807) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:230) ~[neoforge-21.1.265.jar%23177!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:136) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:124) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.NeoForgeClientDevLaunchHandler.runService(NeoForgeClientDevLaunchHandler.java:23) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.45/net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:118) ~[loader-4.0.45.jar%23134!/:4.0] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.run(Launcher.java:103) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.Launcher.main(Launcher.java:74) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@11.0.5/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) [modlauncher-11.0.5.jar%23114!/:?] {}
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.run(BootstrapLauncher.java:210) [bootstraplauncher-2.0.2.jar:?] {}
+	at cpw.mods.bootstraplauncher@2.0.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:69) [bootstraplauncher-2.0.2.jar:?] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[22:53:50] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[22:53:50] [Render thread/WARN] [minecraft/ShaderInstance]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[22:53:50] [Render thread/INFO] [ne.ne.ne.cl.en.an.js.AnimationLoader/]: Loaded 0 entity animations
+[22:53:50] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE creating world
+[22:53:52] [Render thread/INFO] [minecraft/RecipeManager]: Loaded 1334 recipes
+[22:53:52] [Render thread/INFO] [minecraft/AdvancementTree]: Loaded 1399 advancements
+[22:53:53] [Render thread/DEBUG] [ne.ne.ne.co.CommonHooks/WP]: Gathered mod list to write to world save frontline_smoke_1794005630994
+[22:53:53] [Server thread/INFO] [minecraft/IntegratedServer]: Starting integrated minecraft server version 1.21.1
+[22:53:53] [Server thread/INFO] [minecraft/MinecraftServer]: Generating keypair
+[22:53:53] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loading configs type SERVER
+[22:53:53] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/frontline/frontline/run/config/frontline-server.toml
+[22:53:53] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/frontline/frontline/run/config/frontline-server.toml for changes
+[22:53:53] [Server thread/DEBUG] [ne.ne.ne.co.NeoForgeConfig/FORGEMOD]: Loaded NeoForge config file neoforge-server.toml
+[22:53:53] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/frontline/frontline/run/config/neoforge-server.toml
+[22:53:53] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/frontline/frontline/run/config/neoforge-server.toml for changes
+[22:53:54] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for dimension minecraft:overworld
+[22:53:54] [progressListener/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 2%
+[22:53:54] [Server thread/INFO] [ne.ne.ne.se.pe.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[22:53:54] [Server thread/INFO] [minecraft/IntegratedServer]: Changing view distance to 12, from 10
+[22:53:54] [Server thread/INFO] [minecraft/IntegratedServer]: Changing simulation distance to 12, from 0
+[22:53:54] [progressListener/INFO] [minecraft/LoggerChunkProgressListener]: Time elapsed: 384 ms
+[22:53:54] [Render thread/DEBUG] [io.ne.ch.MultithreadEventLoopGroup/]: -Dio.netty.eventLoopThreads: 8
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.co.GlobalEventExecutor/]: -Dio.netty.globalEventExecutor.quietPeriodSeconds: 1
+[22:53:54] [Render thread/DEBUG] [io.ne.ch.ni.NioEventLoop/]: -Dio.netty.noKeySetOptimization: false
+[22:53:54] [Render thread/DEBUG] [io.ne.ch.ni.NioEventLoop/]: -Dio.netty.selectorAutoRebuildThreshold: 512
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.in.PlatformDependent/]: org.jctools-core.MpscChunkedArrayQueue: available
+[22:53:54] [Render thread/DEBUG] [io.ne.ch.DefaultChannelId/]: -Dio.netty.processId: 3514 (auto-detected)
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.NetUtil/]: -Djava.net.preferIPv4Stack: false
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.NetUtil/]: -Djava.net.preferIPv6Addresses: system
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.NetUtilInitializations/]: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.NetUtil/]: /proc/sys/net/core/somaxconn: 4096
+[22:53:54] [Render thread/DEBUG] [io.ne.ch.DefaultChannelId/]: -Dio.netty.machineId: 60:45:bd:ff:fe:0a:4e:47 (auto-detected)
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.maxCapacityPerThread: 4096
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.ratio: 8
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.chunkSize: 32
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.blocking: false
+[22:53:54] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.batchFastThreadLocalOnly: true
+[22:53:55] [Netty Server IO #1/DEBUG] [ne.ne.ne.ne.fi.NetworkFilters/]: Injected net.neoforged.neoforge.network.filters.GenericPacketSplitter@713f5f51 into net.minecraft.network.Connection@501180b8
+[22:53:55] [Netty Local Client IO #0/DEBUG] [ne.ne.ne.ne.fi.NetworkFilters/]: Injected net.neoforged.neoforge.network.filters.GenericPacketSplitter@5f635f47 into net.minecraft.network.Connection@3738140b
+[22:53:55] [Netty Server IO #1/DEBUG] [ne.ne.ne.ne.fi.NetworkFilters/]: Injected net.neoforged.neoforge.network.filters.GenericPacketSplitter@1f7c283e into net.minecraft.network.Connection@501180b8
+[22:53:55] [Server thread/INFO] [minecraft/PlayerList]: Dev[local:E:ff2f90f7] logged in with entity id 1 at (-6.5, -60.0, -2.5)
+[22:53:55] [Server thread/INFO] [minecraft/MinecraftServer]: Dev joined the game
+[22:53:56] [Render thread/INFO] [minecraft/AdvancementTree]: Loaded 2 advancements
+[22:53:58] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE in world
+[22:53:58] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE start passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(-6.5, -60.0, -2.5) screen=none health=20.0
+[22:53:58] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER start passenger=false spectator=false removed=false pos=(-6.5, -60.0, -2.5) mode=CREATIVE
+[22:53:59] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE spawned jeep id=3 at (0.0, -60.0, 5.5)
+[22:54:00] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE board jeep ok=true
+[22:54:01] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE jeep_boarded passenger=true vehicle=jeep spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(-0.44999998807907104, -59.650000005960464, 5.25) screen=none health=20.0
+[22:54:01] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER jeep_boarded passenger=true spectator=false removed=false pos=(-0.44999998807907104, -59.650000005960464, 5.25) mode=CREATIVE
+[22:54:04] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE jeep_driving passenger=true vehicle=jeep spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(-0.44999998807907365, -59.650000005960464, 47.80499920807779) screen=none health=20.0
+[22:54:04] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER jeep_driving passenger=true spectator=false removed=false pos=(-0.44999998807907365, -59.650000005960464, 47.80499920807779) mode=CREATIVE
+[22:54:06] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE jeep_dismounted passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(1.900000011920926, -60.0, 54.73435532860458) screen=none health=20.0
+[22:54:06] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER jeep_dismounted passenger=false spectator=false removed=false pos=(1.900000011920926, -60.0, 54.73435532860458) mode=CREATIVE
+[22:54:06] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE CHECK jeep outside_vehicle=true distance=1.9078925
+[22:54:09] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE jeep_later passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(1.900000011920926, -60.0, 54.73435532860458) screen=none health=20.0
+[22:54:09] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER jeep_later passenger=false spectator=false removed=false pos=(1.900000011920926, -60.0, 54.73435532860458) mode=CREATIVE
+[22:54:10] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE spawned tank id=5 at (40.5, -60.0, 5.5)
+[22:54:11] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE board tank ok=true
+[22:54:12] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE tank_boarded passenger=true vehicle=tank spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(40.5, -58.450000047683716, 5.299999997019768) screen=none health=20.0
+[22:54:12] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER tank_boarded passenger=true spectator=false removed=false pos=(40.5, -58.450000047683716, 5.299999997019768) mode=CREATIVE
+[22:54:15] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE tank_driving passenger=true vehicle=tank spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(40.5, -58.450000047683716, 26.98879823461175) screen=none health=20.0
+[22:54:15] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER tank_driving passenger=true spectator=false removed=false pos=(40.5, -58.450000047683716, 26.98879823461175) mode=CREATIVE
+[22:54:17] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE tank_dismounted passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(43.00000003576279, -60.0, 30.92923777550459) screen=none health=20.0
+[22:54:17] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE CHECK tank outside_vehicle=true distance=2.50052
+[22:54:17] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER tank_dismounted passenger=false spectator=false removed=false pos=(43.00000003576279, -60.0, 30.92923777550459) mode=CREATIVE
+[22:54:20] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE tank_later passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(43.00000003576279, -60.0, 30.92923777550459) screen=none health=20.0
+[22:54:20] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER tank_later passenger=false spectator=false removed=false pos=(43.00000003576279, -60.0, 30.92923777550459) mode=CREATIVE
+[22:54:21] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE spawned heli id=32 at (81.0, -60.0, 5.5)
+[22:54:22] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE board heli ok=true
+[22:54:23] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE heli_boarded passenger=true vehicle=heli spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(81.0, -59.55000001192093, 4.949999988079071) screen=none health=20.0
+[22:54:23] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER heli_boarded passenger=true spectator=false removed=false pos=(81.0, -59.55000001192093, 4.949999988079071) mode=CREATIVE
+[22:54:26] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE heli_driving passenger=true vehicle=heli spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(81.0, -58.70774431497455, 9.764894981992432) screen=none health=20.0
+[22:54:26] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER heli_driving passenger=true spectator=false removed=false pos=(81.0, -58.70774431497455, 9.764894981992432) mode=CREATIVE
+[22:54:28] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE heli_dismounted passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(83.00000003576278, -60.0, 14.597291217199128) screen=none health=20.0
+[22:54:28] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER heli_dismounted passenger=false spectator=false removed=false pos=(83.00000003576278, -60.0, 14.597291217199128) mode=CREATIVE
+[22:54:28] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE CHECK heli outside_vehicle=true distance=2.9488256
+[22:54:31] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE heli_later passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(83.00000003576278, -60.0, 14.597291217199128) screen=none health=20.0
+[22:54:31] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER heli_later passenger=false spectator=false removed=false pos=(83.00000003576278, -60.0, 14.597291217199128) mode=CREATIVE
+[22:54:32] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE spawned plane id=34 at (121.5, -60.0, 5.5)
+[22:54:33] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE board plane ok=true
+[22:54:34] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE plane_boarded passenger=true vehicle=plane spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(121.5, -59.25, 5.199999988079071) screen=none health=20.0
+[22:54:34] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER plane_boarded passenger=true spectator=false removed=false pos=(121.5, -59.25, 5.199999988079071) mode=CREATIVE
+[22:54:37] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE plane_driving passenger=true vehicle=plane spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=THIRD_PERSON_BACK pos=(121.5, -59.25, 22.222224929337237) screen=none health=20.0
+[22:54:37] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER plane_driving passenger=true spectator=false removed=false pos=(121.5, -59.25, 22.222224929337237) mode=CREATIVE
+[22:54:39] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE plane_dismounted passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(123.50000003576278, -60.0, 39.17412472861962) screen=none health=20.0
+[22:54:39] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE CHECK plane outside_vehicle=true distance=3.4103122
+[22:54:39] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER plane_dismounted passenger=false spectator=false removed=false pos=(123.50000003576278, -60.0, 39.17412472861962) mode=CREATIVE
+[22:54:42] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE STATE plane_later passenger=false vehicle=none spectator=false invisible=false removed=false alive=true mode=CREATIVE camEntity=player#1 camIsPlayer=true hideGui=false camera=FIRST_PERSON pos=(123.50000003576278, -60.0, 39.17412472861962) screen=none health=20.0
+[22:54:42] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE SERVER plane_later passenger=false spectator=false removed=false pos=(123.50000003576278, -60.0, 39.17412472861962) mode=CREATIVE
+[22:54:43] [Server thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE goggles scene ready
+[22:54:45] [Render thread/WARN] [minecraft/EffectInstance]: Shader frontline:nvg could not find uniform named InSize in the specified shader program.
+[22:54:45] [Render thread/WARN] [minecraft/EffectInstance]: Shader frontline:copy could not find uniform named InSize in the specified shader program.
+[22:54:45] [Render thread/WARN] [minecraft/EffectInstance]: Shader frontline:copy could not find uniform named Time in the specified shader program.
+[22:54:46] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE goggles mode=1 post=true
+[22:54:46] [Render thread/WARN] [minecraft/EffectInstance]: Shader frontline:thermal could not find uniform named InSize in the specified shader program.
+[22:54:46] [Render thread/WARN] [minecraft/EffectInstance]: Shader frontline:copy could not find uniform named InSize in the specified shader program.
+[22:54:46] [Render thread/WARN] [minecraft/EffectInstance]: Shader frontline:copy could not find uniform named Time in the specified shader program.
+[22:54:47] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE goggles mode=2 post=true
+[22:54:48] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE goggles mode=0 post=false
+[22:54:48] [Render thread/INFO] [co.me.fr.cl.SmokeTest/]: FRONTLINE-SMOKE DONE
+[22:54:48] [Render thread/INFO] [minecraft/Minecraft]: Stopping!
+[22:54:48] [Server thread/INFO] [minecraft/ServerGamePacketListenerImpl]: Dev lost connection: Disconnected
+[22:54:48] [Server thread/INFO] [minecraft/MinecraftServer]: Dev left the game
+[22:54:48] [Server thread/INFO] [minecraft/ServerCommonPacketListenerImpl]: Stopping singleplayer server as player logged out
+[22:54:48] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[22:54:48] [Server thread/INFO] [minecraft/MinecraftServer]: Saving players
+[22:54:48] [Server thread/INFO] [minecraft/MinecraftServer]: Saving worlds
+[22:54:49] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[frontline_smoke_1794005630994]'/minecraft:overworld
+[22:54:49] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[frontline_smoke_1794005630994]'/minecraft:the_end
+[22:54:49] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[frontline_smoke_1794005630994]'/minecraft:the_nether
+[22:54:49] [Server thread/DEBUG] [ne.ne.ne.co.CommonHooks/WP]: Gathered mod list to write to world save frontline_smoke_1794005630994
+[22:54:49] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (frontline_smoke_1794005630994): All chunks are saved
+[22:54:49] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[22:54:49] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[22:54:49] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[22:54:49] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Unloading configs type SERVER
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1794005608307.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/frontline/frontline/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 26s
+8 actionable tasks: 3 executed, 5 up-to-date
+Configuration cache entry stored.
