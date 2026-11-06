@@ -51,7 +51,7 @@ public class Mote extends TextureSheetParticle {
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
             var r = level.random;
             return switch (kind) {
-                case MUZZLE -> new Mote(level, x, y, z, 0, 0, 0, sprites, 1.0F, 0.82F, 0.45F, 0.55F, 0.15F, 2, 0.0F, true, 1.0F);
+                case MUZZLE -> new Mote(level, x, y, z, 0, 0, 0, sprites, 1.0F, 0.82F, 0.45F, 0.16F, 0.05F, 2, 0.0F, true, 1.0F);
                 case SMOKE -> new Mote(level, x, y, z, vx + (r.nextFloat() - 0.5F) * 0.02F, 0.02F + r.nextFloat() * 0.02F, vz + (r.nextFloat() - 0.5F) * 0.02F,
                         sprites, 0.55F, 0.55F, 0.58F, 0.12F, 0.42F, 16 + r.nextInt(8), 0.0F, false, 0.96F);
                 case BRASS -> new Mote(level, x, y, z, vx + (r.nextFloat() - 0.2F) * 0.12F, 0.18F + r.nextFloat() * 0.08F, vz + (r.nextFloat() - 0.5F) * 0.08F,

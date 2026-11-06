@@ -96,7 +96,7 @@ public final class FirstPersonGun {
 
         if (ClientState.flashTicks > 0) {
             float fx = (gun.muzzleX() - 8.0F) / 16.0F, fy = (gun.muzzleY() - 8.0F) / 16.0F, fz = (gun.muzzleZ() - 8.0F) / 16.0F;
-            flash(pose, e.getMultiBufferSource(), fx, fy, fz, gun.kind() == GunInfo.Kind.PISTOL || gun.kind() == GunInfo.Kind.SMG ? 0.16F : 0.24F, t);
+            flash(pose, e.getMultiBufferSource(), fx, fy, fz, gun.kind() == GunInfo.Kind.PISTOL || gun.kind() == GunInfo.Kind.SMG ? 0.055F : 0.08F, t);
         }
         pose.popPose();
     }

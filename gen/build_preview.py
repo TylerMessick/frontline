@@ -204,10 +204,7 @@ function showGun(g) {
   root.add(hold); current = hold;
   target.set(0, 1.0, 0); orbitDist = 4.2; auto = true;
   // ghost markers: muzzle and sight line
-  const mk = (x, y, z, c) => { const s = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 8), new THREE.MeshBasicMaterial({ color: c })); s.position.set((x - 8) / 16 * 1.6, 1.0 + (y - 8) / 16 * 1.6, (z - zc) / 16 * 1.6); hold.parent.add(s); return s; };
-  mk(g.muzzle[0], g.muzzle[1], g.muzzle[2], 0xffa030);
-  mk(8, g.sight_y, g.grip[1], 0x40c0ff);
-  info(g.name, `${g.parts.length} elements · muzzle (orange) and sight line over the grip (blue). Drag to orbit, wheel to zoom.`);
+  info(g.name, `${g.parts.length} elements. Drag to orbit, wheel to zoom.`);
 }
 
 // GUI icon strip: every gun as the inventory sees it
@@ -241,11 +238,11 @@ function showFps(g) {
   // muzzle flash: a star of planes at the muzzle
   const flash = new THREE.Group();
   for (let i = 0; i < 3; i++) {
-    const p = new THREE.Mesh(new THREE.PlaneGeometry(0.09, 0.5), new THREE.MeshBasicMaterial({ color: 0xffc860, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(0.03, 0.17), new THREE.MeshBasicMaterial({ color: 0xffc860, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
     p.rotation.z = i * Math.PI / 3; flash.add(p);
   }
-  const spike = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.4, 6), new THREE.MeshBasicMaterial({ color: 0xff9a30, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false }));
-  spike.rotation.x = -Math.PI / 2; spike.position.z = -0.2; flash.add(spike);
+  const spike = new THREE.Mesh(new THREE.ConeGeometry(0.012, 0.14, 6), new THREE.MeshBasicMaterial({ color: 0xff9a30, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false }));
+  spike.rotation.x = -Math.PI / 2; spike.position.z = -0.07; flash.add(spike);
   flash.position.set((st.muzzle[0] - 8) / 16, (st.muzzle[1] - 8) / 16, (st.muzzle[2] - 8) / 16);
   inner.add(flash);
   root.add(hand);
