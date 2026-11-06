@@ -54,6 +54,7 @@ neoForge {
     runs {
         client {
             client()
+            systemProperty 'frontline.smoke', providers.environmentVariable('FRONTLINE_SMOKE').getOrElse('false')
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }

@@ -79,6 +79,7 @@ public class FrontlineClient {
         NeoForge.EVENT_BUS.addListener(FrontlineClient::interactionKey);
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> { ClientState.clear(); FlagTextures.clear(); });
 
+        SmokeTest.install();
         ModNetwork.ClientSink.gun = ClientState::accept;
         ModNetwork.ClientSink.nation = ClientState::accept;
         ModNetwork.ClientSink.armory = ClientState::accept;

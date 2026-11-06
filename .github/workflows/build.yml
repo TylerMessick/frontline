@@ -64,8 +64,9 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: "1"
           MESA_GL_VERSION_OVERRIDE: "4.5"
+          FRONTLINE_SMOKE: "true"
         run: |
-          timeout 420 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient --no-daemon > client-gradle.log 2>&1 || true
+          timeout 900 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient --no-daemon > client-gradle.log 2>&1 || true
       - name: Publish smoke logs
         if: always()
         run: |
@@ -73,6 +74,7 @@ jobs:
           cp server-gradle.log client-gradle.log /tmp/logs/ 2>/dev/null || true
           cp -r run/logs /tmp/logs/run-logs 2>/dev/null || true
           cp -r run/crash-reports /tmp/logs/crash-reports 2>/dev/null || true
+          cp -r run/screenshots /tmp/logs/screenshots 2>/dev/null || true
           git config user.name ci && git config user.email ci@users.noreply.github.com
           git checkout --orphan smoke-log
           git rm -rfq --cached . >/dev/null
