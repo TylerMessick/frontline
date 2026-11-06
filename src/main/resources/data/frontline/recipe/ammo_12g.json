@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [{"item": "minecraft:gunpowder"}, {"item": "minecraft:iron_nugget"}, {"item": "minecraft:paper"}], "result": {"id": "frontline:ammo_12g", "count": 8}}

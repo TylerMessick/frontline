@@ -1,0 +1,1 @@
+{"variants": {"facing=north": {"model": "frontline:block/command_flag"}, "facing=south": {"model": "frontline:block/command_flag", "y": 180}, "facing=west": {"model": "frontline:block/command_flag", "y": 270}, "facing=east": {"model": "frontline:block/command_flag", "y": 90}}}

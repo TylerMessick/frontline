@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": ["IPP", "IIS", " S "], "key": {"I": {"item": "minecraft:iron_ingot"}, "P": {"item": "frontline:gun_parts"}, "S": {"item": "minecraft:stick"}}, "result": {"id": "frontline:mp9_smg", "count": 1, "components": {"frontline:ammo": 32}}}

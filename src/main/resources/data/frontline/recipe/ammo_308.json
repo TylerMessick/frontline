@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [{"item": "minecraft:gunpowder"}, {"item": "minecraft:iron_ingot"}, {"item": "minecraft:iron_ingot"}], "result": {"id": "frontline:ammo_308", "count": 8}}

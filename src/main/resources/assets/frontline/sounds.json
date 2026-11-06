@@ -1,0 +1,93 @@
+{
+ "pistol_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:pistol_fire"
+  ],
+  "subtitle": "subtitles.frontline.pistol_fire"
+ },
+ "smg_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:smg_fire"
+  ],
+  "subtitle": "subtitles.frontline.smg_fire"
+ },
+ "rifle_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:rifle_fire"
+  ],
+  "subtitle": "subtitles.frontline.rifle_fire"
+ },
+ "battle_rifle_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:battle_rifle_fire"
+  ],
+  "subtitle": "subtitles.frontline.battle_rifle_fire"
+ },
+ "shotgun_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:shotgun_fire"
+  ],
+  "subtitle": "subtitles.frontline.shotgun_fire"
+ },
+ "sniper_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:sniper_fire"
+  ],
+  "subtitle": "subtitles.frontline.sniper_fire"
+ },
+ "lmg_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:lmg_fire"
+  ],
+  "subtitle": "subtitles.frontline.lmg_fire"
+ },
+ "mag_out": {
+  "category": "neutral",
+  "sounds": [
+   "frontline:mag_out"
+  ],
+  "subtitle": "subtitles.frontline.mag_out"
+ },
+ "mag_in": {
+  "category": "neutral",
+  "sounds": [
+   "frontline:mag_in"
+  ],
+  "subtitle": "subtitles.frontline.mag_in"
+ },
+ "bolt": {
+  "category": "neutral",
+  "sounds": [
+   "frontline:bolt"
+  ],
+  "subtitle": "subtitles.frontline.bolt"
+ },
+ "dry_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:dry_fire"
+  ],
+  "subtitle": "subtitles.frontline.dry_fire"
+ },
+ "hit_marker": {
+  "category": "neutral",
+  "sounds": [
+   "frontline:hit_marker"
+  ],
+  "subtitle": "subtitles.frontline.hit_marker"
+ },
+ "kill_marker": {
+  "category": "neutral",
+  "sounds": [
+   "frontline:kill_marker"
+  ],
+  "subtitle": "subtitles.frontline.kill_marker"
+ }
+}

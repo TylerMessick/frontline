@@ -1,0 +1,83 @@
+name: build
+on: [push, workflow_dispatch]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build
+        run: |
+          chmod +x gradlew
+          set -o pipefail
+          ./gradlew build --no-daemon 2>&1 | tee build.log
+      - name: Publish build log on failure
+        if: failure()
+        run: |
+          git config user.name ci && git config user.email ci@users.noreply.github.com
+          git checkout --orphan build-log
+          git rm -rfq --cached . >/dev/null
+          git add -f build.log
+          git commit -qm "build log ${GITHUB_SHA}"
+          git push -f origin build-log
+      - name: Publish jar to the 'jar' branch
+        run: |
+          mkdir -p /tmp/out && cp build/libs/*.jar /tmp/out/
+          git config user.name ci && git config user.email ci@users.noreply.github.com
+          git checkout --orphan jar
+          git rm -rfq --cached . >/dev/null
+          git clean -fdxq -e build
+          cp /tmp/out/*.jar .
+          git add -f *.jar
+          git commit -qm "jar ${GITHUB_SHA}"
+          git push -f origin jar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontline-jar
+          path: build/libs/*.jar
+  smoke:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Install software OpenGL
+        run: sudo apt-get update -q && sudo apt-get install -yq xvfb libgl1-mesa-dri mesa-utils >/dev/null
+      - name: Server smoke test
+        continue-on-error: true
+        run: |
+          chmod +x gradlew
+          mkdir -p run && echo "eula=true" > run/eula.txt
+          timeout 420 ./gradlew runServer --no-daemon > server-gradle.log 2>&1 || true
+      - name: Client smoke test
+        continue-on-error: true
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          MESA_GL_VERSION_OVERRIDE: "4.5"
+        run: |
+          timeout 420 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient --no-daemon > client-gradle.log 2>&1 || true
+      - name: Publish smoke logs
+        if: always()
+        run: |
+          mkdir -p /tmp/logs
+          cp server-gradle.log client-gradle.log /tmp/logs/ 2>/dev/null || true
+          cp -r run/logs /tmp/logs/run-logs 2>/dev/null || true
+          cp -r run/crash-reports /tmp/logs/crash-reports 2>/dev/null || true
+          git config user.name ci && git config user.email ci@users.noreply.github.com
+          git checkout --orphan smoke-log
+          git rm -rfq --cached . >/dev/null
+          git clean -fdxq
+          cp -r /tmp/logs/* .
+          git add -f -A
+          git commit -qm "smoke logs ${GITHUB_SHA}"
+          git push -f origin smoke-log
