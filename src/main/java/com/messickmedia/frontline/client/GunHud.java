@@ -3,6 +3,8 @@ package com.messickmedia.frontline.client;
 import com.messickmedia.frontline.Frontline;
 import com.messickmedia.frontline.gun.GunInfo;
 import com.messickmedia.frontline.gun.GunItem;
+import com.messickmedia.frontline.entity.VehicleEntity;
+import com.messickmedia.frontline.entity.VehicleKind;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -26,6 +28,7 @@ public final class GunHud {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.options.hideGui) return;
         GunInfo gun = GunItem.gunOf(mc.player.getMainHandItem());
+        if (mc.player.getVehicle() instanceof VehicleEntity v) { vehicleCrosshair(g, v); return; }
         if (gun == null) return;
         float pt = delta.getGameTimeDeltaPartialTick(true);
         float ads = Mth.lerp(pt, ClientState.adsBlendO, ClientState.adsBlend);
@@ -61,6 +64,52 @@ public final class GunHud {
         }
     }
 
+    private static void vehicleCrosshair(GuiGraphics g, VehicleEntity v) {
+        int cx = g.guiWidth() / 2, cy = g.guiHeight() / 2;
+        int col = 0xE0FFFFFF;
+        // a gunsight box with a centre dot
+        g.fill(cx - 9, cy - 9, cx - 3, cy - 8, col); g.fill(cx - 9, cy - 9, cx - 8, cy - 3, col);
+        g.fill(cx + 4, cy - 9, cx + 10, cy - 8, col); g.fill(cx + 9, cy - 9, cx + 10, cy - 3, col);
+        g.fill(cx - 9, cy + 9, cx - 3, cy + 10, col); g.fill(cx - 9, cy + 4, cx - 8, cy + 10, col);
+        g.fill(cx + 4, cy + 9, cx + 10, cy + 10, col); g.fill(cx + 9, cy + 4, cx + 10, cy + 10, col);
+        g.fill(cx, cy, cx + 1, cy + 1, col);
+        if (ClientState.hitTicks > 0) {
+            int a = Math.min(255, ClientState.hitTicks * 32);
+            int hc = (a << 24) | (ClientState.hitKind == 2 ? 0xE03030 : 0xFFFFFF);
+            for (int i = 0; i < 4; i++) {
+                g.fill(cx + 4 + i, cy + 4 + i, cx + 5 + i, cy + 5 + i, hc); g.fill(cx - 4 - i, cy + 4 + i, cx - 3 - i, cy + 5 + i, hc);
+                g.fill(cx + 4 + i, cy - 4 - i, cx + 5 + i, cy - 3 - i, hc); g.fill(cx - 4 - i, cy - 4 - i, cx - 3 - i, cy - 3 - i, hc);
+            }
+        }
+    }
+
+    private static void vehiclePanel(GuiGraphics g, Font font, VehicleEntity v, int w, int h) {
+        int x = w - 12, y = h - 30;
+        Component name = Component.translatable("entity.frontline." + v.kind().id);
+        g.drawString(font, name, x - font.width(name), y - 22, 0xFFDDDDDD, true);
+        int barW = 90;
+        float hp = v.health() / v.kind().maxHealth;
+        g.fill(x - barW - 1, y - 9, x + 1, y - 3, 0xAA000000);
+        g.fill(x - barW, y - 8, x - barW + Math.round(barW * Mth.clamp(hp, 0, 1)), y - 4, hp < 0.3F ? 0xFFE03030 : hp < 0.6F ? 0xFFFFC040 : 0xFF6FCF5A);
+        String hpText = Math.round(v.health()) + " / " + Math.round(v.kind().maxHealth);
+        g.pose().pushPose(); g.pose().scale(0.75F, 0.75F, 1.0F);
+        g.drawString(font, hpText, (int) ((x - font.width(hpText) * 0.75F) / 0.75F), (int) ((y - 1) / 0.75F), 0xFFBBBBBB, true);
+        g.pose().popPose();
+        if (v.kind().flies() || v.kind() == VehicleKind.JEEP || v.kind() == VehicleKind.TANK) {
+            float th = v.throttle();
+            g.fill(x - barW - 1, y + 7, x + 1, y + 11, 0xAA000000);
+            g.fill(x - barW, y + 8, x - barW + Math.round(barW * Mth.clamp(th, 0, 1)), y + 10, 0xFFD9A441);
+            String tl = (v.kind() == VehicleKind.HELI ? "ROTOR " : v.kind() == VehicleKind.PLANE ? "THROTTLE " : "SPEED ") + Math.round(th * 100) + "%";
+            g.pose().pushPose(); g.pose().scale(0.75F, 0.75F, 1.0F);
+            g.drawString(font, tl, (int) ((x - font.width(tl) * 0.75F) / 0.75F), (int) ((y + 13) / 0.75F), 0xFF8A8F98, true);
+            g.pose().popPose();
+        }
+        Component hint = Component.translatable("hud.frontline.vehicle." + v.kind().id);
+        g.pose().pushPose(); g.pose().scale(0.75F, 0.75F, 1.0F);
+        g.drawString(font, hint, (int) ((w / 2 - font.width(hint) * 0.75F / 2) / 0.75F), (int) ((h - 46) / 0.75F), 0x90FFFFFF, true);
+        g.pose().popPose();
+    }
+
     private static void scope(GuiGraphics g, int cx, int cy) {
         int h = g.guiHeight(), w = g.guiWidth();
         int r = Math.round(h * 0.47F);
@@ -92,7 +141,8 @@ public final class GunHud {
         ItemStack stack = mc.player.getMainHandItem();
         GunInfo gun = GunItem.gunOf(stack);
         int w = g.guiWidth(), h = g.guiHeight();
-        if (gun != null) {
+        if (mc.player.getVehicle() instanceof VehicleEntity v) vehiclePanel(g, font, v, w, h);
+        else if (gun != null) {
             int rounds = GunItem.rounds(stack);
             int x = w - 12, y = h - 30;
             String big = String.valueOf(rounds);

@@ -48,6 +48,13 @@
   ],
   "subtitle": "subtitles.frontline.lmg_fire"
  },
+ "cannon_fire": {
+  "category": "player",
+  "sounds": [
+   "frontline:cannon_fire"
+  ],
+  "subtitle": "subtitles.frontline.cannon_fire"
+ },
  "mag_out": {
   "category": "neutral",
   "sounds": [

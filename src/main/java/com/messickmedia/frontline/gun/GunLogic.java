@@ -158,10 +158,53 @@ public final class GunLogic {
         if (t.ads && p.isSprinting()) p.setSprinting(false);
         int ammoCount = gun == null ? 0 : countAmmo(p, gun);
         int hash = (t.reloadTicks * 31 + t.reloadMax) * 31 + Float.floatToIntBits(t.bloom) * 7 + (t.ads ? 1 : 0) + ammoCount * 131 + t.kills * 17;
+        if (p.tickCount % 20 == 0) syncArmory(p, t);
         if (hash != t.lastSyncHash || p.tickCount % 40 == 0) {
             t.lastSyncHash = hash;
             PacketDistributor.sendToPlayer(p, new ModNetwork.GunSync(t.reloadTicks, t.reloadMax, t.bloom, ammoCount, t.kills, t.shots, t.hits));
         }
+    }
+
+    // ---------------------------------------------------------------- weapon wheel
+
+    /** action 0 = take the gun in this slot into the hand (swapping the held gun into the slot), 1 = store the held gun here, 2 = drop the slot into the inventory. */
+    public static void armory(ServerPlayer p, int action, int slot) {
+        Trooper t = trooper(p);
+        if (slot < 0 || slot >= Trooper.ARMORY_SLOTS) return;
+        ItemStack held = p.getMainHandItem();
+        ItemStack inSlot = t.armory.get(slot);
+        switch (action) {
+            case 0 -> {
+                if (inSlot.isEmpty()) { if (held.getItem() instanceof GunItem) { t.armory.set(slot, held.copy()); p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, ItemStack.EMPTY); } }
+                else {
+                    if (held.getItem() instanceof GunItem) t.armory.set(slot, held.copy());
+                    else { t.armory.set(slot, ItemStack.EMPTY); if (!held.isEmpty()) p.getInventory().placeItemBackInInventory(held.copy()); }
+                    p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, inSlot.copy());
+                }
+                t.cancelReload();
+                p.level().playSound(null, p.getX(), p.getY(), p.getZ(), ModRegistries.S_MAG_IN.get(), SoundSource.PLAYERS, 0.6F, 1.3F);
+            }
+            case 1 -> {
+                if (!(held.getItem() instanceof GunItem)) return;
+                if (!inSlot.isEmpty()) p.getInventory().placeItemBackInInventory(inSlot.copy());
+                t.armory.set(slot, held.copy());
+                p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                t.cancelReload();
+            }
+            case 2 -> {
+                if (inSlot.isEmpty()) return;
+                p.getInventory().placeItemBackInInventory(inSlot.copy());
+                t.armory.set(slot, ItemStack.EMPTY);
+            }
+        }
+        syncArmory(p, t);
+    }
+
+    public static void syncArmory(ServerPlayer p, Trooper t) {
+        int h = t.armoryHash();
+        if (h == t.lastArmoryHash) return;
+        t.lastArmoryHash = h;
+        PacketDistributor.sendToPlayer(p, new ModNetwork.ArmorySync(new java.util.ArrayList<>(t.armory)));
     }
 
     public static float adsSpreadNow(Trooper t, GunInfo gun) {

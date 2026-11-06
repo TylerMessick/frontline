@@ -1,6 +1,9 @@
 package com.messickmedia.frontline.client;
 
+import com.messickmedia.frontline.gun.Trooper;
 import com.messickmedia.frontline.net.ModNetwork;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
 
 /** Everything the client knows about its own trooper and nation, plus the animation state of the gun in hand. */
 public final class ClientState {
@@ -16,6 +19,11 @@ public final class ClientState {
     public static String claim = "";
     public static int claimColor;
     public static boolean claimHostile;
+
+    public static final NonNullList<ItemStack> armory = NonNullList.withSize(Trooper.ARMORY_SLOTS, ItemStack.EMPTY);
+    /** The camera type the player had before mounting a vehicle, restored on dismount (-1 = not riding). */
+    public static int cameraBeforeRide = -1;
+    public static int vehicleFireCd;
 
     // local
     public static boolean ots;
@@ -51,6 +59,10 @@ public final class ClientState {
         claim = s.claim(); claimColor = s.claimColor(); claimHostile = s.claimHostile();
     }
 
+    public static void accept(ModNetwork.ArmorySync s) {
+        for (int i = 0; i < armory.size(); i++) armory.set(i, i < s.stacks().size() ? s.stacks().get(i) : ItemStack.EMPTY);
+    }
+
     public static void accept(ModNetwork.HitMark m) {
         hitTicks = 10;
         hitKind = m.kind();
@@ -78,6 +90,7 @@ public final class ClientState {
         if (Math.abs(camPitch) < 0.01F) camPitch = 0;
         if (Math.abs(camYaw) < 0.01F) camYaw = 0;
         if (fireCd > 0) fireCd--;
+        if (vehicleFireCd > 0) vehicleFireCd--;
         if (flashTicks > 0) flashTicks--;
         if (hitTicks > 0) hitTicks--;
         if (claimBannerTicks > 0) claimBannerTicks--;

@@ -118,6 +118,7 @@ SOUNDS = {
     'shotgun_fire': lambda: shot(crack=0.6, body=1.3, boom=1.4, length=0.75, bright=3200, boom_f=(110, 35), tail=0.4, echo=0.45),
     'sniper_fire': lambda: shot(crack=1.2, body=1.1, boom=1.3, length=1.1, bright=5000, boom_f=(120, 30), tail=0.7, echo=0.55),
     'lmg_fire': lambda: shot(crack=0.9, body=1.0, boom=0.9, length=0.5, bright=5000, boom_f=(140, 45), tail=0.25, echo=0.35),
+    'cannon_fire': lambda: shot(crack=0.8, body=1.4, boom=2.2, length=1.6, bright=2200, boom_f=(80, 22), tail=1.0, echo=0.6),
     'mag_out': lambda: seq([(0.0, click(2400, 0.08, 0.02, 0.3)), (0.09, lowpass(noise(int(SR * 0.12)), 1500) * env(int(SR * 0.12), 0.01, 0.05) * 0.5)]),
     'mag_in': lambda: seq([(0.0, lowpass(noise(int(SR * 0.08)), 2000) * env(int(SR * 0.08), 0.005, 0.03) * 0.5), (0.1, click(2000, 0.09, 0.025, 0.6)), (0.17, click(3600, 0.06, 0.012, 0.4))]),
     'bolt': lambda: seq([(0.0, click(1800, 0.1, 0.03, 0.6)), (0.14, click(2600, 0.09, 0.025, 0.5))]),

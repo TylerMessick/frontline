@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": ["I I", "BRP", "IGI"], "key": {"I": {"item": "minecraft:iron_ingot"}, "B": {"item": "minecraft:iron_block"}, "R": {"item": "minecraft:redstone_block"}, "P": {"item": "frontline:gun_parts"}, "G": {"item": "minecraft:glass_pane"}}, "result": {"id": "frontline:plane", "count": 1}}

@@ -8,6 +8,10 @@ import com.messickmedia.frontline.registry.ModRegistries;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+import com.messickmedia.frontline.entity.VehicleEntity;
+import java.util.List;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -52,7 +56,27 @@ public final class ModNetwork {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
 
+    /** Fire a vehicle weapon while riding; primary = left mouse. The direction is the camera ray. */
+    public record VehicleFire(boolean primary, float x, float y, float z) implements CustomPacketPayload {
+        public static final Type<VehicleFire> TYPE = new Type<>(Frontline.id("vehicle_fire"));
+        public static final StreamCodec<ByteBuf, VehicleFire> CODEC = StreamCodec.composite(ByteBufCodecs.BOOL, VehicleFire::primary, ByteBufCodecs.FLOAT, VehicleFire::x, ByteBufCodecs.FLOAT, VehicleFire::y, ByteBufCodecs.FLOAT, VehicleFire::z, VehicleFire::new);
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
+
+    /** Weapon wheel: action 0 select, 1 store held gun, 2 drop slot to inventory. */
+    public record ArmoryAction(int action, int slot) implements CustomPacketPayload {
+        public static final Type<ArmoryAction> TYPE = new Type<>(Frontline.id("armory_action"));
+        public static final StreamCodec<ByteBuf, ArmoryAction> CODEC = StreamCodec.composite(ByteBufCodecs.VAR_INT, ArmoryAction::action, ByteBufCodecs.VAR_INT, ArmoryAction::slot, ArmoryAction::new);
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
+
     // ---------------------------------------------------------------- server -> client
+
+    public record ArmorySync(List<ItemStack> stacks) implements CustomPacketPayload {
+        public static final Type<ArmorySync> TYPE = new Type<>(Frontline.id("armory_sync"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, ArmorySync> CODEC = ItemStack.OPTIONAL_LIST_STREAM_CODEC.map(ArmorySync::new, ArmorySync::stacks);
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
 
     public record GunSync(int reloadTicks, int reloadMax, float bloom, int ammoCount, int kills, int shots, int hits) implements CustomPacketPayload {
         public static final Type<GunSync> TYPE = new Type<>(Frontline.id("gun_sync"));
@@ -94,6 +118,7 @@ public final class ModNetwork {
         public static Consumer<HitMark> hit = s -> {};
         public static Consumer<OpenNationScreen> open = s -> {};
         public static Consumer<NationSync> nation = s -> {};
+        public static Consumer<ArmorySync> armory = s -> {};
     }
 
     public static void register(RegisterPayloadHandlersEvent event) {
@@ -102,6 +127,9 @@ public final class ModNetwork {
         r.playToServer(Reload.TYPE, Reload.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GunLogic.reload(sp); });
         r.playToServer(Aim.TYPE, Aim.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) { Trooper t = sp.getData(ModRegistries.TROOPER); t.ads = p.ads(); } });
         r.playToServer(FoundNation.TYPE, FoundNation.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GameEvents.foundNation(sp, p); });
+        r.playToServer(VehicleFire.TYPE, VehicleFire.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp && sp.getVehicle() instanceof VehicleEntity v) v.fire(sp, p.primary(), new Vec3(p.x(), p.y(), p.z())); });
+        r.playToServer(ArmoryAction.TYPE, ArmoryAction.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GunLogic.armory(sp, p.action(), p.slot()); });
+        r.playToClient(ArmorySync.TYPE, ArmorySync.CODEC, (s, ctx) -> ClientSink.armory.accept(s));
         r.playToClient(GunSync.TYPE, GunSync.CODEC, (s, ctx) -> ClientSink.gun.accept(s));
         r.playToClient(HitMark.TYPE, HitMark.CODEC, (s, ctx) -> ClientSink.hit.accept(s));
         r.playToClient(OpenNationScreen.TYPE, OpenNationScreen.CODEC, (s, ctx) -> ClientSink.open.accept(s));

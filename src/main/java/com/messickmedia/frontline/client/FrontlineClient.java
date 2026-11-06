@@ -15,7 +15,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import com.messickmedia.frontline.entity.VehicleEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -55,6 +57,7 @@ public class FrontlineClient {
     private static final String CATEGORY = "key.categories.frontline";
     public static final KeyMapping KEY_RELOAD = new KeyMapping("key.frontline.reload", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, CATEGORY);
     public static final KeyMapping KEY_CAMERA = new KeyMapping("key.frontline.camera", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, CATEGORY);
+    public static final KeyMapping KEY_WHEEL = new KeyMapping("key.frontline.wheel", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, CATEGORY);
 
     public FrontlineClient(IEventBus modBus, ModContainer container) {
         modBus.addListener(FrontlineClient::keys);
@@ -73,6 +76,7 @@ public class FrontlineClient {
 
         ModNetwork.ClientSink.gun = ClientState::accept;
         ModNetwork.ClientSink.nation = ClientState::accept;
+        ModNetwork.ClientSink.armory = ClientState::accept;
         ModNetwork.ClientSink.hit = FrontlineClient::hitMark;
         ModNetwork.ClientSink.open = p -> Minecraft.getInstance().setScreen(new NationScreen(p.pos()));
     }
@@ -82,6 +86,7 @@ public class FrontlineClient {
     static void keys(RegisterKeyMappingsEvent e) {
         e.register(KEY_RELOAD);
         e.register(KEY_CAMERA);
+        e.register(KEY_WHEEL);
     }
 
     static void particles(RegisterParticleProvidersEvent e) {
@@ -94,11 +99,16 @@ public class FrontlineClient {
     static void renderers(EntityRenderersEvent.RegisterRenderers e) {
         e.registerEntityRenderer(ModRegistries.BULLET.get(), BulletRenderer::new);
         e.registerEntityRenderer(ModRegistries.SOLDIER.get(), SoldierRenderer::new);
+        for (var v : ModRegistries.VEHICLES.values()) e.registerEntityRenderer(v.get(), VehicleRenderer::new);
         e.registerBlockEntityRenderer(ModRegistries.FLAG_BE.get(), FlagRenderer::new);
     }
 
     static void layerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions e) {
         e.registerLayerDefinition(SoldierModel.LAYER, SoldierModel::createLayer);
+        e.registerLayerDefinition(VehicleModels.TANK, VehicleModels::tank);
+        e.registerLayerDefinition(VehicleModels.PLANE, VehicleModels::plane);
+        e.registerLayerDefinition(VehicleModels.HELI, VehicleModels::heli);
+        e.registerLayerDefinition(VehicleModels.JEEP, VehicleModels::jeep);
     }
 
     static void hud(RegisterGuiLayersEvent e) {
@@ -114,7 +124,7 @@ public class FrontlineClient {
                 return hand == InteractionHand.MAIN_HAND ? HumanoidModel.ArmPose.CROSSBOW_HOLD : null;
             }
         };
-        e.registerItem(ext, ModRegistries.GUNS.values().stream().map(d -> (net.minecraft.world.level.ItemLike) d.get()).toArray(net.minecraft.world.level.ItemLike[]::new));
+        e.registerItem(ext, ModRegistries.GUNS.values().stream().map(d -> (net.minecraft.world.item.Item) d.get()).toArray(net.minecraft.world.item.Item[]::new));
     }
 
     // ---------------------------------------------------------------- per tick
@@ -136,6 +146,8 @@ public class FrontlineClient {
         ClientState.swayX = Mth.clamp(ClientState.swayX - dy * 0.5F, -14.0F, 14.0F);
         ClientState.swayY = Mth.clamp(ClientState.swayY + dp * 0.5F, -14.0F, 14.0F);
         FirstPersonGun.tick(p);
+        tickRiding(mc, p);
+        while (KEY_WHEEL.consumeClick()) { if (mc.screen == null && !(p.getVehicle() instanceof VehicleEntity)) mc.setScreen(new WheelScreen()); }
         if (ClientState.ots && mc.options.getCameraType() != CameraType.THIRD_PERSON_BACK) ClientState.ots = false;
         if (!holding || mc.screen != null) {
             if (ClientState.ads) { ClientState.ads = false; PacketDistributor.sendToServer(new ModNetwork.Aim(false)); }
@@ -155,6 +167,47 @@ public class FrontlineClient {
             ClientState.ots = !ClientState.ots;
             mc.options.setCameraType(ClientState.ots ? CameraType.THIRD_PERSON_BACK : CameraType.FIRST_PERSON);
         }
+    }
+
+    /** Riding a vehicle: third-person camera, mouse buttons drive its weapons. */
+    static void tickRiding(Minecraft mc, LocalPlayer p) {
+        boolean riding = p.getVehicle() instanceof VehicleEntity;
+        if (riding && ClientState.cameraBeforeRide < 0) {
+            ClientState.cameraBeforeRide = mc.options.getCameraType().ordinal();
+            mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+        } else if (!riding && ClientState.cameraBeforeRide >= 0) {
+            mc.options.setCameraType(ClientState.ots ? CameraType.THIRD_PERSON_BACK : CameraType.values()[ClientState.cameraBeforeRide]);
+            ClientState.cameraBeforeRide = -1;
+        }
+        if (!riding || mc.screen != null) return;
+        VehicleEntity v = (VehicleEntity) p.getVehicle();
+        if (mc.options.keyAttack.isDown() && ClientState.vehicleFireCd <= 0) {
+            Vec3 dir = cameraAim(mc, p);
+            PacketDistributor.sendToServer(new ModNetwork.VehicleFire(true, (float) dir.x, (float) dir.y, (float) dir.z));
+            ClientState.vehicleFireCd = Math.max(1, v.kind().primaryCd);
+            if (v.kind() == com.messickmedia.frontline.entity.VehicleKind.TANK) ClientState.camPitch += 1.5F;
+        }
+        if (mc.options.keyUse.isDown() && v.kind().hasSecondary() && p.tickCount % 3 == 0) {
+            Vec3 dir = cameraAim(mc, p);
+            PacketDistributor.sendToServer(new ModNetwork.VehicleFire(false, (float) dir.x, (float) dir.y, (float) dir.z));
+        }
+    }
+
+    /** The direction from the player's eyes to whatever the third-person camera ray hits. */
+    static Vec3 cameraAim(Minecraft mc, LocalPlayer p) {
+        Camera cam = mc.gameRenderer.getMainCamera();
+        Vector3f lv = cam.getLookVector();
+        Vec3 look = new Vec3(lv.x(), lv.y(), lv.z()).normalize();
+        Vec3 from = cam.getPosition();
+        Vec3 to = from.add(look.scale(200.0D));
+        HitResult block = mc.level.clip(new ClipContext(from, to, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p));
+        Vec3 end = block.getType() == HitResult.Type.MISS ? to : block.getLocation();
+        Entity vehicle = p.getVehicle();
+        EntityHitResult ehr = ProjectileUtil.getEntityHitResult(mc.level, p, from.add(look.scale(6.0D)), end, p.getBoundingBox().expandTowards(look.scale(200.0D)).inflate(2.0D),
+                e -> !e.isSpectator() && e.isPickable() && e != p && e != vehicle, 0.0F);
+        if (ehr != null) end = ehr.getLocation();
+        Vec3 dir = end.subtract(p.getEyePosition());
+        return dir.lengthSqr() < 0.25D ? look : dir.normalize();
     }
 
     static void tryFire(Minecraft mc, LocalPlayer p, GunInfo gun) {
@@ -206,6 +259,7 @@ public class FrontlineClient {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer p = mc.player;
         if (p == null) return;
+        if (p.getVehicle() instanceof VehicleEntity) { e.setCanceled(true); e.setSwingHand(false); return; }
         GunInfo gun = held(p);
         if (gun == null) return;
         if (e.isAttack()) {
@@ -237,6 +291,11 @@ public class FrontlineClient {
         e.setYaw(e.getYaw() + Mth.lerp(pt, ClientState.camYawO, ClientState.camYaw));
         GunInfo gun = held(mc.player);
         Camera cam = e.getCamera();
+        if (mc.player.getVehicle() instanceof VehicleEntity v && cam.isDetached()) {
+            float back = v.kind().flies() ? -3.0F : -1.5F;
+            cam.move(back, v.kind() == com.messickmedia.frontline.entity.VehicleKind.TANK ? 1.2F : 0.9F, 0.0F);
+            return;
+        }
         if (gun != null && ClientState.ots && cam.isDetached() && mc.options.getCameraType() == CameraType.THIRD_PERSON_BACK) {
             float ads = Mth.lerp(pt, ClientState.adsBlendO, ClientState.adsBlend);
             // closer and over the right shoulder; tighter still while aiming
@@ -247,7 +306,7 @@ public class FrontlineClient {
     static void guiLayer(RenderGuiLayerEvent.Pre e) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) return;
-        if (e.getName().equals(VanillaGuiLayers.CROSSHAIR) && held(mc.player) != null) e.setCanceled(true);
+        if (e.getName().equals(VanillaGuiLayers.CROSSHAIR) && (held(mc.player) != null || mc.player.getVehicle() instanceof VehicleEntity)) e.setCanceled(true);
     }
 
     static void hitMark(ModNetwork.HitMark m) {

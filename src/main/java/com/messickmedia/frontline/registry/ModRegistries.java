@@ -5,6 +5,10 @@ import com.messickmedia.frontline.block.CommandFlagBlock;
 import com.messickmedia.frontline.block.CommandFlagBlockEntity;
 import com.messickmedia.frontline.entity.Bullet;
 import com.messickmedia.frontline.entity.SoldierEntity;
+import com.messickmedia.frontline.entity.VehicleEntity;
+import com.messickmedia.frontline.entity.VehicleKind;
+import com.messickmedia.frontline.item.VehicleItem;
+import java.util.EnumMap;
 import com.messickmedia.frontline.gun.AmmoItem;
 import com.messickmedia.frontline.gun.GunInfo;
 import com.messickmedia.frontline.gun.GunItem;
@@ -86,6 +90,14 @@ public final class ModRegistries {
             ENTITIES.register("soldier", () -> EntityType.Builder.<SoldierEntity>of(SoldierEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 1.95F).eyeHeight(1.62F).clientTrackingRange(10).build("soldier"));
 
+    public static final Map<VehicleKind, DeferredHolder<EntityType<?>, EntityType<VehicleEntity>>> VEHICLES = new EnumMap<>(VehicleKind.class);
+    static {
+        for (VehicleKind k : VehicleKind.values()) {
+            VEHICLES.put(k, ENTITIES.register(k.id, () -> EntityType.Builder.<VehicleEntity>of((type, level) -> new VehicleEntity(type, level, k), MobCategory.MISC)
+                    .sized(k.width, k.height).eyeHeight(k.eyeHeight).clientTrackingRange(12).updateInterval(2).build(k.id)));
+        }
+    }
+
     // ---------------------------------------------------------------- blocks
     public static final DeferredBlock<CommandFlagBlock> COMMAND_FLAG = BLOCKS.register("command_flag", () -> new CommandFlagBlock(
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(2.0F, 6.0F).sound(SoundType.WOOD).noOcclusion()));
@@ -100,6 +112,10 @@ public final class ModRegistries {
         for (String a : Guns.AMMO) AMMO_ITEMS.put(a, ITEMS.register(a, () -> new AmmoItem(a)));
     }
     public static final DeferredItem<Item> GUN_PARTS = ITEMS.registerSimpleItem("gun_parts");
+    public static final Map<VehicleKind, DeferredItem<Item>> VEHICLE_ITEMS = new EnumMap<>(VehicleKind.class);
+    static {
+        for (VehicleKind k : VehicleKind.values()) VEHICLE_ITEMS.put(k, ITEMS.register(k.id, () -> new VehicleItem(k)));
+    }
     public static final DeferredItem<Item> ENLISTMENT_PAPERS = ITEMS.register("enlistment_papers", EnlistmentPapersItem::new);
     public static final DeferredItem<Item> COMMAND_BATON = ITEMS.register("command_baton", CommandBatonItem::new);
     public static final DeferredItem<BlockItem> COMMAND_FLAG_ITEM = ITEMS.registerSimpleBlockItem("command_flag", COMMAND_FLAG);
@@ -118,6 +134,7 @@ public final class ModRegistries {
     public static final DeferredHolder<SoundEvent, SoundEvent> S_DRY = sound("dry_fire");
     public static final DeferredHolder<SoundEvent, SoundEvent> S_HIT = sound("hit_marker");
     public static final DeferredHolder<SoundEvent, SoundEvent> S_KILL = sound("kill_marker");
+    public static final DeferredHolder<SoundEvent, SoundEvent> S_CANNON = sound("cannon_fire");
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(Frontline.id(name)));
@@ -134,6 +151,7 @@ public final class ModRegistries {
                 out.accept(ENLISTMENT_PAPERS.get());
                 out.accept(COMMAND_BATON.get());
                 out.accept(COMMAND_FLAG_ITEM.get());
+                for (DeferredItem<Item> v : VEHICLE_ITEMS.values()) out.accept(v.get());
             }).build());
 
     public static void attributes(EntityAttributeCreationEvent e) {
