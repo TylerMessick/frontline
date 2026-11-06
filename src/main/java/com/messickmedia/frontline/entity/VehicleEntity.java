@@ -2,6 +2,7 @@ package com.messickmedia.frontline.entity;
 
 import com.messickmedia.frontline.gun.GunLogic;
 import com.messickmedia.frontline.registry.ModRegistries;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -146,6 +147,39 @@ public class VehicleEntity extends Entity {
         double x = this.getX() + (s[0] * Mth.cos(yaw) - s[2] * Mth.sin(yaw));
         double z = this.getZ() + (s[0] * Mth.sin(yaw) + s[2] * Mth.cos(yaw));
         cb.accept(passenger, x, this.getY() + s[1], z);
+    }
+
+    /**
+     * Step out beside the vehicle (driver's side first, then the other side, behind, in front) onto solid ground,
+     * never on top of or inside the model. In the air with nothing below, the rider drops beside it.
+     */
+    @Override
+    public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
+        double yaw = Math.toRadians(this.getYRot());
+        Vec3 fwd = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw));
+        Vec3 left = new Vec3(fwd.z, 0, -fwd.x);
+        double side = kind.width / 2.0D + passenger.getBbWidth() / 2.0D + 0.6D;
+        double end = (kind == VehicleKind.TANK ? 4.2D : kind.flies() ? 3.6D : 3.2D) + passenger.getBbWidth() / 2.0D;
+        Vec3[] spots = {left.scale(side), left.scale(-side), fwd.scale(-end), fwd.scale(end), left.scale(side + 1.0D), left.scale(-side - 1.0D)};
+        for (Vec3 off : spots) {
+            double x = this.getX() + off.x, z = this.getZ() + off.z;
+            for (int dy : new int[]{0, 1, -1, 2, -2, 3, -3}) {
+                BlockPos bp = BlockPos.containing(x, this.getY() + dy, z);
+                double floor = this.level().getBlockFloorHeight(bp);
+                if (!net.minecraft.world.entity.vehicle.DismountHelper.isBlockFloorValid(floor)) continue;
+                Vec3 at = new Vec3(x, bp.getY() + floor, z);
+                for (net.minecraft.world.entity.Pose pose : passenger.getDismountPoses()) {
+                    AABB box = passenger.getLocalBoundsForPose(pose).move(at);
+                    if (net.minecraft.world.entity.vehicle.DismountHelper.canDismountTo(this.level(), passenger, box)
+                            && !box.intersects(this.getBoundingBox())) {
+                        passenger.setPose(pose);
+                        return at;
+                    }
+                }
+            }
+        }
+        // nothing to stand on (mid-air): drop out beside the vehicle
+        return this.position().add(left.scale(side));
     }
 
     @Override

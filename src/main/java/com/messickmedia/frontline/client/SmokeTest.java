@@ -143,7 +143,13 @@ public final class SmokeTest {
             case 100 -> { key(mc.options.keyUp, false); state(mc, n + "_driving"); }
             case 120 -> key(mc.options.keyShift, true);
             case 126 -> key(mc.options.keyShift, false);
-            case 140 -> { state(mc, n + "_dismounted"); shot(mc, n + "_after_fp"); }
+            case 140 -> {
+                state(mc, n + "_dismounted");
+                Entity v = mc.level.getEntity(vehicleId);
+                boolean inside = v != null && v.getBoundingBox().inflate(0.3).intersects(mc.player.getBoundingBox());
+                LOG.info("FRONTLINE-SMOKE CHECK {} outside_vehicle={} distance={}", n, !inside, v == null ? -1 : mc.player.distanceTo(v));
+                shot(mc, n + "_after_fp");
+            }
             case 142 -> mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
             case 146 -> shot(mc, n + "_after_tp");
             case 148 -> mc.options.setCameraType(CameraType.FIRST_PERSON);
