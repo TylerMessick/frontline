@@ -49,7 +49,8 @@ public final class SmokeTest {
     }
 
     private static void onScreen(ScreenEvent.Init.Post e) {
-        if (started || !(e.getScreen() instanceof TitleScreen)) return;
+        if (started || !(e.getScreen() instanceof TitleScreen || e.getScreen() instanceof net.minecraft.client.gui.screens.AccessibilityOnboardingScreen)) return;
+        Minecraft.getInstance().options.onboardAccessibility = false;
         started = true;
         Minecraft mc = Minecraft.getInstance();
         LevelSettings settings = new LevelSettings("frontline_smoke_" + System.currentTimeMillis(), GameType.CREATIVE, false, Difficulty.PEACEFUL, true,
@@ -87,7 +88,12 @@ public final class SmokeTest {
     private static void onTick(ClientTickEvent.Post e) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null || mc.getSingleplayerServer() == null) return;
-        if (t < 0 && mc.screen != null) return;
+        if (t < 0 && mc.screen != null) {
+            // some world-creation dialogs (e.g. a backup / experimental prompt) would block the run; log what is up
+            if (mc.player.tickCount % 100 == 0) LOG.info("FRONTLINE-SMOKE waiting on screen {}", mc.screen.getClass().getName());
+            if (mc.player.tickCount > 200) mc.setScreen(null);
+            return;
+        }
         t++;
         var server = mc.getSingleplayerServer();
         if (t == 1) {
