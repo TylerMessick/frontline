@@ -1,0 +1,108 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Calculating task graph as no cached configuration is available for tasks: build
+
+> Configure project :
+Creating Minecraft artifacts without recompilation.
+
+> Task :jarJar NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :generateModMetadata
+> Task :processResources
+
+> Task :createMinecraftArtifacts
+Loaded 131 artifacts from /home/runner/work/frontline/frontline/build/tmp/createMinecraftArtifacts/nfrt_artifact_manifest.properties
+[1m*** Started working on [4mdownloadJson[23;0m[23;0m
+ [1m[92m✓[23;0m Completed [4mdownloadJson[23;0m in 0.02s
+[1m*** Started working on [4mdownloadClientMappings[23;0m[23;0m
+[1m*** Started working on [4mdownloadClient[23;0m[23;0m
+[1m*** Started working on [4mdownloadServer[23;0m[23;0m
+ [1m[92m✓[23;0m Completed [4mdownloadServer[23;0m in 0.03s
+ [1m[92m✓[23;0m Completed [4mdownloadClientMappings[23;0m in 0.04s
+ [1m[92m✓[23;0m Completed [4mdownloadClient[23;0m in 0.04s
+[1m*** Started working on [4mextractServer[23;0m[23;0m
+[1m*** Started working on [4mstripClient[23;0m[23;0m
+ [1m[92m♻[23;0m Used cache of [4mextractServer[23;0m in 0.00s
+ [1m[92m♻[23;0m Used cache of [4mstripClient[23;0m in 0.00s
+[1m*** Started working on [4mmergeMappings[23;0m[23;0m
+ [1m[92m♻[23;0m Used cache of [4mmergeMappings[23;0m in 0.00s
+[1m*** Started working on [4mstripServer[23;0m[23;0m
+ [1m[92m♻[23;0m Used cache of [4mstripServer[23;0m in 0.00s
+[1m*** Started working on [4mmerge[23;0m[23;0m
+ [1m[92m♻[23;0m Used cache of [4mmerge[23;0m in 0.00s
+[1m*** Started working on [4mrename[23;0m[23;0m
+ [1m[92m♻[23;0m Used cache of [4mrename[23;0m in 0.00s
+[1m*** Started working on [4mbinaryPatch[23;0m[23;0m
+ [1m[92m♻[23;0m Used cache of [4mbinaryPatch[23;0m in 0.00s
+[1m*** Started working on [4mcopyUnpatchedClasses[23;0m[23;0m
+ [1m[92m♻[23;0m Used cache of [4mcopyUnpatchedClasses[23;0m in 0.00s
+[1m*** Started working on [4mapplyDevTransforms[23;0m[23;0m
+ ↳ Running external tool net.neoforged.installertools:installertools:4.0.12:fatjar
+ [1m[92m✓[23;0m Completed [4mapplyDevTransforms[23;0m in 2.10s
+[1m*** Started working on [4mbinaryWithNeoForge[23;0m[23;0m
+ [1m[92m✓[23;0m Completed [4mbinaryWithNeoForge[23;0m in 5.24s
+Total runtime: 8.56s
+
+
+> Task :compileJava
+/home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/entity/Bullet.java:69: error: cannot find symbol
+        Level.ExplosionInteraction mode = level.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_MOB_GRIEFING) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+                                                                                                             ^
+  symbol:   variable RULE_MOB_GRIEFING
+  location: class GameRules
+/home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/client/VehicleModels.java:29: error: cannot find symbol
+        PartDefinition wheel_l3 = track_l.addOrReplaceChild("wheel_l3", CubeListBuilder.create().texOffs(202, 289).addBox(-4.5F, -5F, -5F, 9F, 10F, 10F).texOffs(346, 311).addBox(-5F, -3F, -3F, 10F, 6F, 6F), PartPose.offset(-25F, -7F, camoF));
+                                                                                                                                                                                                                                          ^
+  symbol:   variable camoF
+  location: class VehicleModels
+/home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/client/VehicleModels.java:34: error: cannot find symbol
+        PartDefinition wheel_r3 = track_r.addOrReplaceChild("wheel_r3", CubeListBuilder.create().texOffs(354, 289).addBox(-4.5F, -5F, -5F, 9F, 10F, 10F).texOffs(474, 311).addBox(-5F, -3F, -3F, 10F, 6F, 6F), PartPose.offset(25F, -7F, camoF));
+                                                                                                                                                                                                                                         ^
+  symbol:   variable camoF
+  location: class VehicleModels
+Note: /home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/entity/SoldierEntity.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+3 errors
+
+> Task :compileJava FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1793977169574.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/frontline/frontline/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  Note: /home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/entity/SoldierEntity.java uses or overrides a deprecated API.
+  Note: Recompile with -Xlint:deprecation for details.
+  /home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/entity/Bullet.java:69: error: cannot find symbol
+          Level.ExplosionInteraction mode = level.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_MOB_GRIEFING) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+                                                                                                               ^
+    symbol:   variable RULE_MOB_GRIEFING
+    location: class GameRules
+  /home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/client/VehicleModels.java:29: error: cannot find symbol
+          PartDefinition wheel_l3 = track_l.addOrReplaceChild("wheel_l3", CubeListBuilder.create().texOffs(202, 289).addBox(-4.5F, -5F, -5F, 9F, 10F, 10F).texOffs(346, 311).addBox(-5F, -3F, -3F, 10F, 6F, 6F), PartPose.offset(-25F, -7F, camoF));
+                                                                                                                                                                                                                                            ^
+    symbol:   variable camoF
+    location: class VehicleModels
+  /home/runner/work/frontline/frontline/src/main/java/com/messickmedia/frontline/client/VehicleModels.java:34: error: cannot find symbol
+          PartDefinition wheel_r3 = track_r.addOrReplaceChild("wheel_r3", CubeListBuilder.create().texOffs(354, 289).addBox(-4.5F, -5F, -5F, 9F, 10F, 10F).texOffs(474, 311).addBox(-5F, -3F, -3F, 10F, 6F, 6F), PartPose.offset(25F, -7F, camoF));
+                                                                                                                                                                                                                                           ^
+    symbol:   variable camoF
+    location: class VehicleModels
+  3 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 21s
+4 actionable tasks: 4 executed
+Configuration cache entry stored.
