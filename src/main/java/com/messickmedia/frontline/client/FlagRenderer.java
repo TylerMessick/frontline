@@ -71,7 +71,21 @@ public class FlagRenderer implements BlockEntityRenderer<CommandFlagBlockEntity>
         pose.pushPose();
         pose.translate(1.0F / 16.0F, 24.0F / 16.0F, 0.0F);
         float wind = be.bound() ? 1.0F : 0.4F;
-        for (int i = 0; i < STRIPS; i++) {
+        String design = be.design();
+        if (be.bound() && com.messickmedia.frontline.nation.FlagDesign.valid(design)) {
+            // the painted flag: the same eight waving strips, each showing its two columns of the design
+            VertexConsumer cloth = buffers.getBuffer(RenderType.entityCutoutNoCull(FlagTextures.get(design)));
+            for (int i = 0; i < STRIPS; i++) {
+                float phase = t * 0.18F - i * 0.55F;
+                float amp = 0.9F * wind * (i + 1) / STRIPS;
+                pose.pushPose();
+                pose.translate(i * 2.0F / 16.0F, 0.0F, Mth.sin(phase) * amp / 16.0F);
+                pose.mulPose(Axis.YP.rotationDegrees(-Mth.cos(phase) * amp * 0.55F * 18.0F));
+                FlagTextures.quad(cloth, pose.last(), 0.0F, 1.0F / 16.0F, 2.05F / 16.0F, 11.0F / 16.0F, 0.0F,
+                        i / (float) STRIPS, (i + 1) / (float) STRIPS, 0.0F, 1.0F, light);
+                pose.popPose();
+            }
+        } else for (int i = 0; i < STRIPS; i++) {
             float phase = t * 0.18F - i * 0.55F;
             float amp = 0.9F * wind * (i + 1) / STRIPS;
             float z = Mth.sin(phase) * amp;

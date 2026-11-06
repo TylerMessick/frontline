@@ -30,7 +30,9 @@ public class Nation {
             UUIDUtil.CODEC.listOf().optionalFieldOf("wars", List.of()).forGetter(n -> new ArrayList<>(n.wars)),
             Codec.INT.optionalFieldOf("kills", 0).forGetter(n -> n.kills),
             Codec.INT.optionalFieldOf("recruits", 0).forGetter(n -> n.recruits),
-            Codec.LONG.optionalFieldOf("founded", 0L).forGetter(n -> n.founded)
+            Codec.LONG.optionalFieldOf("founded", 0L).forGetter(n -> n.founded),
+            Codec.STRING.optionalFieldOf("flag", "").forGetter(n -> n.flag),
+            Codec.INT.optionalFieldOf("uniform", 0).forGetter(n -> n.uniform)
     ).apply(i, Nation::new));
 
     public final UUID id;
@@ -42,15 +44,21 @@ public class Nation {
     public final Set<UUID> wars = new HashSet<>();
     public int kills, recruits;
     public long founded;
+    /** Painted flag (see {@link FlagDesign}); empty = plain colour. */
+    public String flag = "";
+    /** Camo issued to recruits: 0 woodland, 1 arctic, 2 black ops. */
+    public int uniform;
 
-    public Nation(UUID id, String name, String army, int color, UUID leader, List<UUID> members, List<Base> bases, List<UUID> wars, int kills, int recruits, long founded) {
+    public Nation(UUID id, String name, String army, int color, UUID leader, List<UUID> members, List<Base> bases, List<UUID> wars, int kills, int recruits, long founded, String flag, int uniform) {
         this.id = id; this.name = name; this.army = army; this.color = color; this.leader = leader;
         this.members.addAll(members); this.bases.addAll(bases); this.wars.addAll(wars);
         this.kills = kills; this.recruits = recruits; this.founded = founded;
+        this.flag = FlagDesign.valid(flag) ? flag : FlagDesign.starter(color);
+        this.uniform = Math.floorMod(uniform, 3);
     }
 
     public Nation(String name, String army, int color, UUID leader, long founded) {
-        this(UUID.randomUUID(), name, army, color, leader, List.of(leader), List.of(), List.of(), 0, 0, founded);
+        this(UUID.randomUUID(), name, army, color, leader, List.of(leader), List.of(), List.of(), 0, 0, founded, "", 0);
     }
 
     public boolean isMember(UUID player) { return members.contains(player); }

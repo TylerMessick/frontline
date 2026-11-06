@@ -22,6 +22,7 @@ public class CommandFlagBlockEntity extends BlockEntity {
     private String nationName = "";
     private String armyName = "";
     private int color = 0x8A1C1C;
+    private String design = "";
     private int syncTimer;
 
     public CommandFlagBlockEntity(BlockPos pos, BlockState state) {
@@ -32,6 +33,7 @@ public class CommandFlagBlockEntity extends BlockEntity {
     public String nationName() { return nationName; }
     public String armyName() { return armyName; }
     public int color() { return color; }
+    public String design() { return design; }
     public boolean bound() { return nationId != null; }
 
     public void bind(Nation n) {
@@ -39,6 +41,7 @@ public class CommandFlagBlockEntity extends BlockEntity {
         this.nationName = n.name;
         this.armyName = n.army;
         this.color = n.color;
+        this.design = n.flag;
         this.setChanged();
         if (this.level != null) this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
     }
@@ -46,8 +49,8 @@ public class CommandFlagBlockEntity extends BlockEntity {
     void serverTick() {
         if (this.nationId == null || !(this.level instanceof ServerLevel sl) || ++this.syncTimer % 60 != 0) return;
         Nation n = NationData.get(sl.getServer()).byId(this.nationId);
-        if (n == null) { this.nationId = null; this.nationName = ""; this.armyName = ""; this.setChanged(); sl.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3); return; }
-        if (!n.name.equals(this.nationName) || n.color != this.color || !n.army.equals(this.armyName)) bind(n);
+        if (n == null) { this.nationId = null; this.nationName = ""; this.armyName = ""; this.design = ""; this.setChanged(); sl.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3); return; }
+        if (!n.name.equals(this.nationName) || n.color != this.color || !n.army.equals(this.armyName) || !n.flag.equals(this.design)) bind(n);
     }
 
     @Override
@@ -57,6 +60,7 @@ public class CommandFlagBlockEntity extends BlockEntity {
         tag.putString("Name", nationName);
         tag.putString("Army", armyName);
         tag.putInt("Color", color);
+        tag.putString("Design", design);
     }
 
     @Override
@@ -66,6 +70,7 @@ public class CommandFlagBlockEntity extends BlockEntity {
         nationName = tag.getString("Name");
         armyName = tag.getString("Army");
         color = tag.contains("Color") ? tag.getInt("Color") : 0x8A1C1C;
+        design = tag.getString("Design");
     }
 
     @Override

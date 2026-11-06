@@ -21,7 +21,8 @@ import java.util.Map;
 /** Draws every vehicle from its generated model and animates turrets, wheels, propellers and rotors. */
 public class VehicleRenderer extends EntityRenderer<VehicleEntity> {
     private final Map<VehicleKind, ModelPart> roots = new EnumMap<>(VehicleKind.class);
-    private final Map<VehicleKind, ResourceLocation> textures = new EnumMap<>(VehicleKind.class);
+    private final Map<VehicleKind, ResourceLocation[]> textures = new EnumMap<>(VehicleKind.class);
+    private static final String[] PAINT_SUFFIX = {"", "_arctic", "_blackops"};
 
     public VehicleRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);
@@ -29,7 +30,11 @@ public class VehicleRenderer extends EntityRenderer<VehicleEntity> {
         roots.put(VehicleKind.PLANE, ctx.bakeLayer(VehicleModels.PLANE));
         roots.put(VehicleKind.HELI, ctx.bakeLayer(VehicleModels.HELI));
         roots.put(VehicleKind.JEEP, ctx.bakeLayer(VehicleModels.JEEP));
-        for (VehicleKind k : VehicleKind.values()) textures.put(k, Frontline.id("textures/entity/" + k.id + ".png"));
+        for (VehicleKind k : VehicleKind.values()) {
+            ResourceLocation[] t = new ResourceLocation[PAINT_SUFFIX.length];
+            for (int i = 0; i < t.length; i++) t[i] = Frontline.id("textures/entity/" + k.id + PAINT_SUFFIX[i] + ".png");
+            textures.put(k, t);
+        }
         this.shadowRadius = 1.2F;
     }
 
@@ -58,7 +63,7 @@ public class VehicleRenderer extends EntityRenderer<VehicleEntity> {
         // thermal goggles: a crewed vehicle's engine runs warm, an empty one is cold steel
         boolean thermal = ClientState.nvMode == 2;
         MultiBufferSource src = thermal ? Goggles.hot(buffers, v.getFirstPassenger() != null ? 190 : 70) : buffers;
-        VertexConsumer vc = src.getBuffer(RenderType.entityCutoutNoCull(textures.get(kind)));
+        VertexConsumer vc = src.getBuffer(RenderType.entityCutoutNoCull(textures.get(kind)[v.paint()]));
         root.render(pose, vc, thermal ? 0xF000F0 : light, OverlayTexture.pack(0.0F, v.hurtTicks() > 0), 0xFFFFFFFF);
         pose.popPose();
         super.render(v, yaw, pt, pose, buffers, light);
@@ -107,6 +112,6 @@ public class VehicleRenderer extends EntityRenderer<VehicleEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(VehicleEntity v) {
-        return textures.get(v.kind());
+        return textures.get(v.kind())[v.paint()];
     }
 }

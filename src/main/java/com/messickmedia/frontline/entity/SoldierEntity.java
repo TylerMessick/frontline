@@ -57,6 +57,9 @@ public class SoldierEntity extends PathfinderMob {
     private static final EntityDataAccessor<Integer> RANK = SynchedEntityData.defineId(SoldierEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ORDER = SynchedEntityData.defineId(SoldierEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> AIMING = SynchedEntityData.defineId(SoldierEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<String> FLAG = SynchedEntityData.defineId(SoldierEntity.class, EntityDataSerializers.STRING);
+    private static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+    private static final String[] ISSUE = {"combat_helmet", "plate_carrier", "combat_pants", "combat_boots"};
 
     public static final String[] RANKS = {"Pvt.", "Cpl.", "Sgt.", "Lt."};
     private static final int[] RANK_KILLS = {0, 3, 8, 15};
@@ -97,6 +100,7 @@ public class SoldierEntity extends PathfinderMob {
         b.define(RANK, 0);
         b.define(ORDER, Order.FOLLOW.ordinal());
         b.define(AIMING, false);
+        b.define(FLAG, "");
     }
 
     @Override
@@ -133,6 +137,8 @@ public class SoldierEntity extends PathfinderMob {
     public int rank() { return this.entityData.get(RANK); }
     public Order order() { return Order.values()[Math.floorMod(this.entityData.get(ORDER), Order.values().length)]; }
     public boolean aiming() { return this.entityData.get(AIMING); }
+    /** The nation's painted flag, worn as a shoulder patch. */
+    public String flag() { return this.entityData.get(FLAG); }
     public boolean armed() { return this.getMainHandItem().getItem() instanceof GunItem; }
     @Nullable public GunInfo gun() { return GunItem.gunOf(this.getMainHandItem()); }
 
@@ -148,13 +154,33 @@ public class SoldierEntity extends PathfinderMob {
             if (b != null) this.homeBase = b.pos();
         }
         this.setOrder(Order.FOLLOW, null);
+        this.entityData.set(FLAG, nation.flag);
+        issueUniform(nation.uniform);
         this.refreshName();
     }
 
     public void refreshNationLook(Nation n) {
         this.entityData.set(NATION_NAME, n.name);
         this.entityData.set(COLOR, n.color);
+        this.entityData.set(FLAG, n.flag);
+        issueUniform(n.uniform);
         this.refreshName();
+    }
+
+    /** Puts the army's issued camo on every empty or already-issued armor slot; gear the player handed over stays. */
+    public void issueUniform(int camo) {
+        String prefix = ModRegistries.CAMO_PREFIX[Math.floorMod(camo, ModRegistries.CAMO_PREFIX.length)];
+        for (int i = 0; i < ARMOR_SLOTS.length; i++) {
+            ItemStack cur = this.getItemBySlot(ARMOR_SLOTS[i]);
+            if (!cur.isEmpty() && !Boolean.TRUE.equals(cur.get(ModRegistries.ISSUED.get()))) continue;
+            var item = ModRegistries.ARMOR.get(prefix + ISSUE[i]);
+            if (item == null) continue;
+            if (!cur.isEmpty() && cur.getItem() == item.get()) continue;
+            ItemStack st = new ItemStack(item.get());
+            st.set(ModRegistries.ISSUED.get(), true);
+            this.setItemSlot(ARMOR_SLOTS[i], st);
+            this.setDropChance(ARMOR_SLOTS[i], 0.0F);
+        }
     }
 
     public void setOrder(Order order, @Nullable BlockPos at) {
@@ -206,6 +232,19 @@ public class SoldierEntity extends PathfinderMob {
         boolean ours = this.nationId != null && this.nationId.equals(side);
         if (!ours) {
             player.displayClientMessage(Component.translatable("msg.frontline.serves", this.getName(), this.nationName()), true);
+            return InteractionResult.CONSUME;
+        }
+        if (held.getItem() instanceof net.minecraft.world.item.ArmorItem armor) {
+            EquipmentSlot slot = armor.getEquipmentSlot();
+            ItemStack old = this.getItemBySlot(slot);
+            this.setItemSlot(slot, held.copyWithCount(1));
+            this.setDropChance(slot, 1.0F);
+            held.shrink(1);
+            if (!old.isEmpty() && !Boolean.TRUE.equals(old.get(ModRegistries.ISSUED.get()))) {
+                if (!player.getInventory().add(old)) player.drop(old, false);
+            }
+            this.playSound(SoundEvents.ARMOR_EQUIP_IRON.value(), 1.0F, 1.0F);
+            player.displayClientMessage(Component.translatable("msg.frontline.armed", this.getName(), this.getItemBySlot(slot).getHoverName()), true);
             return InteractionResult.CONSUME;
         }
         if (held.getItem() instanceof GunItem) {
@@ -265,7 +304,7 @@ public class SoldierEntity extends PathfinderMob {
             NationData d = Nations.data(this.level());
             Nation n = d == null ? null : d.byId(this.nationId);
             if (n == null) { this.nationId = null; this.entityData.set(NATION_NAME, ""); this.refreshName(); }
-            else if (!n.name.equals(this.nationName()) || n.color != this.color()) this.refreshNationLook(n);
+            else if (!n.name.equals(this.nationName()) || n.color != this.color() || !n.flag.equals(this.flag())) this.refreshNationLook(n);
         }
     }
 
@@ -429,6 +468,7 @@ public class SoldierEntity extends PathfinderMob {
         tag.putInt("Rank", rank());
         tag.putInt("Order", order().ordinal());
         tag.putInt("Kills", kills);
+        tag.putString("Flag", flag());
     }
 
     @Override
@@ -444,6 +484,7 @@ public class SoldierEntity extends PathfinderMob {
         this.entityData.set(RANK, tag.getInt("Rank"));
         this.entityData.set(ORDER, tag.getInt("Order"));
         kills = tag.getInt("Kills");
+        this.entityData.set(FLAG, tag.getString("Flag"));
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(24.0D + rank() * 6.0D);
     }
 }

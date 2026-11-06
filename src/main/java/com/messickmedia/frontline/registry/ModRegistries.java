@@ -82,8 +82,14 @@ public final class ModRegistries {
                 List.of(new ArmorMaterial.Layer(Frontline.id(name))), 1.5F, 0.05F));
     }
 
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> TACTICAL = material("tactical");
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> TACTICAL_NVG = material("tactical_nvg");
+    /** Camo schemes shared by armor and vehicle paint: item-id prefix and armor material name. */
+    public static final String[] CAMO_PREFIX = {"", "arctic_", "blackops_"};
+    private static final String[] CAMO_MATERIAL = {"tactical", "arctic", "blackops"};
+    public static final List<DeferredHolder<ArmorMaterial, ArmorMaterial>> ARMOR_MATS = new java.util.ArrayList<>();
+    public static final List<DeferredHolder<ArmorMaterial, ArmorMaterial>> ARMOR_MATS_NVG = new java.util.ArrayList<>();
+    static {
+        for (String m : CAMO_MATERIAL) { ARMOR_MATS.add(material(m)); ARMOR_MATS_NVG.add(material(m + "_nvg")); }
+    }
 
     public static final ResourceKey<DamageType> BULLET_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE, Frontline.id("bullet"));
 
@@ -139,11 +145,34 @@ public final class ModRegistries {
     static {
         for (VehicleKind k : VehicleKind.values()) VEHICLE_ITEMS.put(k, ITEMS.register(k.id, () -> new VehicleItem(k)));
     }
-    public static final DeferredItem<Item> COMBAT_HELMET = ITEMS.register("combat_helmet", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.HELMET, 0.06F, false));
-    public static final DeferredItem<Item> NVG_HELMET = ITEMS.register("nvg_helmet", () -> new TacticalArmorItem(TACTICAL_NVG, ArmorItem.Type.HELMET, 0.06F, true));
-    public static final DeferredItem<Item> PLATE_CARRIER = ITEMS.register("plate_carrier", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.CHESTPLATE, 0.16F, false));
-    public static final DeferredItem<Item> COMBAT_PANTS = ITEMS.register("combat_pants", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.LEGGINGS, 0.06F, false));
-    public static final DeferredItem<Item> COMBAT_BOOTS = ITEMS.register("combat_boots", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.BOOTS, 0.04F, false));
+    /** Every armor piece in every camo, keyed by item id (combat_helmet, arctic_plate_carrier, blackops_nvg_helmet, ...). */
+    public static final Map<String, DeferredItem<Item>> ARMOR = new LinkedHashMap<>();
+    static {
+        for (int i = 0; i < CAMO_PREFIX.length; i++) {
+            final int c = i;
+            String px = CAMO_PREFIX[i];
+            ARMOR.put(px + "combat_helmet", ITEMS.register(px + "combat_helmet", () -> new TacticalArmorItem(ARMOR_MATS.get(c), ArmorItem.Type.HELMET, 0.06F, false)));
+            ARMOR.put(px + "nvg_helmet", ITEMS.register(px + "nvg_helmet", () -> new TacticalArmorItem(ARMOR_MATS_NVG.get(c), ArmorItem.Type.HELMET, 0.06F, true)));
+            ARMOR.put(px + "plate_carrier", ITEMS.register(px + "plate_carrier", () -> new TacticalArmorItem(ARMOR_MATS.get(c), ArmorItem.Type.CHESTPLATE, 0.16F, false)));
+            ARMOR.put(px + "combat_pants", ITEMS.register(px + "combat_pants", () -> new TacticalArmorItem(ARMOR_MATS.get(c), ArmorItem.Type.LEGGINGS, 0.06F, false)));
+            ARMOR.put(px + "combat_boots", ITEMS.register(px + "combat_boots", () -> new TacticalArmorItem(ARMOR_MATS.get(c), ArmorItem.Type.BOOTS, 0.04F, false)));
+        }
+    }
+
+    /** A painted flag (FlagDesign string) on a patch or a sewn-on chest piece, and the nation it belongs to. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FLAG =
+            COMPONENTS.registerComponentType("flag", b -> b.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FLAG_NATION =
+            COMPONENTS.registerComponentType("flag_nation", b -> b.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
+    /** Gear handed out to a recruit by the army (swapped when the uniform changes, never dropped). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> ISSUED =
+            COMPONENTS.registerComponentType("issued", b -> b.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
+    public static final DeferredItem<Item> BLANK_PATCH = ITEMS.register("blank_patch", () -> new com.messickmedia.frontline.item.PatchItem(true));
+    public static final DeferredItem<Item> NATION_PATCH = ITEMS.register("nation_patch", () -> new com.messickmedia.frontline.item.PatchItem(false));
+
+    /** Paint scheme stored on a vehicle item: 0 woodland, 1 arctic, 2 black ops. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> PAINT =
+            COMPONENTS.registerComponentType("paint", b -> b.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
     public static final DeferredItem<Item> ENLISTMENT_PAPERS = ITEMS.register("enlistment_papers", EnlistmentPapersItem::new);
     public static final DeferredItem<Item> COMMAND_BATON = ITEMS.register("command_baton", CommandBatonItem::new);
     public static final DeferredItem<BlockItem> COMMAND_FLAG_ITEM = ITEMS.registerSimpleBlockItem("command_flag", COMMAND_FLAG);
@@ -176,12 +205,13 @@ public final class ModRegistries {
                 for (DeferredItem<GunItem> g : GUNS.values()) out.accept(g.get().getDefaultInstance());
                 for (DeferredItem<AmmoItem> a : AMMO_ITEMS.values()) out.accept(a.get());
                 out.accept(GUN_PARTS.get());
-                out.accept(COMBAT_HELMET.get()); out.accept(NVG_HELMET.get()); out.accept(PLATE_CARRIER.get());
-                out.accept(COMBAT_PANTS.get()); out.accept(COMBAT_BOOTS.get());
+                for (DeferredItem<Item> a : ARMOR.values()) out.accept(a.get());
+                out.accept(BLANK_PATCH.get());
                 out.accept(ENLISTMENT_PAPERS.get());
                 out.accept(COMMAND_BATON.get());
                 out.accept(COMMAND_FLAG_ITEM.get());
-                for (DeferredItem<Item> v : VEHICLE_ITEMS.values()) out.accept(v.get());
+                for (int paint = 0; paint < CAMO_PREFIX.length; paint++)
+                    for (DeferredItem<Item> v : VEHICLE_ITEMS.values()) { ItemStack st = new ItemStack(v.get()); st.set(PAINT.get(), paint); out.accept(st); }
             }).build());
 
     public static void attributes(EntityAttributeCreationEvent e) {

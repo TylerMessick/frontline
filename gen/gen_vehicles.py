@@ -315,16 +315,31 @@ MATS = {
 }
 
 
+PAINTS = {
+    # suffix: (camo base, camo spots, colour used for 'dark' and 'olive' trim parts)
+    '': (0x5A6239, [0x3C4229, 0x8A7F58], 0x3C4229, 0x4F5A36),
+    '_arctic': (0xD5DADC, [0xA7AFB3, 0xEEF1F2, 0x8E979C], 0x737C81, 0xB9C0C3),
+    '_blackops': (0x2B2D30, [0x1E1F22, 0x383B3F], 0x18191B, 0x232528),
+}
+
+
 def textures(packed):
     olive, dark, sand = rgb(0x5A6239), rgb(0x3C4229), rgb(0x8A7F58)
     out = os.path.join(ASSETS, 'textures', 'entity')
     os.makedirs(out, exist_ok=True)
-    for vid, parts in packed.items():
+    for suffix, (base, spots, trim, oliv) in PAINTS.items():
+        for vid, parts in packed.items():
+            paint_vehicle(out, vid + suffix, parts, rgb(base), [rgb(c) for c in spots], rgb(trim), rgb(oliv))
+    _icons(olive)
+
+
+def paint_vehicle(out, name, parts, base, spots, trim, oliv):
+    if True:
         img = Image.new('RGBA', (TEX_W, TEX_H), (0, 0, 0, 0))
-        camo(img, 0, 0, TEX_W, TEX_H, olive, [dark, sand])
+        camo(img, 0, 0, TEX_W, TEX_H, base, spots)
         for p in parts:
             for (x, y, z, w, h, d, u, v, inf, mat) in p.cubes:
-                col = MATS[mat]
+                col = trim if mat == 'dark' else oliv if mat == 'olive' else MATS[mat]
                 fw, fh = int(2 * (w + d) + 0.999), int(d + h + 0.999)
                 if col is not None:
                     paint(img, u, v, u + fw, v + fh, col, 4 if mat in ('glass', 'black') else 7)
@@ -332,8 +347,10 @@ def textures(packed):
                     for yy in range(v, v + fh, 2): paint(img, u, yy, u + fw, yy + 1, rgb(0x141612), 0)
                 if mat == 'glass':
                     for i in range(0, fw, 6): paint(img, u + i, v, u + i + 1, v + fh, rgb(0xB8DCF4), 2)
-        img.save(os.path.join(out, f'{vid}.png'))
-    # item icons
+        img.save(os.path.join(out, f'{name}.png'))
+
+
+def _icons(olive):
     itm = os.path.join(ASSETS, 'textures', 'item')
     steel, rubber, glass, black = MATS['steel'], MATS['rubber'], MATS['glass'], MATS['black']
     icons = {

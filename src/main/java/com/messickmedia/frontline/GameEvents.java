@@ -129,6 +129,10 @@ public final class GameEvents {
                 .then(Commands.literal("war").then(Commands.argument("name", StringArgumentType.greedyString()).executes(c -> war(c, true))))
                 .then(Commands.literal("peace").then(Commands.argument("name", StringArgumentType.greedyString()).executes(c -> war(c, false))))
                 .then(Commands.literal("recall").executes(GameEvents::recall))
+                .then(Commands.literal("flag").executes(GameEvents::openPainter))
+                .then(Commands.literal("uniform").then(Commands.argument("camo", StringArgumentType.word())
+                        .suggests((c, b) -> net.minecraft.commands.SharedSuggestionProvider.suggest(new String[]{"woodland", "arctic", "blackops"}, b))
+                        .executes(GameEvents::uniform)))
                 .then(Commands.literal("disband").executes(GameEvents::disband)));
     }
 
@@ -293,6 +297,47 @@ public final class GameEvents {
         data.remove(n.id);
         c.getSource().getServer().getPlayerList().broadcastSystemMessage(Component.translatable("msg.frontline.disbanded", n.name).withStyle(ChatFormatting.GRAY), false);
         for (ServerPlayer sp : c.getSource().getServer().getPlayerList().getPlayers()) syncNation(sp, true);
+        return 1;
+    }
+
+    private static int openPainter(CommandContext<CommandSourceStack> c) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        ServerPlayer p = c.getSource().getPlayerOrException();
+        Nation n = mine(c);
+        if (n == null) return 0;
+        if (!n.isLeader(p.getUUID())) { c.getSource().sendFailure(Component.translatable("msg.frontline.leader_only")); return 0; }
+        openPainter(p, n);
+        return 1;
+    }
+
+    public static void openPainter(ServerPlayer p, Nation n) {
+        PacketDistributor.sendToPlayer(p, new ModNetwork.OpenFlagPainter(n.name, n.flag));
+    }
+
+    /** The painter's Save: only the leader may change the flag. */
+    public static void saveFlag(ServerPlayer p, String design) {
+        if (!com.messickmedia.frontline.nation.FlagDesign.valid(design)) return;
+        NationData data = NationData.get(p.getServer());
+        Nation n = data.ofPlayer(p.getUUID());
+        if (n == null || !n.isLeader(p.getUUID())) { p.displayClientMessage(Component.translatable("msg.frontline.leader_only").withStyle(ChatFormatting.RED), true); return; }
+        n.flag = design;
+        data.setDirty();
+        for (ServerLevel level : p.getServer().getAllLevels()) refreshSoldiers(level, n);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.VILLAGER_WORK_CARTOGRAPHER, SoundSource.PLAYERS, 1.0F, 1.0F);
+        p.displayClientMessage(Component.translatable("msg.frontline.flag_saved", n.name).withStyle(ChatFormatting.GOLD), false);
+    }
+
+    private static int uniform(CommandContext<CommandSourceStack> c) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        ServerPlayer p = c.getSource().getPlayerOrException();
+        Nation n = mine(c);
+        if (n == null) return 0;
+        if (!n.isLeader(p.getUUID())) { c.getSource().sendFailure(Component.translatable("msg.frontline.leader_only")); return 0; }
+        String camo = StringArgumentType.getString(c, "camo").toLowerCase();
+        int u = switch (camo) { case "woodland" -> 0; case "arctic" -> 1; case "blackops", "black" -> 2; default -> -1; };
+        if (u < 0) { c.getSource().sendFailure(Component.translatable("msg.frontline.bad_uniform")); return 0; }
+        n.uniform = u;
+        NationData.get(c.getSource().getServer()).setDirty();
+        for (ServerLevel level : c.getSource().getServer().getAllLevels()) refreshSoldiers(level, n);
+        c.getSource().sendSuccess(() -> Component.translatable("msg.frontline.uniform_set", Component.translatable("camo.frontline." + u)), false);
         return 1;
     }
 

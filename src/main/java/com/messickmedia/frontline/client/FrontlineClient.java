@@ -65,6 +65,7 @@ public class FrontlineClient {
         modBus.addListener(FrontlineClient::particles);
         modBus.addListener(FrontlineClient::renderers);
         modBus.addListener(FrontlineClient::layerDefinitions);
+        modBus.addListener(FrontlineClient::addLayers);
         modBus.addListener(FrontlineClient::hud);
         modBus.addListener(FrontlineClient::extensions);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::tick);
@@ -76,11 +77,12 @@ public class FrontlineClient {
         NeoForge.EVENT_BUS.addListener(Goggles::levelStage);
         NeoForge.EVENT_BUS.addListener(Goggles::renderLiving);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::interactionKey);
-        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> ClientState.clear());
+        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> { ClientState.clear(); FlagTextures.clear(); });
 
         ModNetwork.ClientSink.gun = ClientState::accept;
         ModNetwork.ClientSink.nation = ClientState::accept;
         ModNetwork.ClientSink.armory = ClientState::accept;
+        ModNetwork.ClientSink.painter = p -> Minecraft.getInstance().setScreen(new FlagPainterScreen(p.nation(), p.design()));
         VehicleEntity.clientJumpHook = e -> e == Minecraft.getInstance().player && Minecraft.getInstance().options.keyJump.isDown();
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.client.event.RenderPlayerEvent.Pre e) -> { if (e.getEntity().getVehicle() instanceof VehicleEntity) e.setCanceled(true); });
         ModNetwork.ClientSink.hit = FrontlineClient::hitMark;
@@ -116,6 +118,13 @@ public class FrontlineClient {
         e.registerLayerDefinition(VehicleModels.PLANE, VehicleModels::plane);
         e.registerLayerDefinition(VehicleModels.HELI, VehicleModels::heli);
         e.registerLayerDefinition(VehicleModels.JEEP, VehicleModels::jeep);
+    }
+
+    /** Shoulder patches on every player model. */
+    static void addLayers(EntityRenderersEvent.AddLayers e) {
+        for (net.minecraft.client.resources.PlayerSkin.Model skin : e.getSkins()) {
+            if (e.getSkin(skin) instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer r) r.addLayer(new PatchLayer<>(r));
+        }
     }
 
     static void hud(RegisterGuiLayersEvent e) {

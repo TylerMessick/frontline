@@ -42,6 +42,8 @@ public class VehicleEntity extends Entity {
     private static final EntityDataAccessor<Float> TURRET_PITCH = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> HURT = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> FIRED = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PAINT = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.INT);
+    public static final int PAINTS = 3;
 
     /** Set by the client: whether this (local) driver is holding jump, since the input field is only set from packets on the server. */
     public static java.util.function.Predicate<LivingEntity> clientJumpHook = e -> false;
@@ -73,6 +75,15 @@ public class VehicleEntity extends Entity {
     public float speed() { return speed; }
     public int hurtTicks() { return this.entityData.get(HURT); }
     public int firedTicks() { return this.entityData.get(FIRED); }
+    public int paint() { return Math.floorMod(this.entityData.get(PAINT), PAINTS); }
+    public void setPaint(int p) { this.entityData.set(PAINT, Math.floorMod(p, PAINTS)); }
+
+    /** The vehicle as an item, keeping its paint. */
+    public ItemStack asItem() {
+        ItemStack st = new ItemStack(ModRegistries.VEHICLE_ITEMS.get(kind).get());
+        st.set(ModRegistries.PAINT.get(), paint());
+        return st;
+    }
     public int primaryCd() { return primaryCd; }
     public int secondaryCd() { return secondaryCd; }
 
@@ -84,6 +95,7 @@ public class VehicleEntity extends Entity {
         b.define(TURRET_PITCH, 0.0F);
         b.define(HURT, 0);
         b.define(FIRED, 0);
+        b.define(PAINT, 0);
     }
 
     // ---------------------------------------------------------------- riding
@@ -93,8 +105,20 @@ public class VehicleEntity extends Entity {
         if (player.isSecondaryUseActive()) {
             // sneak + use with an empty hand packs the vehicle up
             if (!this.level().isClientSide && player.getItemInHand(hand).isEmpty() && this.getPassengers().isEmpty()) {
-                this.spawnAtLocation(new ItemStack(ModRegistries.VEHICLE_ITEMS.get(kind).get()));
+                this.spawnAtLocation(asItem());
                 this.discard();
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        // repaint with dye: green = woodland, white = arctic, black = black ops
+        ItemStack held = player.getItemInHand(hand);
+        int paintTo = held.is(net.minecraft.world.item.Items.GREEN_DYE) ? 0 : held.is(net.minecraft.world.item.Items.WHITE_DYE) ? 1 : held.is(net.minecraft.world.item.Items.BLACK_DYE) ? 2 : -1;
+        if (paintTo >= 0) {
+            if (!this.level().isClientSide && paintTo != paint()) {
+                setPaint(paintTo);
+                if (!player.getAbilities().instabuild) held.shrink(1);
+                this.playSound(SoundEvents.DYE_USE, 1.0F, 0.8F);
+                if (this.level() instanceof ServerLevel sl) sl.sendParticles(net.minecraft.core.particles.ParticleTypes.CLOUD, this.getX(), this.getY() + 1.0, this.getZ(), 20, kind.width * 0.4, 0.5, kind.width * 0.4, 0.01);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
@@ -431,12 +455,14 @@ public class VehicleEntity extends Entity {
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
         if (tag.contains("Health")) this.entityData.set(HEALTH, tag.getFloat("Health"));
+        setPaint(tag.getInt("Paint"));
         this.entityData.set(KIND, kind.ordinal());
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         tag.putFloat("Health", health());
+        tag.putInt("Paint", paint());
     }
 
     @Override
@@ -446,6 +472,6 @@ public class VehicleEntity extends Entity {
 
     @Override
     public ItemStack getPickResult() {
-        return new ItemStack(ModRegistries.VEHICLE_ITEMS.get(kind).get());
+        return asItem();
     }
 }

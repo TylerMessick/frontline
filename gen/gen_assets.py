@@ -284,11 +284,24 @@ def models():
 
 
 # ---------------------------------------------------------------- tactical armor (vanilla armor layers, 64x32)
+ARMOR_VARIANTS = {
+    # prefix: (material name, camo base, camo spots, dark trim, pouch/khaki, boot, belt)
+    '': ('tactical', 0x5A6239, [0x474E2C, 0x7A7452, 0x3A3F26], 0x2E3322, 0x7A7452, 0x2A2017, 0x4A3524),
+    'arctic_': ('arctic', 0xD9DDDF, [0xB4BCC0, 0xEEF1F2, 0x9AA3A8], 0x6E777C, 0xC8CBC2, 0x4B5257, 0x7C8388),
+    'blackops_': ('blackops', 0x2A2C2F, [0x1E1F22, 0x36393D, 0x232528], 0x141517, 0x3B3E42, 0x121214, 0x1B1C1E),
+}
+
+
 def armor():
+    for prefix, pal in ARMOR_VARIANTS.items():
+        armor_variant(prefix, *pal)
+
+
+def armor_variant(prefix, matname, base, spots, dark_, khaki_, boot_, belt_):
     out = ensure(os.path.join(TEX, 'models', 'armor'))
-    camo_base, camo_spots = rgb(0x5A6239), [rgb(0x474E2C), rgb(0x7A7452), rgb(0x3A3F26)]
-    dark, black, khaki = rgb(0x2E3322), rgb(0x1A1A1C), rgb(0x7A7452)
-    boot, lens = rgb(0x2A2017), rgb(0x3CFF6A)
+    camo_base, camo_spots = rgb(base), [rgb(c) for c in spots]
+    dark, black, khaki = rgb(dark_), rgb(0x1A1A1C), rgb(khaki_)
+    boot, lens = rgb(boot_), rgb(0x3CFF6A)
 
     def faces(img, u, v, w, h, d, rows, painter):
         """Paint the given rows (0..h) of every side face of a cube unwrapped at (u, v)."""
@@ -298,7 +311,7 @@ def armor():
     def cam(img, x0, y0, x1, y1):
         camo(img, x0, y0, x1, y1, camo_base, camo_spots, 5)
 
-    for variant in ('tactical', 'tactical_nvg'):
+    for variant in (matname, matname + '_nvg'):
         l1 = Image.new('RGBA', (64, 32), (0, 0, 0, 0))
         # helmet: crown, sides down to the ear, a short brim at the front, dark rim line
         cam(l1, 8, 0, 16, 8)
@@ -306,7 +319,7 @@ def armor():
         for fx in (0, 8, 16, 24):
             fill(l1, fx, 12, fx + 8, 13, dark)
         fill(l1, 0, 13, 2, 16, black); fill(l1, 22, 13, 24, 16, black)      # chin strap
-        if variant == 'tactical_nvg':
+        if variant.endswith('_nvg'):
             # goggles on the outer (hat) layer so they stand proud of the face; mount on the brow
             fill(l1, 40 + 0, 8 + 3, 40 + 8, 8 + 6, rgb(0x26282C), 3)
             fill(l1, 40 + 1, 8 + 4, 40 + 3, 8 + 6, lens); fill(l1, 40 + 5, 8 + 4, 40 + 7, 8 + 6, lens)
@@ -344,13 +357,14 @@ def armor():
         fill(l2, 4, 24, 8, 26, black)                                        # knee pad front
         fill(l2, 0, 25, 4, 28, rgb(0x474E2C)); fill(l2, 8, 25, 12, 28, rgb(0x474E2C))   # cargo pockets
         faces(l2, 16, 16, 8, 12, 4, (8, 12), cam)
-        faces(l2, 16, 16, 8, 12, 4, (9, 11), lambda im, a, b, c, d: fill(im, a, b, c, d, rgb(0x4A3524), 4))
+        faces(l2, 16, 16, 8, 12, 4, (9, 11), lambda im, a, b, c, d: fill(im, a, b, c, d, rgb(belt_), 4))
         fill(l2, 23, 29, 25, 31, rgb(0x9A8A4A))                              # buckle
         l2.save(os.path.join(out, f'{variant}_layer_2.png'))
 
     itm = os.path.join(TEX, 'item')
 
     def icon(name, rects):
+        name = prefix + name
         img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
         for (x0, y0, x1, y1, c) in rects:
             if c == 'camo':
@@ -366,7 +380,7 @@ def armor():
     icon('nvg_helmet', helmet + [(5, 1, 11, 3, black), (4, 8, 12, 11, rgb(0x26282C)), (5, 9, 7, 11, lens), (9, 9, 11, 11, lens)])
     icon('plate_carrier', [(3, 2, 13, 14, 'camo'), (3, 2, 5, 4, dark), (11, 2, 13, 4, dark), (5, 4, 11, 5, khaki),
                            (4, 9, 6, 13, khaki), (7, 9, 9, 13, khaki), (10, 9, 12, 13, khaki), (3, 13, 13, 14, dark)])
-    icon('combat_pants', [(3, 1, 13, 4, rgb(0x4A3524)), (3, 3, 7, 15, 'camo'), (9, 3, 13, 15, 'camo'), (3, 8, 7, 10, black), (9, 8, 13, 10, black)])
+    icon('combat_pants', [(3, 1, 13, 4, rgb(belt_)), (3, 3, 7, 15, 'camo'), (9, 3, 13, 15, 'camo'), (3, 8, 7, 10, black), (9, 8, 13, 10, black)])
     icon('combat_boots', [(2, 8, 7, 13, boot), (9, 8, 14, 13, boot), (1, 12, 7, 14, black), (9, 12, 15, 14, black), (3, 8, 6, 9, rgb(0x6B5A3E)), (10, 8, 13, 9, rgb(0x6B5A3E))])
 
 

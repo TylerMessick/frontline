@@ -121,6 +121,10 @@ public class CommandFlagBlock extends BaseEntityBlock {
             else if (mine != null) { mine.bases.add(new Nation.Base(sl.dimension().location().toString(), pos.immutable())); data.setDirty(); be.bind(mine); }
             return InteractionResult.CONSUME;
         }
+        if (player.isShiftKeyDown() && n.isLeader(player.getUUID()) && player instanceof ServerPlayer sp) {
+            com.messickmedia.frontline.GameEvents.openPainter(sp, n);
+            return InteractionResult.CONSUME;
+        }
         int soldiers = Nations.soldierCount(sl, n.id);
         player.displayClientMessage(Component.translatable("msg.frontline.flag_info", Component.literal(n.name).withColor(n.textColor()), n.army, soldiers, n.bases.size(), n.members.size(), n.kills), false);
         return InteractionResult.CONSUME;

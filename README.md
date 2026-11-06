@@ -39,6 +39,20 @@ goggles: press **N** to cycle night vision → thermal → off.
 - Night vision: green phosphor image with grain, scanlines and a binocular mask; the dark becomes readable.
 - Thermal: terrain goes cold purple, living things glow yellow-white (undead read cold), crewed vehicles run warm.
 
+### Camo variants, recruits' uniforms
+
+Every armor piece comes in **Woodland**, **Arctic** (craft with white dye) and **Black Ops** (black dye). Recruits are
+issued a full set in their army's camo (`/nation uniform woodland|arctic|blackops`); issued gear is never dropped.
+Right-click a soldier with any armor piece to hand it over; it replaces the issued piece in that slot.
+Vehicles also come in all three paints: right-click one with green, white or black dye to repaint it.
+
+### Paint your own flag
+
+The nation leader sneak + right-clicks a Command Flag (or runs `/nation flag`) to open the flag painter: a 16x10
+grid, the 16 dye colours, fill, mirror, undo and starter layouts. The design flies on every Command Flag of the
+nation. **Blank Patches** (leather + string) used in the air are stamped with your flag; use the **Nation Patch**
+while wearing chest armor to sew it onto your left shoulder. Soldiers wear their nation's patch automatically.
+
 ## Weapon wheel
 
 Hold **G** to open the wheel: eight slots for guns, separate from your inventory. Point at a slot and release to draw

@@ -18,7 +18,12 @@ public class SoldierRenderer extends HumanoidMobRenderer<SoldierEntity, SoldierM
 
     public SoldierRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new SoldierModel(ctx.bakeLayer(SoldierModel.LAYER)), 0.5F);
+        this.addLayer(new net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer<>(this,
+                new net.minecraft.client.model.HumanoidArmorModel<>(ctx.bakeLayer(net.minecraft.client.model.geom.ModelLayers.PLAYER_INNER_ARMOR)),
+                new net.minecraft.client.model.HumanoidArmorModel<>(ctx.bakeLayer(net.minecraft.client.model.geom.ModelLayers.PLAYER_OUTER_ARMOR)),
+                ctx.getModelManager()));
         this.addLayer(new BandLayer(this));
+        this.addLayer(new PatchLayer<>(this));
     }
 
     @Override
@@ -41,7 +46,7 @@ public class SoldierRenderer extends HumanoidMobRenderer<SoldierEntity, SoldierM
 
         @Override
         public void render(PoseStack pose, MultiBufferSource buffers, int light, SoldierEntity e, float limbSwing, float limbSwingAmount, float pt, float age, float yaw, float pitch) {
-            if (e.isInvisible()) return;
+            if (e.isInvisible() || !e.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty()) return;
             var model = this.getParentModel();
             model.band.visible = true;
             model.band.copyFrom(model.rightArm);

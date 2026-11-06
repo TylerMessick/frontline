@@ -62,5 +62,9 @@ public class SoldierModel extends HumanoidModel<SoldierEntity> {
             this.leftArm.zRot = 0.0F;
         }
         this.band.copyFrom(this.rightArm);
+        // the drawn-on helmet rim would poke through a real helmet
+        this.head.getChild("rim").visible = e.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).isEmpty();
+        // the armband is drawn (tinted) only by its own layer
+        this.band.visible = false;
     }
 }

@@ -70,6 +70,13 @@ public final class ModNetwork {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
 
+    /** The flag painter's Save button. */
+    public record SaveFlag(String design) implements CustomPacketPayload {
+        public static final Type<SaveFlag> TYPE = new Type<>(Frontline.id("save_flag"));
+        public static final StreamCodec<ByteBuf, SaveFlag> CODEC = ByteBufCodecs.stringUtf8(200).map(SaveFlag::new, SaveFlag::design);
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
+
     /** Goggles mode: 0 off, 1 night vision, 2 thermal. */
     public record Goggles(int mode) implements CustomPacketPayload {
         public static final Type<Goggles> TYPE = new Type<>(Frontline.id("goggles"));
@@ -101,6 +108,13 @@ public final class ModNetwork {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
 
+    /** Opens the flag painter with the nation's current design. */
+    public record OpenFlagPainter(String nation, String design) implements CustomPacketPayload {
+        public static final Type<OpenFlagPainter> TYPE = new Type<>(Frontline.id("open_flag_painter"));
+        public static final StreamCodec<ByteBuf, OpenFlagPainter> CODEC = StreamCodec.composite(ByteBufCodecs.stringUtf8(64), OpenFlagPainter::nation, ByteBufCodecs.stringUtf8(200), OpenFlagPainter::design, OpenFlagPainter::new);
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
+
     public record OpenNationScreen(BlockPos pos) implements CustomPacketPayload {
         public static final Type<OpenNationScreen> TYPE = new Type<>(Frontline.id("open_nation"));
         public static final StreamCodec<FriendlyByteBuf, OpenNationScreen> CODEC = StreamCodec.of((buf, p) -> buf.writeBlockPos(p.pos), buf -> new OpenNationScreen(buf.readBlockPos()));
@@ -126,6 +140,7 @@ public final class ModNetwork {
         public static Consumer<OpenNationScreen> open = s -> {};
         public static Consumer<NationSync> nation = s -> {};
         public static Consumer<ArmorySync> armory = s -> {};
+        public static Consumer<OpenFlagPainter> painter = s -> {};
     }
 
     public static void register(RegisterPayloadHandlersEvent event) {
@@ -136,6 +151,8 @@ public final class ModNetwork {
         r.playToServer(FoundNation.TYPE, FoundNation.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GameEvents.foundNation(sp, p); });
         r.playToServer(VehicleFire.TYPE, VehicleFire.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp && sp.getVehicle() instanceof VehicleEntity v) v.fire(sp, p.primary(), new Vec3(p.x(), p.y(), p.z())); });
         r.playToServer(Goggles.TYPE, Goggles.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) sp.getData(ModRegistries.TROOPER).nvMode = Math.max(0, Math.min(2, p.mode())); });
+        r.playToServer(SaveFlag.TYPE, SaveFlag.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GameEvents.saveFlag(sp, p.design()); });
+        r.playToClient(OpenFlagPainter.TYPE, OpenFlagPainter.CODEC, (s, ctx) -> ClientSink.painter.accept(s));
         r.playToServer(ArmoryAction.TYPE, ArmoryAction.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GunLogic.armory(sp, p.action(), p.slot()); });
         r.playToClient(ArmorySync.TYPE, ArmorySync.CODEC, (s, ctx) -> ClientSink.armory.accept(s));
         r.playToClient(GunSync.TYPE, GunSync.CODEC, (s, ctx) -> ClientSink.gun.accept(s));

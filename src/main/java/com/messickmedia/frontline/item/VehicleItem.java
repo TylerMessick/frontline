@@ -35,6 +35,7 @@ public class VehicleItem extends Item {
         VehicleEntity v = new VehicleEntity(ModRegistries.VEHICLES.get(kind).get(), level, kind);
         v.setPos(at.getX() + 0.5D, at.getY(), at.getZ() + 0.5D);
         v.setYRot(player == null ? 0 : player.getYRot());
+        v.setPaint(ctx.getItemInHand().getOrDefault(ModRegistries.PAINT.get(), 0));
         if (!level.noCollision(v, v.getBoundingBox().inflate(-0.1D))) {
             if (player != null) player.displayClientMessage(Component.translatable("msg.frontline.no_room").withStyle(ChatFormatting.RED), true);
             return InteractionResult.FAIL;
@@ -45,9 +46,16 @@ public class VehicleItem extends Item {
     }
 
     @Override
+    public Component getName(ItemStack stack) {
+        int paint = stack.getOrDefault(ModRegistries.PAINT.get(), 0);
+        return paint == 0 ? super.getName(stack) : Component.translatable("paint.frontline." + paint, super.getName(stack));
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, TooltipContext ctx, List<Component> tip, TooltipFlag flag) {
         tip.add(Component.translatable("vehicle.frontline." + kind.id + ".desc").withStyle(ChatFormatting.GRAY));
         tip.add(Component.translatable("vehicle.frontline.controls").withStyle(ChatFormatting.DARK_GRAY));
+        tip.add(Component.translatable("vehicle.frontline.paint_tip").withStyle(ChatFormatting.DARK_GRAY));
     }
 
 }

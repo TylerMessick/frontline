@@ -35,8 +35,10 @@ for line in open(os.path.join(ROOT, 'src', 'main', 'java', 'com', 'messickmedia'
 vehicles = json.load(open(os.path.join(os.path.dirname(__file__), 'vehicles_spec.json')))
 icons = {g['id']: b64(os.path.join(ASSETS, 'textures', 'item', f"{g['id']}_icon.png")) for g in spec['guns']}
 textures = {
-    'armor1': b64(os.path.join(ASSETS, 'textures', 'models', 'armor', 'tactical_nvg_layer_1.png')),
-    'armor2': b64(os.path.join(ASSETS, 'textures', 'models', 'armor', 'tactical_nvg_layer_2.png')),
+    **{f'armor{l}_{v}': b64(os.path.join(ASSETS, 'textures', 'models', 'armor', f'{v}_layer_{l}.png'))
+       for v in ('tactical', 'tactical_nvg', 'arctic', 'arctic_nvg', 'blackops', 'blackops_nvg') for l in (1, 2)},
+    **{f'{vid}{sfx}': b64(os.path.join(ASSETS, 'textures', 'entity', f'{vid}{sfx}.png'))
+       for vid in ('tank', 'plane', 'heli', 'jeep') for sfx in ('_arctic', '_blackops')},
     'tank': b64(os.path.join(ASSETS, 'textures', 'entity', 'tank.png')),
     'plane': b64(os.path.join(ASSETS, 'textures', 'entity', 'plane.png')),
     'heli': b64(os.path.join(ASSETS, 'textures', 'entity', 'heli.png')),
@@ -85,7 +87,9 @@ const ICONS = __ICONS__;
 
 const loader = new THREE.TextureLoader();
 function tex(uri) { const t = loader.load(uri); t.magFilter = THREE.NearestFilter; t.minFilter = THREE.NearestFilter; return t; }
-const T = { atlas: tex(TEX.atlas), soldier: tex(TEX.soldier), flag: tex(TEX.flag), pole: tex(TEX.pole), tank: tex(TEX.tank), armor1: tex(TEX.armor1), armor2: tex(TEX.armor2), plane: tex(TEX.plane), heli: tex(TEX.heli), jeep: tex(TEX.jeep) };
+const T = {};
+for (const k in TEX) T[k] = tex(TEX[k]);
+Object.assign(T, { atlas: tex(TEX.atlas), soldier: tex(TEX.soldier), flag: tex(TEX.flag), pole: tex(TEX.pole), tank: tex(TEX.tank), plane: tex(TEX.plane), heli: tex(TEX.heli), jeep: tex(TEX.jeep) });
 const MAT = {};
 function mat(name, opts) {
   const key = name + JSON.stringify(opts || {});
@@ -326,7 +330,8 @@ function showFlag() {
 }
 
 // vehicles: the generated part tree (entity model space, y down), animated like VehicleRenderer
-function vehicleModel(vid) {
+function vehicleModel(vid, sfx) {
+  sfx = sfx || '';
   const spec = VEHICLES[vid];
   const parts = {};
   const rig = new THREE.Group();
@@ -334,7 +339,7 @@ function vehicleModel(vid) {
     const g = new THREE.Group();
     g.position.set(p.pivot[0], p.pivot[1], p.pivot[2]);
     g.rotation.set(p.rot[0], p.rot[1], p.rot[2]);
-    for (const c of p.cubes) g.add(mcCube(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], 512, 512, mat(vid), c[8] || 0));
+    for (const c of p.cubes) g.add(mcCube(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], 512, 512, mat(vid + sfx), c[8] || 0));
     parts[p.name] = g;
     (p.parent ? parts[p.parent] : rig).add(g);
   }
@@ -365,24 +370,56 @@ function showVehicle(vid) {
 }
 
 // armor on a player: vanilla armor layers inflated around the body, so nothing clips through
-function showArmor() {
-  clear(); mode = 'turntable';
+// a demo painted flag (16x10, same palette as the mod) for the patch
+const PAL = [0xF9FFFE,0xF9801D,0xC74EBD,0x3AB3DA,0xFED83D,0x80C71F,0xF38BAA,0x474F52,0x9D9D97,0x169C9C,0x8932B8,0x3C44AA,0x835432,0x5E7C16,0xB02E26,0x1D1D21];
+function flagTexture(design) {
+  const c = document.createElement('canvas'); c.width = 16; c.height = 10;
+  const g = c.getContext('2d');
+  for (let i = 0; i < 160; i++) { g.fillStyle = '#' + PAL[parseInt(design[i], 16)].toString(16).padStart(6, '0'); g.fillRect(i % 16, Math.floor(i / 16), 1, 1); }
+  const t = new THREE.CanvasTexture(c); t.magFilter = THREE.NearestFilter; t.minFilter = THREE.NearestFilter; return t;
+}
+let demo = '';
+for (let y = 0; y < 10; y++) for (let x = 0; x < 16; x++) demo += (x >= 4 && x <= 5) || (y >= 4 && y <= 5) ? '4' : 'b';
+const DEMO_FLAG = flagTexture(demo);
+
+function armoredFigure(variant, nvg) {
   const S = (x, y, z, w, h, d, u, v, inf) => mcCube(x, y, z, w, h, d, u, v, 128, 64, mat('soldier'), inf || 0);
-  const A1 = (x, y, z, w, h, d, u, v, inf) => mcCube(x, y, z, w, h, d, u, v, 64, 32, mat('armor1'), inf);
-  const A2 = (x, y, z, w, h, d, u, v, inf) => mcCube(x, y, z, w, h, d, u, v, 64, 32, mat('armor2'), inf);
+  const m1 = 'armor1_' + variant, m1h = 'armor1_' + variant + (nvg ? '_nvg' : ''), m2 = 'armor2_' + variant;
+  const A1 = (x, y, z, w, h, d, u, v, inf, m) => mcCube(x, y, z, w, h, d, u, v, 64, 32, mat(m || m1), inf);
+  const A2 = (x, y, z, w, h, d, u, v, inf) => mcCube(x, y, z, w, h, d, u, v, 64, 32, mat(m2), inf);
   const rig = new THREE.Group();
-  const head = new THREE.Group(); head.add(S(-4, -8, -4, 8, 8, 8, 0, 0)); head.add(A1(-4, -8, -4, 8, 8, 8, 0, 0, 1.0)); head.add(A1(-4, -8, -4, 8, 8, 8, 32, 0, 1.5));
+  const head = new THREE.Group(); head.add(S(-4, -8, -4, 8, 8, 8, 0, 0)); head.add(A1(-4, -8, -4, 8, 8, 8, 0, 0, 1.0, m1h)); head.add(A1(-4, -8, -4, 8, 8, 8, 32, 0, 1.5, m1h));
   const body = new THREE.Group(); body.add(S(-4, 0, -2, 8, 12, 4, 16, 16)); body.add(A2(-4, 0, -2, 8, 12, 4, 16, 16, 0.5)); body.add(A1(-4, 0, -2, 8, 12, 4, 16, 16, 1.0));
   const rArm = new THREE.Group(); rArm.position.set(-5, 2, 0); rArm.add(S(-3, -2, -2, 4, 12, 4, 40, 16)); rArm.add(A1(-3, -2, -2, 4, 12, 4, 40, 16, 1.0));
   const lArm = new THREE.Group(); lArm.position.set(5, 2, 0); lArm.add(S(-1, -2, -2, 4, 12, 4, 32, 48)); lArm.add(A1(-1, -2, -2, 4, 12, 4, 40, 16, 1.0));
+  // the shoulder patch, as PatchLayer draws it
+  const patch = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 2.0), new THREE.MeshLambertMaterial({ map: DEMO_FLAG, side: THREE.DoubleSide }));
+  patch.position.set(4.06, 0.4, 0); patch.rotation.set(Math.PI, Math.PI / 2, 0); lArm.add(patch);
   const rLeg = new THREE.Group(); rLeg.position.set(-1.9, 12, 0); rLeg.add(S(-2, 0, -2, 4, 12, 4, 0, 16)); rLeg.add(A2(-2, 0, -2, 4, 12, 4, 0, 16, 0.5)); rLeg.add(A1(-2, 0, -2, 4, 12, 4, 0, 16, 1.0));
   const lLeg = new THREE.Group(); lLeg.position.set(1.9, 12, 0); lLeg.add(S(-2, 0, -2, 4, 12, 4, 16, 48)); lLeg.add(A2(-2, 0, -2, 4, 12, 4, 0, 16, 0.5)); lLeg.add(A1(-2, 0, -2, 4, 12, 4, 0, 16, 1.0));
   rArm.rotation.x = -0.15; lArm.rotation.x = 0.15;
   rig.add(head, body, rArm, lArm, rLeg, lLeg);
   const world = new THREE.Group(); world.scale.set(-1 / 16, -1 / 16, 1 / 16); world.position.y = 24 / 16; world.add(rig);
-  root.add(world);
-  target.set(0, 0.95, 0); orbitDist = 4.6; orbitPitch = 0.1; auto = true;
-  info('Tactical armor', 'NVG helmet (goggles stand off the face on the outer layer), plate carrier with mag pouches and shoulder pads, combat pants with knee pads, boots. -32% bullet damage as a full set on top of 17 armor points.');
+  return world;
+}
+
+function showArmor() {
+  clear(); mode = 'turntable';
+  [['tactical', true, -1.7], ['arctic', false, 0], ['blackops', true, 1.7]].forEach(([v, nvg, x]) => {
+    const f = armoredFigure(v, nvg); f.position.x = x; f.rotation.y = 1.05; root.add(f);
+  });
+  target.set(0, 1.0, 0); orbitDist = 6.8; orbitPitch = 0.08; orbitYaw = 0.0; auto = false;
+  info('Tactical armor', 'Woodland, Arctic and Black Ops sets (NVG helmets on the outer two), with a painted nation flag sewn on the left shoulder. Recruits wear their army\'s issued camo and the nation patch.');
+}
+
+function showPaints() {
+  clear(); mode = 'turntable';
+  root.userData.vehicles = [];
+  [['', -4.2], ['_arctic', 0], ['_blackops', 4.2]].forEach(([sfx, x]) => {
+    const v = vehicleModel('tank', sfx); v.position.x = x; v.rotation.y = 0.4; root.add(v); root.userData.vehicles.push(v);
+  });
+  target.set(0, 1.0, 0); orbitDist = 13; auto = true;
+  info('Paint schemes', 'Every vehicle comes in woodland, arctic and black ops. Right-click a vehicle with green, white or black dye to repaint it; packed-up vehicles keep their paint.');
 }
 
 // ---------------------------------------------------------------- ui
@@ -398,6 +435,7 @@ addBtn('Soldiers', showSoldier);
 addBtn('Command Flag', showFlag);
 addBtn('Armor', showArmor);
 addBtn('Vehicles', showVehicles);
+addBtn('Paint schemes', showPaints);
 for (const vid of ['tank', 'plane', 'heli', 'jeep']) addBtn(VEHICLES[vid].name, () => showVehicle(vid));
 const params = new URLSearchParams(location.search);
 const start = params.get('view');
