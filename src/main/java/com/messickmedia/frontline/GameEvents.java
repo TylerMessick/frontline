@@ -61,6 +61,12 @@ public final class GameEvents {
 
     @SubscribeEvent
     public static void onIncomingDamage(LivingIncomingDamageEvent event) {
+        if (event.getSource().is(ModRegistries.BULLET_DAMAGE)) {
+            float resist = 0.0F;
+            for (net.minecraft.world.item.ItemStack s : event.getEntity().getArmorSlots())
+                if (s.getItem() instanceof com.messickmedia.frontline.item.TacticalArmorItem a) resist += a.bulletResist();
+            if (resist > 0) event.setAmount(event.getAmount() * (1.0F - Math.min(0.6F, resist)));
+        }
         Entity src = event.getSource().getEntity();
         if (src != null && !Config.FRIENDLY_FIRE.get() && event.getEntity() instanceof SoldierEntity && Nations.sameSide(src, event.getEntity())) event.setCanceled(true);
     }

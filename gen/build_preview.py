@@ -19,7 +19,7 @@ def b64(path):
 spec = json.load(open(os.path.join(os.path.dirname(__file__), 'guns_spec.json')))
 models = {}
 for g in spec['guns']:
-    models[g['id']] = json.load(open(os.path.join(ASSETS, 'models', 'item', f"{g['id']}.json")))
+    models[g['id']] = json.load(open(os.path.join(ASSETS, 'models', 'item', f"{g['id']}_3d.json")))
 # gun stats from Guns.java for the first-person maths
 stats = {}
 for line in open(os.path.join(ROOT, 'src', 'main', 'java', 'com', 'messickmedia', 'frontline', 'gun', 'Guns.java')):
@@ -33,7 +33,10 @@ for line in open(os.path.join(ROOT, 'src', 'main', 'java', 'com', 'messickmedia'
                       'muzzle': [float(parts[18].rstrip('F')), float(parts[19].rstrip('F')), float(parts[20].rstrip('F'))], 'scope': parts[17] == 'true'}
 
 vehicles = json.load(open(os.path.join(os.path.dirname(__file__), 'vehicles_spec.json')))
+icons = {g['id']: b64(os.path.join(ASSETS, 'textures', 'item', f"{g['id']}_icon.png")) for g in spec['guns']}
 textures = {
+    'armor1': b64(os.path.join(ASSETS, 'textures', 'models', 'armor', 'tactical_nvg_layer_1.png')),
+    'armor2': b64(os.path.join(ASSETS, 'textures', 'models', 'armor', 'tactical_nvg_layer_2.png')),
     'tank': b64(os.path.join(ASSETS, 'textures', 'entity', 'tank.png')),
     'plane': b64(os.path.join(ASSETS, 'textures', 'entity', 'plane.png')),
     'heli': b64(os.path.join(ASSETS, 'textures', 'entity', 'heli.png')),
@@ -78,10 +81,11 @@ const MODELS = __MODELS__;
 const STATS = __STATS__;
 const TEX = __TEX__;
 const VEHICLES = __VEHICLES__;
+const ICONS = __ICONS__;
 
 const loader = new THREE.TextureLoader();
 function tex(uri) { const t = loader.load(uri); t.magFilter = THREE.NearestFilter; t.minFilter = THREE.NearestFilter; return t; }
-const T = { atlas: tex(TEX.atlas), soldier: tex(TEX.soldier), flag: tex(TEX.flag), pole: tex(TEX.pole), tank: tex(TEX.tank), plane: tex(TEX.plane), heli: tex(TEX.heli), jeep: tex(TEX.jeep) };
+const T = { atlas: tex(TEX.atlas), soldier: tex(TEX.soldier), flag: tex(TEX.flag), pole: tex(TEX.pole), tank: tex(TEX.tank), armor1: tex(TEX.armor1), armor2: tex(TEX.armor2), plane: tex(TEX.plane), heli: tex(TEX.heli), jeep: tex(TEX.jeep) };
 const MAT = {};
 function mat(name, opts) {
   const key = name + JSON.stringify(opts || {});
@@ -213,20 +217,20 @@ function showGun(g) {
   info(g.name, `${g.parts.length} elements. Drag to orbit, wheel to zoom.`);
 }
 
-// GUI icon strip: every gun as the inventory sees it
+// inventory icons: the 2D sprites the hotbar shows
 function showIcons() {
   clear(); mode = 'turntable'; auto = false;
-  const n = SPEC.guns.length;
-  SPEC.guns.forEach((g, i) => {
-    const d = displayed(MODELS[g.id], 'gui');
-    d.position.set((i - (n - 1) / 2) * 1.25, 1.1, 0);
-    // a dark slot behind each
-    const slot = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1), new THREE.MeshBasicMaterial({ color: 0x20262f }));
-    slot.position.set(d.position.x, 1.1, -0.6); root.add(slot);
-    root.add(d);
+  const ids = Object.keys(ICONS), cols = 6;
+  ids.forEach((id, i) => {
+    const t = tex(ICONS[id]);
+    const slot = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1), new THREE.MeshBasicMaterial({ color: 0x8b8b8b }));
+    const x = (i % cols - (cols - 1) / 2) * 1.25, y = 1.9 - Math.floor(i / cols) * 1.25;
+    slot.position.set(x, y, -0.01); root.add(slot);
+    const icon = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 1.0), new THREE.MeshBasicMaterial({ map: t, transparent: true }));
+    icon.position.set(x, y, 0); root.add(icon);
   });
-  target.set(0, 1.1, 0); orbitYaw = 0; orbitPitch = 0; orbitDist = 7.5;
-  info('Inventory icons', 'Each gun through its gui display transform (rotation 20,-90,0). Muzzles should point right and fit the slot.');
+  target.set(0, 1.3, 0); orbitYaw = 0; orbitPitch = 0; orbitDist = 6.0;
+  info('Inventory icons', 'Flat 32x32 side-view sprites drawn from each gun\'s own cuboids. The 3D model is still used in your hand, on the ground and on soldiers.');
 }
 
 // first person: camera at the eye, the gun placed with FirstPersonGun.java's maths
@@ -360,6 +364,27 @@ function showVehicle(vid) {
   info(VEHICLES[vid].name, `${VEHICLES[vid].parts.reduce((n, p) => n + p.cubes.length, 0)} cuboids. Drag to orbit.`);
 }
 
+// armor on a player: vanilla armor layers inflated around the body, so nothing clips through
+function showArmor() {
+  clear(); mode = 'turntable';
+  const S = (x, y, z, w, h, d, u, v, inf) => mcCube(x, y, z, w, h, d, u, v, 128, 64, mat('soldier'), inf || 0);
+  const A1 = (x, y, z, w, h, d, u, v, inf) => mcCube(x, y, z, w, h, d, u, v, 64, 32, mat('armor1'), inf);
+  const A2 = (x, y, z, w, h, d, u, v, inf) => mcCube(x, y, z, w, h, d, u, v, 64, 32, mat('armor2'), inf);
+  const rig = new THREE.Group();
+  const head = new THREE.Group(); head.add(S(-4, -8, -4, 8, 8, 8, 0, 0)); head.add(A1(-4, -8, -4, 8, 8, 8, 0, 0, 1.0)); head.add(A1(-4, -8, -4, 8, 8, 8, 32, 0, 1.5));
+  const body = new THREE.Group(); body.add(S(-4, 0, -2, 8, 12, 4, 16, 16)); body.add(A2(-4, 0, -2, 8, 12, 4, 16, 16, 0.5)); body.add(A1(-4, 0, -2, 8, 12, 4, 16, 16, 1.0));
+  const rArm = new THREE.Group(); rArm.position.set(-5, 2, 0); rArm.add(S(-3, -2, -2, 4, 12, 4, 40, 16)); rArm.add(A1(-3, -2, -2, 4, 12, 4, 40, 16, 1.0));
+  const lArm = new THREE.Group(); lArm.position.set(5, 2, 0); lArm.add(S(-1, -2, -2, 4, 12, 4, 32, 48)); lArm.add(A1(-1, -2, -2, 4, 12, 4, 40, 16, 1.0));
+  const rLeg = new THREE.Group(); rLeg.position.set(-1.9, 12, 0); rLeg.add(S(-2, 0, -2, 4, 12, 4, 0, 16)); rLeg.add(A2(-2, 0, -2, 4, 12, 4, 0, 16, 0.5)); rLeg.add(A1(-2, 0, -2, 4, 12, 4, 0, 16, 1.0));
+  const lLeg = new THREE.Group(); lLeg.position.set(1.9, 12, 0); lLeg.add(S(-2, 0, -2, 4, 12, 4, 16, 48)); lLeg.add(A2(-2, 0, -2, 4, 12, 4, 0, 16, 0.5)); lLeg.add(A1(-2, 0, -2, 4, 12, 4, 0, 16, 1.0));
+  rArm.rotation.x = -0.15; lArm.rotation.x = 0.15;
+  rig.add(head, body, rArm, lArm, rLeg, lLeg);
+  const world = new THREE.Group(); world.scale.set(-1 / 16, -1 / 16, 1 / 16); world.position.y = 24 / 16; world.add(rig);
+  root.add(world);
+  target.set(0, 0.95, 0); orbitDist = 4.6; orbitPitch = 0.1; auto = true;
+  info('Tactical armor', 'NVG helmet (goggles stand off the face on the outer layer), plate carrier with mag pouches and shoulder pads, combat pants with knee pads, boots. -32% bullet damage as a full set on top of 17 armor points.');
+}
+
 // ---------------------------------------------------------------- ui
 const ui = document.getElementById('ui');
 const buttons = [];
@@ -371,6 +396,7 @@ addBtn('FPS: marksman', () => showFps(SPEC.guns.find(g => g.id === 'r7_marksman'
 addBtn('Icons', showIcons);
 addBtn('Soldiers', showSoldier);
 addBtn('Command Flag', showFlag);
+addBtn('Armor', showArmor);
 addBtn('Vehicles', showVehicles);
 for (const vid of ['tank', 'plane', 'heli', 'jeep']) addBtn(VEHICLES[vid].name, () => showVehicle(vid));
 const params = new URLSearchParams(location.search);
@@ -418,7 +444,7 @@ animate();
 </body>
 </html>
 '''
-html = html.replace('__VEHICLES__', json.dumps(vehicles)).replace('__SPEC__', json.dumps(spec)).replace('__MODELS__', json.dumps(models)).replace('__STATS__', json.dumps(stats)).replace('__TEX__', json.dumps(textures))
+html = html.replace('__ICONS__', json.dumps(icons)).replace('__VEHICLES__', json.dumps(vehicles)).replace('__SPEC__', json.dumps(spec)).replace('__MODELS__', json.dumps(models)).replace('__STATS__', json.dumps(stats)).replace('__TEX__', json.dumps(textures))
 os.makedirs(OUT, exist_ok=True)
 with open(os.path.join(OUT, 'index.html'), 'w') as f:
     f.write(html)

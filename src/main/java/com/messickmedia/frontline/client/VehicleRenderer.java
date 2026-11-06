@@ -55,8 +55,11 @@ public class VehicleRenderer extends EntityRenderer<VehicleEntity> {
         }
         pose.scale(-1.0F, -1.0F, 1.0F);
         animate(kind, root, spin, rotor, tYaw, tPitch, v.firedTicks(), pt);
-        VertexConsumer vc = buffers.getBuffer(RenderType.entityCutoutNoCull(textures.get(kind)));
-        root.render(pose, vc, light, OverlayTexture.pack(0.0F, v.hurtTicks() > 0), 0xFFFFFFFF);
+        // thermal goggles: a crewed vehicle's engine runs warm, an empty one is cold steel
+        boolean thermal = ClientState.nvMode == 2;
+        MultiBufferSource src = thermal ? Goggles.hot(buffers, v.getFirstPassenger() != null ? 190 : 70) : buffers;
+        VertexConsumer vc = src.getBuffer(RenderType.entityCutoutNoCull(textures.get(kind)));
+        root.render(pose, vc, thermal ? 0xF000F0 : light, OverlayTexture.pack(0.0F, v.hurtTicks() > 0), 0xFFFFFFFF);
         pose.popPose();
         super.render(v, yaw, pt, pose, buffers, light);
     }

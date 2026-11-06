@@ -8,6 +8,14 @@ import com.messickmedia.frontline.entity.SoldierEntity;
 import com.messickmedia.frontline.entity.VehicleEntity;
 import com.messickmedia.frontline.entity.VehicleKind;
 import com.messickmedia.frontline.item.VehicleItem;
+import com.messickmedia.frontline.item.TacticalArmorItem;
+import net.minecraft.Util;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import java.util.List;
 import java.util.EnumMap;
 import com.messickmedia.frontline.gun.AmmoItem;
 import com.messickmedia.frontline.gun.GunInfo;
@@ -61,6 +69,21 @@ public final class ModRegistries {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Frontline.MODID);
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, Frontline.MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Frontline.MODID);
+
+    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, Frontline.MODID);
+
+    private static DeferredHolder<ArmorMaterial, ArmorMaterial> material(String name) {
+        return ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(
+                Util.make(new EnumMap<>(ArmorItem.Type.class), m -> {
+                    m.put(ArmorItem.Type.BOOTS, 2); m.put(ArmorItem.Type.LEGGINGS, 5); m.put(ArmorItem.Type.CHESTPLATE, 7);
+                    m.put(ArmorItem.Type.HELMET, 3); m.put(ArmorItem.Type.BODY, 7);
+                }),
+                12, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.IRON_INGOT),
+                List.of(new ArmorMaterial.Layer(Frontline.id(name))), 1.5F, 0.05F));
+    }
+
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> TACTICAL = material("tactical");
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> TACTICAL_NVG = material("tactical_nvg");
 
     public static final ResourceKey<DamageType> BULLET_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE, Frontline.id("bullet"));
 
@@ -116,6 +139,11 @@ public final class ModRegistries {
     static {
         for (VehicleKind k : VehicleKind.values()) VEHICLE_ITEMS.put(k, ITEMS.register(k.id, () -> new VehicleItem(k)));
     }
+    public static final DeferredItem<Item> COMBAT_HELMET = ITEMS.register("combat_helmet", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.HELMET, 0.06F, false));
+    public static final DeferredItem<Item> NVG_HELMET = ITEMS.register("nvg_helmet", () -> new TacticalArmorItem(TACTICAL_NVG, ArmorItem.Type.HELMET, 0.06F, true));
+    public static final DeferredItem<Item> PLATE_CARRIER = ITEMS.register("plate_carrier", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.CHESTPLATE, 0.16F, false));
+    public static final DeferredItem<Item> COMBAT_PANTS = ITEMS.register("combat_pants", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.LEGGINGS, 0.06F, false));
+    public static final DeferredItem<Item> COMBAT_BOOTS = ITEMS.register("combat_boots", () -> new TacticalArmorItem(TACTICAL, ArmorItem.Type.BOOTS, 0.04F, false));
     public static final DeferredItem<Item> ENLISTMENT_PAPERS = ITEMS.register("enlistment_papers", EnlistmentPapersItem::new);
     public static final DeferredItem<Item> COMMAND_BATON = ITEMS.register("command_baton", CommandBatonItem::new);
     public static final DeferredItem<BlockItem> COMMAND_FLAG_ITEM = ITEMS.registerSimpleBlockItem("command_flag", COMMAND_FLAG);
@@ -148,6 +176,8 @@ public final class ModRegistries {
                 for (DeferredItem<GunItem> g : GUNS.values()) out.accept(g.get().getDefaultInstance());
                 for (DeferredItem<AmmoItem> a : AMMO_ITEMS.values()) out.accept(a.get());
                 out.accept(GUN_PARTS.get());
+                out.accept(COMBAT_HELMET.get()); out.accept(NVG_HELMET.get()); out.accept(PLATE_CARRIER.get());
+                out.accept(COMBAT_PANTS.get()); out.accept(COMBAT_BOOTS.get());
                 out.accept(ENLISTMENT_PAPERS.get());
                 out.accept(COMMAND_BATON.get());
                 out.accept(COMMAND_FLAG_ITEM.get());
@@ -160,6 +190,7 @@ public final class ModRegistries {
 
     public static void register(IEventBus bus) {
         ATTACHMENTS.register(bus);
+        ARMOR_MATERIALS.register(bus);
         COMPONENTS.register(bus);
         PARTICLES.register(bus);
         ENTITIES.register(bus);

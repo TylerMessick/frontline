@@ -1,0 +1,17 @@
+{
+ "targets": [
+  "swap"
+ ],
+ "passes": [
+  {
+   "name": "frontline:thermal",
+   "intarget": "minecraft:main",
+   "outtarget": "swap"
+  },
+  {
+   "name": "frontline:copy",
+   "intarget": "swap",
+   "outtarget": "minecraft:main"
+  }
+ ]
+}

@@ -70,6 +70,13 @@ public final class ModNetwork {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
 
+    /** Goggles mode: 0 off, 1 night vision, 2 thermal. */
+    public record Goggles(int mode) implements CustomPacketPayload {
+        public static final Type<Goggles> TYPE = new Type<>(Frontline.id("goggles"));
+        public static final StreamCodec<ByteBuf, Goggles> CODEC = ByteBufCodecs.VAR_INT.map(Goggles::new, Goggles::mode);
+        @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
+    }
+
     // ---------------------------------------------------------------- server -> client
 
     public record ArmorySync(List<ItemStack> stacks) implements CustomPacketPayload {
@@ -128,6 +135,7 @@ public final class ModNetwork {
         r.playToServer(Aim.TYPE, Aim.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) { Trooper t = sp.getData(ModRegistries.TROOPER); t.ads = p.ads(); } });
         r.playToServer(FoundNation.TYPE, FoundNation.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GameEvents.foundNation(sp, p); });
         r.playToServer(VehicleFire.TYPE, VehicleFire.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp && sp.getVehicle() instanceof VehicleEntity v) v.fire(sp, p.primary(), new Vec3(p.x(), p.y(), p.z())); });
+        r.playToServer(Goggles.TYPE, Goggles.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) sp.getData(ModRegistries.TROOPER).nvMode = Math.max(0, Math.min(2, p.mode())); });
         r.playToServer(ArmoryAction.TYPE, ArmoryAction.CODEC, (p, ctx) -> { if (ctx.player() instanceof ServerPlayer sp) GunLogic.armory(sp, p.action(), p.slot()); });
         r.playToClient(ArmorySync.TYPE, ArmorySync.CODEC, (s, ctx) -> ClientSink.armory.accept(s));
         r.playToClient(GunSync.TYPE, GunSync.CODEC, (s, ctx) -> ClientSink.gun.accept(s));

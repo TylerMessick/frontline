@@ -57,6 +57,7 @@ public class FrontlineClient {
     private static final String CATEGORY = "key.categories.frontline";
     public static final KeyMapping KEY_RELOAD = new KeyMapping("key.frontline.reload", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, CATEGORY);
     public static final KeyMapping KEY_CAMERA = new KeyMapping("key.frontline.camera", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, CATEGORY);
+    public static final KeyMapping KEY_GOGGLES = new KeyMapping("key.frontline.goggles", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, CATEGORY);
     public static final KeyMapping KEY_WHEEL = new KeyMapping("key.frontline.wheel", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, CATEGORY);
 
     public FrontlineClient(IEventBus modBus, ModContainer container) {
@@ -72,6 +73,8 @@ public class FrontlineClient {
         NeoForge.EVENT_BUS.addListener(FrontlineClient::cameraAngles);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::guiLayer);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::scroll);
+        NeoForge.EVENT_BUS.addListener(Goggles::levelStage);
+        NeoForge.EVENT_BUS.addListener(Goggles::renderLiving);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::interactionKey);
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> ClientState.clear());
 
@@ -90,6 +93,7 @@ public class FrontlineClient {
         e.register(KEY_RELOAD);
         e.register(KEY_CAMERA);
         e.register(KEY_WHEEL);
+        e.register(KEY_GOGGLES);
     }
 
     static void particles(RegisterParticleProvidersEvent e) {
@@ -115,6 +119,7 @@ public class FrontlineClient {
     }
 
     static void hud(RegisterGuiLayersEvent e) {
+        e.registerBelowAll(Frontline.id("goggles"), Goggles::hud);
         e.registerAbove(VanillaGuiLayers.CROSSHAIR, Frontline.id("crosshair"), GunHud::crosshair);
         e.registerAbove(VanillaGuiLayers.HOTBAR, Frontline.id("panel"), GunHud::panel);
     }
@@ -150,6 +155,8 @@ public class FrontlineClient {
         ClientState.swayY = Mth.clamp(ClientState.swayY + dp * 0.5F, -14.0F, 14.0F);
         FirstPersonGun.tick(p);
         tickRiding(mc, p);
+        Goggles.tick(mc);
+        while (KEY_GOGGLES.consumeClick()) { if (mc.screen == null) Goggles.cycle(mc); }
         while (KEY_WHEEL.consumeClick()) { if (mc.screen == null && !(p.getVehicle() instanceof VehicleEntity)) mc.setScreen(new WheelScreen()); }
         if (ClientState.ots && mc.options.getCameraType() != CameraType.THIRD_PERSON_BACK) ClientState.ots = false;
         if (!holding || mc.screen != null) {

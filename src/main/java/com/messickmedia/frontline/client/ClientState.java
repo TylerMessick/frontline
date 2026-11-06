@@ -26,6 +26,8 @@ public final class ClientState {
     public static int vehicleFireCd;
     /** Scope magnification (scroll wheel while scoped) and the mouse sensitivity to restore when leaving the scope. */
     public static float zoom = 4.0F;
+    /** Goggles: 0 off, 1 night vision, 2 thermal. */
+    public static int nvMode;
     public static double baseSensitivity = Double.NaN;
     public static String lastGun = "";
 
@@ -76,7 +78,7 @@ public final class ClientState {
 
     public static void clear() {
         reloadTicks = reloadMax = 0; bloom = 0; ammoCount = 0;
-        nation = ""; army = ""; claim = ""; claimBannerTicks = 0;
+        nation = ""; army = ""; claim = ""; claimBannerTicks = 0; nvMode = 0;
         ads = false; adsBlend = adsBlendO = 0; fireCd = 0; kick = kickO = 0; camPitch = camYaw = camPitchO = camYawO = 0; flashTicks = 0; hitTicks = 0;
     }
 

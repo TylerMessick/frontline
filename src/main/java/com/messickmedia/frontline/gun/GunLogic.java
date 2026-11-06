@@ -143,8 +143,27 @@ public final class GunLogic {
         return got;
     }
 
+    /** Keeps the night-vision effect on while the goggles are down; removes only the effect we added. */
+    static void tickGoggles(ServerPlayer p, Trooper t) {
+        boolean wearing = p.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).getItem() instanceof com.messickmedia.frontline.item.TacticalArmorItem a && a.nvg();
+        if (!wearing) t.nvMode = 0;
+        var nv = net.minecraft.world.effect.MobEffects.NIGHT_VISION;
+        if (t.nvMode > 0) {
+            var cur = p.getEffect(nv);
+            if (cur == null || (t.nvApplied && cur.getDuration() < 260)) {
+                p.addEffect(new net.minecraft.world.effect.MobEffectInstance(nv, 400, 0, true, false, false));
+                t.nvApplied = true;
+            }
+        } else if (t.nvApplied) {
+            var cur = p.getEffect(nv);
+            if (cur != null && cur.isAmbient() && !cur.isVisible() && cur.getDuration() <= 400) p.removeEffect(nv);
+            t.nvApplied = false;
+        }
+    }
+
     public static void tick(ServerPlayer p) {
         Trooper t = trooper(p);
+        tickGoggles(p, t);
         if (t.fireCd > 0) t.fireCd--;
         t.bloom = Math.max(0.0F, t.bloom * 0.86F - 0.02F);
         GunInfo gun = GunItem.gunOf(p.getMainHandItem());

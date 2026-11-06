@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": ["L L", "I I"], "key": {"L": {"item": "minecraft:leather"}, "I": {"item": "minecraft:iron_ingot"}}, "result": {"id": "frontline:combat_boots", "count": 1}}

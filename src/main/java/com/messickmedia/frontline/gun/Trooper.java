@@ -29,6 +29,9 @@ public class Trooper {
     public float bloom;
     public boolean ads;
     public int lastSyncHash, lastArmoryHash = -1;
+    /** Goggles: 0 off, 1 night vision, 2 thermal. nvApplied = we put the night-vision effect on. */
+    public int nvMode;
+    public boolean nvApplied;
     /** Item id of the gun being reloaded, so swapping weapons cancels it. */
     public String reloadingGun = "";
 

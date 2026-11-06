@@ -30,6 +30,15 @@ shooting, villager recruiting, Command Flag bases, and named nations with their 
 - Every gun is a JSON element model (28 to 54 cuboids each) textured from one material atlas, built by
   `gen/gen_guns.py`; sounds are synthesised by `gen/gen_sounds.py`.
 
+## Armor and goggles
+
+Combat Helmet, Plate Carrier, Combat Pants and Combat Boots use the vanilla armor layers, so they sit just outside
+the body and never clip through the player or the guns. A full set gives 17 armor points and cuts bullet damage by
+32% (the plate carrier alone 16%). The **NVG Helmet** (combat helmet + 2 glass panes + redstone + copper) has
+goggles: press **N** to cycle night vision → thermal → off.
+- Night vision: green phosphor image with grain, scanlines and a binocular mask; the dark becomes readable.
+- Thermal: terrain goes cold purple, living things glow yellow-white (undead read cold), crewed vehicles run warm.
+
 ## Weapon wheel
 
 Hold **G** to open the wheel: eight slots for guns, separate from your inventory. Point at a slot and release to draw

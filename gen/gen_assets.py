@@ -283,6 +283,93 @@ def models():
         json.dump({'textures': ['frontline:glow']}, open(os.path.join(part, f'{name}.json'), 'w'))
 
 
+# ---------------------------------------------------------------- tactical armor (vanilla armor layers, 64x32)
+def armor():
+    out = ensure(os.path.join(TEX, 'models', 'armor'))
+    camo_base, camo_spots = rgb(0x5A6239), [rgb(0x474E2C), rgb(0x7A7452), rgb(0x3A3F26)]
+    dark, black, khaki = rgb(0x2E3322), rgb(0x1A1A1C), rgb(0x7A7452)
+    boot, lens = rgb(0x2A2017), rgb(0x3CFF6A)
+
+    def faces(img, u, v, w, h, d, rows, painter):
+        """Paint the given rows (0..h) of every side face of a cube unwrapped at (u, v)."""
+        for fx, fw in ((u, d), (u + d, w), (u + d + w, d), (u + 2 * d + w, w)):
+            painter(img, fx, v + d + rows[0], fx + fw, v + d + rows[1])
+
+    def cam(img, x0, y0, x1, y1):
+        camo(img, x0, y0, x1, y1, camo_base, camo_spots, 5)
+
+    for variant in ('tactical', 'tactical_nvg'):
+        l1 = Image.new('RGBA', (64, 32), (0, 0, 0, 0))
+        # helmet: crown, sides down to the ear, a short brim at the front, dark rim line
+        cam(l1, 8, 0, 16, 8)
+        faces(l1, 0, 0, 8, 8, 8, (0, 4), cam)
+        for fx in (0, 8, 16, 24):
+            fill(l1, fx, 12, fx + 8, 13, dark)
+        fill(l1, 0, 13, 2, 16, black); fill(l1, 22, 13, 24, 16, black)      # chin strap
+        if variant == 'tactical_nvg':
+            # goggles on the outer (hat) layer so they stand proud of the face; mount on the brow
+            fill(l1, 40 + 0, 8 + 3, 40 + 8, 8 + 6, rgb(0x26282C), 3)
+            fill(l1, 40 + 1, 8 + 4, 40 + 3, 8 + 6, lens); fill(l1, 40 + 5, 8 + 4, 40 + 7, 8 + 6, lens)
+            fill(l1, 40 + 1, 8 + 4, 40 + 2, 8 + 5, rgb(0xB8FFC8)); fill(l1, 40 + 5, 8 + 4, 40 + 6, 8 + 5, rgb(0xB8FFC8))
+            fill(l1, 40 + 3, 8 + 0, 40 + 5, 8 + 3, black)                   # mount arm
+            fill(l1, 40 + 2, 8 + 0, 40 + 6, 8 + 1, rgb(0x45484E))
+        # plate carrier (body): plates front and back, cummerbund sides, three mag pouches, shoulder straps
+        cam(l1, 20, 16, 28, 20); cam(l1, 28, 16, 36, 20)
+        faces(l1, 16, 16, 8, 12, 4, (0, 10), cam)
+        fill(l1, 20, 20, 28, 21, dark); fill(l1, 32, 20, 40, 21, dark)
+        fill(l1, 21, 21, 27, 22, khaki)                                     # name tape
+        for i in range(3):
+            fill(l1, 20 + 1 + i * 2 + (0 if i == 0 else 0), 25, 20 + 2 + i * 2, 29, khaki)
+        fill(l1, 20, 25, 28, 26, dark)
+        fill(l1, 22, 22, 26, 24, rgb(0x3A3F26))                              # admin pouch
+        fill(l1, 33, 22, 39, 28, rgb(0x474E2C))                              # back panel
+        fill(l1, 33, 22, 39, 23, black)                                      # drag handle
+        # shoulder pads on the arms (upper four rows only)
+        cam(l1, 44, 16, 48, 20)
+        faces(l1, 40, 16, 4, 12, 4, (0, 4), cam)
+        for fx in (40, 44, 48, 52):
+            fill(l1, fx, 23, fx + 4, 24, dark)
+        # boots (legs, lower four rows) with laces and soles
+        faces(l1, 0, 16, 4, 12, 4, (8, 12), lambda im, a, b, c, d: fill(im, a, b, c, d, boot, 5))
+        fill(l1, 4, 28, 8, 29, black)
+        for y in (29, 30): fill(l1, 5, y, 7, y + 1, rgb(0x6B5A3E))
+        for fx in (0, 4, 8, 12): fill(l1, fx, 31, fx + 4, 32, black)
+        fill(l1, 8, 16, 12, 20, black)                                       # sole
+        l1.save(os.path.join(out, f'{variant}_layer_1.png'))
+
+        l2 = Image.new('RGBA', (64, 32), (0, 0, 0, 0))
+        # combat pants: full legs, knee pads, cargo pockets, belt on the body
+        cam(l2, 4, 16, 8, 20)
+        faces(l2, 0, 16, 4, 12, 4, (0, 12), cam)
+        fill(l2, 4, 24, 8, 26, black)                                        # knee pad front
+        fill(l2, 0, 25, 4, 28, rgb(0x474E2C)); fill(l2, 8, 25, 12, 28, rgb(0x474E2C))   # cargo pockets
+        faces(l2, 16, 16, 8, 12, 4, (8, 12), cam)
+        faces(l2, 16, 16, 8, 12, 4, (9, 11), lambda im, a, b, c, d: fill(im, a, b, c, d, rgb(0x4A3524), 4))
+        fill(l2, 23, 29, 25, 31, rgb(0x9A8A4A))                              # buckle
+        l2.save(os.path.join(out, f'{variant}_layer_2.png'))
+
+    itm = os.path.join(TEX, 'item')
+
+    def icon(name, rects):
+        img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+        for (x0, y0, x1, y1, c) in rects:
+            if c == 'camo':
+                camo(img, x0, y0, x1, y1, camo_base, camo_spots, 6)
+            else:
+                fill(img, x0, y0, x1, y1, c, 6)
+        img.save(os.path.join(itm, f'{name}.png'))
+        json.dump({'parent': 'minecraft:item/generated', 'textures': {'layer0': f'frontline:item/{name}'}},
+                  open(os.path.join(ROOT, 'models', 'item', f'{name}.json'), 'w'))
+
+    helmet = [(3, 4, 13, 10, 'camo'), (4, 3, 12, 4, 'camo'), (2, 9, 14, 11, dark), (3, 11, 4, 14, black), (12, 11, 13, 14, black)]
+    icon('combat_helmet', helmet)
+    icon('nvg_helmet', helmet + [(5, 1, 11, 3, black), (4, 8, 12, 11, rgb(0x26282C)), (5, 9, 7, 11, lens), (9, 9, 11, 11, lens)])
+    icon('plate_carrier', [(3, 2, 13, 14, 'camo'), (3, 2, 5, 4, dark), (11, 2, 13, 4, dark), (5, 4, 11, 5, khaki),
+                           (4, 9, 6, 13, khaki), (7, 9, 9, 13, khaki), (10, 9, 12, 13, khaki), (3, 13, 13, 14, dark)])
+    icon('combat_pants', [(3, 1, 13, 4, rgb(0x4A3524)), (3, 3, 7, 15, 'camo'), (9, 3, 13, 15, 'camo'), (3, 8, 7, 10, black), (9, 8, 13, 10, black)])
+    icon('combat_boots', [(2, 8, 7, 13, boot), (9, 8, 14, 13, boot), (1, 12, 7, 14, black), (9, 12, 15, 14, black), (3, 8, 6, 9, rgb(0x6B5A3E)), (10, 8, 13, 9, rgb(0x6B5A3E))])
+
+
 def main():
     ensure(TEX)
     soldier(); flag(); scope(); glow()
@@ -296,6 +383,7 @@ def main():
     ammo_box('ammo_40mm', rgb(0x2F6B2F), rgb(0xC0302A), 2)
     papers(); baton(); gun_parts(); flag_item(); flag_block_tex()
     models()
+    armor()
     print('assets written')
 
 

@@ -145,5 +145,15 @@
  "item.frontline.ammo_45": ".45 ACP Rounds",
  "item.frontline.ammo_44": ".44 Magnum Rounds",
  "item.frontline.ammo_40mm": "40mm Grenades",
- "hud.frontline.zoom": "%sx  ·  scroll to zoom"
+ "hud.frontline.zoom": "%sx  ·  scroll to zoom",
+ "item.frontline.combat_helmet": "Combat Helmet",
+ "item.frontline.nvg_helmet": "NVG Helmet",
+ "item.frontline.plate_carrier": "Plate Carrier",
+ "item.frontline.combat_pants": "Combat Pants",
+ "item.frontline.combat_boots": "Combat Boots",
+ "armor.frontline.bullet": "-%s%% bullet damage",
+ "armor.frontline.nvg1": "Press N: night vision → thermal → off",
+ "armor.frontline.nvg2": "Green phosphor at night; thermal shows bodies glowing hot",
+ "key.frontline.goggles": "Goggles: Night / Thermal / Off",
+ "hud.frontline.no_goggles": "You need an NVG Helmet on to use goggles."
 }

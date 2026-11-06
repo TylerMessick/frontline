@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shapeless", "category": "equipment", "ingredients": [{"item": "frontline:combat_helmet"}, {"item": "minecraft:glass_pane"}, {"item": "minecraft:glass_pane"}, {"item": "minecraft:redstone"}, {"item": "minecraft:copper_ingot"}], "result": {"id": "frontline:nvg_helmet", "count": 1}}

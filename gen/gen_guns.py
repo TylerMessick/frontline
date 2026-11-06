@@ -673,9 +673,109 @@ def write_model(gid, parts, gui_scale, meta):
     model['display']['gui']['translation'] = [round((zc - 8.0) * gui_scale * -1.0, 2), 0.6, 0]
     model['display']['fixed']['translation'] = [round((zc - 8.0) * gui_scale * -1.0, 2), 0, 0]
     os.makedirs(MODELS, exist_ok=True)
-    with open(os.path.join(MODELS, f'{gid}.json'), 'w') as f:
+    with open(os.path.join(MODELS, f'{gid}_3d.json'), 'w') as f:
         json.dump(model, f, separators=(',', ':'))
+    # the item model: 3D in hand, on the ground and in third person; a flat 2D sprite in inventories and frames
+    flat = {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'frontline:item/{gid}_icon'}}
+    wrapper = {'loader': 'neoforge:separate_transforms', 'base': {'parent': f'frontline:item/{gid}_3d'},
+               'perspectives': {'gui': flat, 'fixed': flat}}
+    with open(os.path.join(MODELS, f'{gid}.json'), 'w') as f:
+        json.dump(wrapper, f, indent=1)
+    sprite(gid, parts)
     return model
+
+
+SPRITE = 32
+SS = 8
+
+
+def _rot(p, rot):
+    if not rot:
+        return p
+    a = math.radians(rot['angle'])
+    o = rot['origin']
+    x, y, z = p[0] - o[0], p[1] - o[1], p[2] - o[2]
+    c, s_ = math.cos(a), math.sin(a)
+    if rot['axis'] == 'x':
+        y, z = y * c - z * s_, y * s_ + z * c
+    elif rot['axis'] == 'y':
+        x, z = x * c + z * s_, -x * s_ + z * c
+    else:
+        x, y = x * c - y * s_, x * s_ + y * c
+    return (x + o[0], y + o[1], z + o[2])
+
+
+def _hull(pts):
+    pts = sorted(set(pts))
+    if len(pts) <= 2:
+        return pts
+
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    lo, hi = [], []
+    for p in pts:
+        while len(lo) >= 2 and cross(lo[-2], lo[-1], p) <= 0:
+            lo.pop()
+        lo.append(p)
+    for p in reversed(pts):
+        while len(hi) >= 2 and cross(hi[-2], hi[-1], p) <= 0:
+            hi.pop()
+        hi.append(p)
+    return lo[:-1] + hi[:-1]
+
+
+def sprite(gid, parts):
+    """A 32x32 side-view pixel icon (muzzle to the right) rendered from the same cuboids as the 3D model."""
+    import numpy as np
+    grow = 0.3  # keeps thin barrels and rails at least a pixel thick
+    polys = []
+    for el in parts:
+        f, t = el['from'], el['to']
+        corners = [(x, y, z) for x in (f[0], t[0]) for y in (f[1] - grow, t[1] + grow) for z in (f[2] - grow, t[2] + grow)]
+        corners = [_rot(c, el.get('rotation')) for c in corners]
+        depth = max(c[0] for c in corners)
+        polys.append((depth, el['_mat'], [(c[2], c[1]) for c in corners]))
+    zs = [p[0] for _, _, pts in polys for p in pts]
+    ys = [p[1] for _, _, pts in polys for p in pts]
+    zmin, zmax, ymin, ymax = min(zs), max(zs), min(ys), max(ys)
+    fit = SPRITE - 3
+    scale = min(fit / (zmax - zmin), fit / (ymax - ymin)) * SS
+    W = SPRITE * SS
+    ou = (W - (zmax - zmin) * scale) / 2
+    ov = (W - (ymax - ymin) * scale) / 2
+    img = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    for depth, mat, pts in sorted(polys, key=lambda q: q[0]):
+        uv = [(ou + (zmax - z) * scale, ov + (ymax - y) * scale) for z, y in pts]
+        r_, g_, b_, _ = rgb(dict((m[0], m[1]) for m in MATS)[mat])
+        # icons sit on a grey slot, so lift the darks a lot more than the lights
+        col = tuple(int(min(255, 34 + c * 1.45)) for c in (r_, g_, b_)) + (255,)
+        d.polygon(_hull(uv), fill=col)
+    a = np.asarray(img).astype(np.float32) / 255.0
+    a = a.reshape(SPRITE, SS, SPRITE, SS, 4)
+    alpha = a[..., 3].mean(axis=(1, 3))
+    rgbsum = (a[..., :3] * a[..., 3:4]).sum(axis=(1, 3))
+    wsum = a[..., 3].sum(axis=(1, 3))[..., None]
+    col = np.where(wsum > 0, rgbsum / np.maximum(wsum, 1e-6), 0)
+    solid = alpha > 0.3
+    out = np.zeros((SPRITE, SPRITE, 4), np.uint8)
+    out[..., :3] = np.clip(col * 255, 0, 255).astype(np.uint8)
+    out[..., 3] = np.where(solid, 255, 0)
+    # light the top edge of every surface, darken the bottom edge
+    for y in range(SPRITE):
+        for x in range(SPRITE):
+            if not solid[y, x]:
+                continue
+            if y == 0 or not solid[y - 1, x]:
+                out[y, x, :3] = np.minimum(255, out[y, x, :3].astype(int) + 38)
+            elif y == SPRITE - 1 or not solid[y + 1, x]:
+                out[y, x, :3] = (out[y, x, :3] * 0.7).astype(np.uint8)
+    # one-pixel dark outline so the silhouette reads on any slot background
+    edge = np.zeros_like(solid)
+    edge[1:, :] |= solid[:-1, :]; edge[:-1, :] |= solid[1:, :]; edge[:, 1:] |= solid[:, :-1]; edge[:, :-1] |= solid[:, 1:]
+    edge &= ~solid
+    out[edge] = (18, 18, 20, 255)
+    Image.fromarray(out, 'RGBA').save(os.path.join(TEX, f'{gid}_icon.png'))
 
 
 def main():
