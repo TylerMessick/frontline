@@ -111,9 +111,38 @@ public final class SmokeTest {
         int phase = (t - 40) / SPAN, k = (t - 40) % SPAN;
         if (t < 40) return;
         if (phase >= ORDER.length) {
-            if (k == 10) {
-                LOG.info("FRONTLINE-SMOKE DONE");
-                mc.stop();
+            switch (k) {
+                case 0 -> server.execute(() -> {
+                    ServerPlayer sp = server.getPlayerList().getPlayers().get(0);
+                    ServerLevel lvl = sp.serverLevel();
+                    sp.teleportTo(lvl, 200.5, sp.getY(), 0.5, 0.0F, 5.0F);
+                    sp.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, new net.minecraft.world.item.ItemStack(ModRegistries.ARMOR.get("nvg_helmet").get()));
+                    var soldier = ModRegistries.SOLDIER.get().create(lvl);
+                    soldier.moveTo(200.5, sp.getY(), 4.5, 180.0F, 0.0F);
+                    soldier.finalizeSpawn(lvl, lvl.getCurrentDifficultyAt(soldier.blockPosition()), net.minecraft.world.entity.MobSpawnType.COMMAND, null);
+                    soldier.issueUniform(2);
+                    lvl.addFreshEntity(soldier);
+                    VehicleEntity v = new VehicleEntity(ModRegistries.VEHICLES.get(VehicleKind.JEEP).get(), lvl, VehicleKind.JEEP);
+                    v.setPos(204.5, sp.getY(), 6.5);
+                    lvl.addFreshEntity(v);
+                    var villager = net.minecraft.world.entity.EntityType.VILLAGER.create(lvl);
+                    villager.moveTo(197.5, sp.getY(), 5.5, 0.0F, 0.0F);
+                    villager.setCustomName(net.minecraft.network.chat.Component.literal("Name Tag Test"));
+                    lvl.addFreshEntity(villager);
+                    LOG.info("FRONTLINE-SMOKE goggles scene ready");
+                });
+                case 30 -> { shot(mc, "goggles_off"); Goggles.cycle(mc); }
+                case 50 -> { LOG.info("FRONTLINE-SMOKE goggles mode={} post={}", ClientState.nvMode, Goggles.postActive()); shot(mc, "goggles_nvg"); Goggles.cycle(mc); }
+                case 70 -> { LOG.info("FRONTLINE-SMOKE goggles mode={} post={}", ClientState.nvMode, Goggles.postActive()); shot(mc, "goggles_thermal"); }
+                case 72 -> mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+                case 80 -> shot(mc, "goggles_thermal_tp");
+                case 82 -> { mc.options.setCameraType(CameraType.FIRST_PERSON); Goggles.cycle(mc); }
+                case 100 -> {
+                    LOG.info("FRONTLINE-SMOKE goggles mode={} post={}", ClientState.nvMode, Goggles.postActive());
+                    LOG.info("FRONTLINE-SMOKE DONE");
+                    mc.stop();
+                }
+                default -> {}
             }
             return;
         }

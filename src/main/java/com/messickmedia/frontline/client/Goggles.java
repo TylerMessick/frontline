@@ -158,16 +158,41 @@ public final class Goggles {
 
     /** Wraps a buffer source so everything drawn through it is a single flat, full-bright shade of grey. */
     public static MultiBufferSource hot(MultiBufferSource real, int shade) {
-        return type -> new Hot(real.getBuffer(RenderType.entityCutoutNoCull(WHITE)), shade);
+        // only entity-model geometry turns hot; text (name tags), lines, glints and the like pass through untouched,
+        // because their vertices carry different elements than the entity format
+        return type -> type.format() == com.mojang.blaze3d.vertex.DefaultVertexFormat.NEW_ENTITY
+                ? new Hot(real.getBuffer(RenderType.entityCutoutNoCull(WHITE)), shade)
+                : real.getBuffer(type);
     }
 
-    private record Hot(VertexConsumer d, int shade) implements VertexConsumer {
-        @Override public VertexConsumer addVertex(float x, float y, float z) { d.addVertex(x, y, z); return this; }
-        @Override public VertexConsumer setColor(int r, int g, int b, int a) { d.setColor(shade, shade, shade, 255); return this; }
-        @Override public VertexConsumer setUv(float u, float v) { d.setUv(u, v); return this; }
-        @Override public VertexConsumer setUv1(int u, int v) { d.setUv1(u, v); return this; }
-        @Override public VertexConsumer setUv2(int u, int v) { d.setUv2(0xF0, 0xF0); return this; }
-        @Override public VertexConsumer setNormal(float x, float y, float z) { d.setNormal(x, y, z); return this; }
+    private static final class Hot implements VertexConsumer {
+        private final VertexConsumer d;
+        private final int shade;
+        private boolean started, color, uv, uv1, uv2, normal;
+
+        Hot(VertexConsumer d, int shade) { this.d = d; this.shade = shade; }
+
+        /** Completes the previous vertex with defaults for anything the caller did not set. */
+        private void finish() {
+            if (!started) return;
+            if (!color) d.setColor(shade, shade, shade, 255);
+            if (!uv) d.setUv(0.5F, 0.5F);
+            if (!uv1) d.setUv1(0, 10);
+            if (!uv2) d.setUv2(0xF0, 0xF0);
+            if (!normal) d.setNormal(0.0F, 1.0F, 0.0F);
+        }
+
+        @Override public VertexConsumer addVertex(float x, float y, float z) {
+            finish();
+            d.addVertex(x, y, z);
+            started = true; color = uv = uv1 = uv2 = normal = false;
+            return this;
+        }
+        @Override public VertexConsumer setColor(int r, int g, int b, int a) { d.setColor(shade, shade, shade, 255); color = true; return this; }
+        @Override public VertexConsumer setUv(float u, float v) { d.setUv(u, v); uv = true; return this; }
+        @Override public VertexConsumer setUv1(int u, int v) { d.setUv1(u, v); uv1 = true; return this; }
+        @Override public VertexConsumer setUv2(int u, int v) { d.setUv2(0xF0, 0xF0); uv2 = true; return this; }
+        @Override public VertexConsumer setNormal(float x, float y, float z) { d.setNormal(x, y, z); normal = true; return this; }
     }
 
     // ---------------------------------------------------------------- HUD
