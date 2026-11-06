@@ -71,12 +71,15 @@ public class FrontlineClient {
         NeoForge.EVENT_BUS.addListener(FrontlineClient::fov);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::cameraAngles);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::guiLayer);
+        NeoForge.EVENT_BUS.addListener(FrontlineClient::scroll);
         NeoForge.EVENT_BUS.addListener(FrontlineClient::interactionKey);
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut e) -> ClientState.clear());
 
         ModNetwork.ClientSink.gun = ClientState::accept;
         ModNetwork.ClientSink.nation = ClientState::accept;
         ModNetwork.ClientSink.armory = ClientState::accept;
+        VehicleEntity.clientJumpHook = e -> e == Minecraft.getInstance().player && Minecraft.getInstance().options.keyJump.isDown();
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.client.event.RenderPlayerEvent.Pre e) -> { if (e.getEntity().getVehicle() instanceof VehicleEntity) e.setCanceled(true); });
         ModNetwork.ClientSink.hit = FrontlineClient::hitMark;
         ModNetwork.ClientSink.open = p -> Minecraft.getInstance().setScreen(new NationScreen(p.pos()));
     }
@@ -150,10 +153,20 @@ public class FrontlineClient {
         while (KEY_WHEEL.consumeClick()) { if (mc.screen == null && !(p.getVehicle() instanceof VehicleEntity)) mc.setScreen(new WheelScreen()); }
         if (ClientState.ots && mc.options.getCameraType() != CameraType.THIRD_PERSON_BACK) ClientState.ots = false;
         if (!holding || mc.screen != null) {
+            if (!Double.isNaN(ClientState.baseSensitivity)) { mc.options.sensitivity().set(ClientState.baseSensitivity); ClientState.baseSensitivity = Double.NaN; }
             if (ClientState.ads) { ClientState.ads = false; PacketDistributor.sendToServer(new ModNetwork.Aim(false)); }
             while (KEY_RELOAD.consumeClick()) {}
             while (KEY_CAMERA.consumeClick()) {}
             return;
+        }
+        if (!gun.id().equals(ClientState.lastGun)) { ClientState.lastGun = gun.id(); ClientState.zoom = gun.zoom(); }
+        // a scope turns the mouse down so the view does not fly around at high magnification
+        if (gun.scope() && ClientState.adsBlend > 0.5F) {
+            if (Double.isNaN(ClientState.baseSensitivity)) ClientState.baseSensitivity = mc.options.sensitivity().get();
+            mc.options.sensitivity().set(ClientState.baseSensitivity * Mth.clamp(1.6D / ClientState.zoom, 0.12D, 1.0D));
+        } else if (!Double.isNaN(ClientState.baseSensitivity)) {
+            mc.options.sensitivity().set(ClientState.baseSensitivity);
+            ClientState.baseSensitivity = Double.NaN;
         }
         boolean wantAds = mc.options.keyUse.isDown() && !ClientState.reloading();
         if (wantAds != ClientState.ads) {
@@ -272,6 +285,23 @@ public class FrontlineClient {
         }
     }
 
+    /** Scroll while looking through a scope to change its magnification. */
+    static void scroll(InputEvent.MouseScrollingEvent e) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
+        GunInfo gun = held(mc.player);
+        if (gun == null || !gun.scope() || ClientState.adsBlend < 0.9F) return;
+        float step = e.getScrollDeltaY() > 0 ? 1.0F : -1.0F;
+        ClientState.zoom = Mth.clamp(ClientState.zoom + step * (ClientState.zoom >= 4 ? 1.0F : 0.5F), 1.5F, 10.0F);
+        e.setCanceled(true);
+    }
+
+    /** True while the player is actually looking through a scope. */
+    static boolean scoped(Minecraft mc) {
+        GunInfo gun = mc.player == null ? null : held(mc.player);
+        return gun != null && gun.scope() && ClientState.adsBlend > 0.5F;
+    }
+
     static void fov(ViewportEvent.ComputeFov e) {
         if (!e.usedConfiguredFov()) return;
         Minecraft mc = Minecraft.getInstance();
@@ -280,7 +310,8 @@ public class FrontlineClient {
         if (gun == null) return;
         float ads = Mth.lerp((float) e.getPartialTick(), ClientState.adsBlendO, ClientState.adsBlend);
         if (ads <= 0.001F) return;
-        e.setFOV(e.getFOV() * Mth.lerp(ads, 1.0F, gun.adsFov()));
+        float target = gun.scope() ? 1.0F / ClientState.zoom : gun.adsFov();
+        e.setFOV(e.getFOV() * Mth.lerp(ads, 1.0F, target));
     }
 
     static void cameraAngles(ViewportEvent.ComputeCameraAngles e) {

@@ -14,10 +14,16 @@ shooting, villager recruiting, Command Flag bases, and named nations with their 
 | SG-12 Pump Shotgun | 12 ga | 6 | pump | 8 pellets, tube magazine, ribbed pump |
 | R7 Marksman Rifle | .308 | 5 | bolt | 4x scope overlay, bipod, brake |
 | LM-249 Light Machine Gun | 5.56 | 100 | auto, 600 rpm | belt box, carry handle, bipod |
+| R6 Revolver | .44 | 6 | semi | fluted cylinder, hard hitting |
+| BP-5 Bullpup Carbine | 5.56 | 30 | auto, 600 rpm | compact, mag behind the grip |
+| UC-45 Submachine Gun | .45 | 25 | auto, 600 rpm | heavy rounds, folding stock |
+| BR-20 Marksman Rifle | 7.62 | 20 | semi | 2.5x scope (scroll to zoom) |
+| GL-40 Grenade Launcher | 40mm | 6 | revolving | explosive grenades that arc |
 
 - **Left mouse** fires (hold for automatics). **Right mouse** aims down the sights (FOV zoom, tighter spread;
   sneak + right-click still interacts with blocks). **R** reloads from ammo in your inventory. **V** toggles the
   over-the-shoulder camera; the crosshair stays true because bullets are fired toward what the camera ray hits.
+- Scoped rifles: the scroll wheel changes magnification (1.5x–10x) while you look through the scope, and mouse sensitivity drops with zoom.
 - Recoil kicks the camera and the gun; spread blooms with sustained fire and shrinks when crouched or aimed.
 - Bullets are tracer entities with light drop after one second. Headshots deal double damage. Hit markers and
   kill markers sound on the shooter's client.

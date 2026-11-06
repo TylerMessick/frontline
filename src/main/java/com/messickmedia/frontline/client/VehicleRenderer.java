@@ -74,12 +74,17 @@ public class VehicleRenderer extends EntityRenderer<VehicleEntity> {
                 gun.z = -16.0F + (fired > 0 ? 3.0F * fired / 6.0F : 0.0F);
                 for (String side : new String[]{"l", "r"}) {
                     ModelPart track = hull.getChild("track_" + side);
-                    for (int i = 0; i < 5; i++) track.getChild("wheel_" + side + i).xRot = sp;
+                    for (int i = 0; i < 6; i++) track.getChild("wheel_" + side + i).xRot = sp;
+                    track.getChild("sprocket_" + side).xRot = sp * 1.2F;
+                    track.getChild("idler_" + side).xRot = sp * 1.2F;
+                    for (int z : new int[]{-20, 0, 20}) track.getChild("roller_" + side + z).xRot = sp * 2.4F;
                 }
             }
             case PLANE -> {
                 ModelPart body = root.getChild("body");
                 body.getChild("prop").zRot = rt * 3.0F;
+                body.getChild("wheel_l").xRot = sp;
+                body.getChild("wheel_r").xRot = sp;
             }
             case HELI -> {
                 ModelPart body = root.getChild("body");

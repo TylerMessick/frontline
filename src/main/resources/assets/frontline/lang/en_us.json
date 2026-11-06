@@ -136,5 +136,14 @@
  "screen.frontline.wheel_empty": "Empty slot",
  "screen.frontline.wheel_hint": "Point at a gun and release G to draw it",
  "screen.frontline.wheel_tip": "Right-click a slot to drop its gun into your inventory · 1-8 selects",
- "subtitles.frontline.cannon_fire": "Cannon fires"
+ "subtitles.frontline.cannon_fire": "Cannon fires",
+ "item.frontline.r6_revolver": "R6 Revolver",
+ "item.frontline.bp5_bullpup": "BP-5 Bullpup Carbine",
+ "item.frontline.uc45_smg": "UC-45 Submachine Gun",
+ "item.frontline.br20_dmr": "BR-20 Marksman Rifle",
+ "item.frontline.gl40_launcher": "GL-40 Grenade Launcher",
+ "item.frontline.ammo_45": ".45 ACP Rounds",
+ "item.frontline.ammo_44": ".44 Magnum Rounds",
+ "item.frontline.ammo_40mm": "40mm Grenades",
+ "hud.frontline.zoom": "%sx  ·  scroll to zoom"
 }

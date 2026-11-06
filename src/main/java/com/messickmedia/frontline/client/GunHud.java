@@ -131,6 +131,8 @@ public final class GunHud {
             g.fill(cx - 3, cy - d, cx + 4, cy - d + 1, col);
         }
         g.fill(cx, cy, cx + 1, cy + 1, 0xFFE03030);
+        Component z = Component.translatable("hud.frontline.zoom", String.format("%.1f", ClientState.zoom));
+        g.drawString(Minecraft.getInstance().font, z, cx - Minecraft.getInstance().font.width(z) / 2, cy + r - 14, 0xFFDDDDDD, true);
     }
 
     /** Ammo counter, reload bar, kill tally and the nation chip. */

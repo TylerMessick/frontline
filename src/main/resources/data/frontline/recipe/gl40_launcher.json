@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": ["IIP", "PGS", "  S"], "key": {"I": {"item": "minecraft:iron_ingot"}, "P": {"item": "frontline:gun_parts"}, "S": {"item": "minecraft:stick"}, "G": {"item": "minecraft:tnt"}}, "result": {"id": "frontline:gl40_launcher", "count": 1, "components": {"frontline:ammo": 6}}}

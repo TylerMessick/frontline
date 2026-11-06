@@ -54,10 +54,11 @@ public final class GunLogic {
     /** Spawns the bullets, the muzzle flash and the shot sound for one trigger pull. */
     public static void shoot(ServerLevel level, LivingEntity shooter, GunInfo gun, Vec3 from, Vec3 dir, float spreadDeg, boolean soldier) {
         RandomSource rand = level.random;
-        int style = gun.kind() == GunInfo.Kind.SHOTGUN ? 2 : (gun.kind() == GunInfo.Kind.SNIPER || gun.kind() == GunInfo.Kind.LMG) ? 1 : 0;
+        int style = gun.blast() > 0 ? 5 : gun.kind() == GunInfo.Kind.SHOTGUN ? 2 : (gun.kind() == GunInfo.Kind.SNIPER || gun.kind() == GunInfo.Kind.LMG) ? 1 : 0;
         for (int i = 0; i < gun.pellets(); i++) {
             Vec3 d = cone(rand, dir, spreadDeg);
-            Bullet.fire(level, shooter, from, d, gun.bulletSpeed(), gun.damage(), gun.bulletLife(), style);
+            Bullet b = Bullet.fire(level, shooter, from, d, gun.bulletSpeed(), gun.damage(), gun.bulletLife(), style);
+            if (gun.blast() > 0) b.blast(gun.blast());
         }
         Vec3 muzzle = from.add(dir.scale(0.9D));
         level.sendParticles(ModRegistries.MUZZLE.get(), muzzle.x, muzzle.y, muzzle.z, 1, 0, 0, 0, 0);

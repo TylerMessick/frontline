@@ -40,20 +40,22 @@ public class VehicleEntity extends Entity {
     private static final EntityDataAccessor<Float> HEALTH = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> TURRET_YAW = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> TURRET_PITCH = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> THROTTLE = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> SPEED = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> HURT = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> FIRED = SynchedEntityData.defineId(VehicleEntity.class, EntityDataSerializers.INT);
 
+    /** Set by the client: whether this (local) driver is holding jump, since the input field is only set from packets on the server. */
+    public static java.util.function.Predicate<LivingEntity> clientJumpHook = e -> false;
+
     private final VehicleKind kind;
-    private float speed;
+    /** Speed and throttle live on whichever side runs the physics: the driver's client, or the server when nobody drives. */
+    private float speed, throttle;
     private int primaryCd, secondaryCd;
     private boolean leftGun;
     // client interpolation
     private int lerpSteps;
     private double lerpX, lerpY, lerpZ, lerpYRot, lerpXRot;
     // client animation
-    public float wheelSpin, wheelSpinO, rotor, rotorO, roll, rollO;
+    public float wheelSpin, wheelSpinO, rotor, rotorO, roll, rollO, spinUp;
 
     public VehicleEntity(EntityType<? extends VehicleEntity> type, Level level, VehicleKind kind) {
         super(type, level);
@@ -67,8 +69,8 @@ public class VehicleEntity extends Entity {
     public float health() { return this.entityData.get(HEALTH); }
     public float turretYaw() { return this.entityData.get(TURRET_YAW); }
     public float turretPitch() { return this.entityData.get(TURRET_PITCH); }
-    public float throttle() { return this.entityData.get(THROTTLE); }
-    public float syncedSpeed() { return this.entityData.get(SPEED); }
+    public float throttle() { return throttle; }
+    public float speed() { return speed; }
     public int hurtTicks() { return this.entityData.get(HURT); }
     public int firedTicks() { return this.entityData.get(FIRED); }
     public int primaryCd() { return primaryCd; }
@@ -80,8 +82,6 @@ public class VehicleEntity extends Entity {
         b.define(HEALTH, 100.0F);
         b.define(TURRET_YAW, 0.0F);
         b.define(TURRET_PITCH, 0.0F);
-        b.define(THROTTLE, 0.0F);
-        b.define(SPEED, 0.0F);
         b.define(HURT, 0);
         b.define(FIRED, 0);
     }
@@ -168,34 +168,47 @@ public class VehicleEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.level().isClientSide) {
-            tickLerp();
-            tickAnimation();
-            return;
+        if (this.level().isClientSide) tickAnimation();
+        boolean server = !this.level().isClientSide;
+        if (server) {
+            if (this.entityData.get(HURT) > 0) this.entityData.set(HURT, this.entityData.get(HURT) - 1);
+            if (this.entityData.get(FIRED) > 0) this.entityData.set(FIRED, this.entityData.get(FIRED) - 1);
+            if (primaryCd > 0) primaryCd--;
+            if (secondaryCd > 0) secondaryCd--;
+            if (this.getY() < this.level().getMinBuildHeight() - 32) { this.destroy(); return; }
         }
-        if (this.entityData.get(HURT) > 0) this.entityData.set(HURT, this.entityData.get(HURT) - 1);
-        if (this.entityData.get(FIRED) > 0) this.entityData.set(FIRED, this.entityData.get(FIRED) - 1);
-        if (primaryCd > 0) primaryCd--;
-        if (secondaryCd > 0) secondaryCd--;
         LivingEntity driver = this.getControllingPassenger();
-        switch (kind) {
-            case JEEP, TANK -> tickGround(driver);
-            case PLANE -> tickPlane(driver);
-            case HELI -> tickHeli(driver);
+        // Like boats and horses, the vehicle is moved by the side that controls it: the driver's own client (which
+        // then sends the position up), or the server when nobody is aboard. The other side only interpolates.
+        if (this.isControlledByLocalInstance()) {
+            this.lerpSteps = 0;
+            if (this.level().isClientSide) this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());
+            switch (kind) {
+                case JEEP, TANK -> tickGround(driver);
+                case PLANE -> tickPlane(driver);
+                case HELI -> tickHeli(driver);
+            }
+        } else {
+            if (this.level().isClientSide) tickLerp();
+            this.setDeltaMovement(Vec3.ZERO);
+            throttle = driver == null ? Math.max(0.0F, throttle - 0.01F) : Math.min(1.0F, throttle + 0.01F);
         }
-        this.entityData.set(SPEED, speed);
-        if (this.getY() < this.level().getMinBuildHeight() - 32) this.destroy();
-        if (driver != null && kind == VehicleKind.TANK) {
+        if (server && driver != null && kind == VehicleKind.TANK) {
             // turret tracks the driver's look, limited by the slew rate
             float want = Mth.wrapDegrees(driver.getYRot() - this.getYRot());
             float have = turretYaw();
             this.entityData.set(TURRET_YAW, have + Mth.clamp(Mth.wrapDegrees(want - have), -4.0F, 4.0F));
             float pitch = Mth.clamp(driver.getXRot(), -12.0F, 8.0F);
             this.entityData.set(TURRET_PITCH, Mth.lerp(0.3F, turretPitch(), pitch));
-        } else if (driver != null && kind == VehicleKind.JEEP) {
+        } else if (server && driver != null && kind == VehicleKind.JEEP) {
             this.entityData.set(TURRET_YAW, Mth.wrapDegrees(driver.getYRot() - this.getYRot()));
             this.entityData.set(TURRET_PITCH, Mth.clamp(driver.getXRot(), -30.0F, 15.0F));
         }
+    }
+
+    /** Damage from crashes is only applied on the server; the driving client just reports the collision. */
+    private void crash(DamageSource src, float amount) {
+        if (!this.level().isClientSide) this.hurt(src, amount);
     }
 
     private void tickGround(@Nullable LivingEntity driver) {
@@ -210,7 +223,7 @@ public class VehicleEntity extends Entity {
             float rate = kind == VehicleKind.TANK ? kind.turnRate : kind.turnRate * Mth.clamp(Math.abs(speed) / kind.maxSpeed * 2.0F, 0.3F, 1.0F);
             this.setYRot(this.getYRot() + steer * rate * dir);
         }
-        this.entityData.set(THROTTLE, Math.abs(speed) / kind.maxSpeed);
+        throttle = Math.abs(speed) / kind.maxSpeed;
         Vec3 fwd = Vec3.directionFromRotation(0, this.getYRot());
         Vec3 v = this.getDeltaMovement();
         double vy = this.onGround() ? Math.max(v.y, -0.1D) : v.y - 0.08D;
@@ -232,12 +245,10 @@ public class VehicleEntity extends Entity {
     }
 
     private void tickPlane(@Nullable LivingEntity driver) {
-        float throttle = throttle();
         if (driver != null) {
             if (driver.zza > 0) throttle = Math.min(1.0F, throttle + 0.012F);
             else if (driver.zza < 0) throttle = Math.max(0.0F, throttle - 0.02F);
         } else throttle = Math.max(0.0F, throttle - 0.01F);
-        this.entityData.set(THROTTLE, throttle);
         float target = throttle * kind.maxSpeed;
         speed += (target - speed) * (target > speed ? kind.accel : 0.03F);
         boolean airborne = !this.onGround();
@@ -267,15 +278,14 @@ public class VehicleEntity extends Entity {
         Vec3 before = v;
         this.setDeltaMovement(v);
         this.move(MoverType.SELF, v);
-        if (this.horizontalCollision && before.horizontalDistance() > 0.5D) { this.hurt(this.damageSources().flyIntoWall(), (float) (before.horizontalDistance() * 30.0D)); speed *= 0.2F; }
-        if (this.verticalCollision && before.y < -0.5D) { this.hurt(this.damageSources().fall(), (float) (-before.y * 40.0D)); speed *= 0.5F; }
-        if (this.isInWater()) { this.hurt(this.damageSources().drown(), 4.0F); speed *= 0.6F; }
+        if (this.horizontalCollision && before.horizontalDistance() > 0.5D) { crash(this.damageSources().flyIntoWall(), (float) (before.horizontalDistance() * 30.0D)); speed *= 0.2F; }
+        if (this.verticalCollision && before.y < -0.5D) { crash(this.damageSources().fall(), (float) (-before.y * 40.0D)); speed *= 0.5F; }
+        if (this.isInWater()) { crash(this.damageSources().drown(), 4.0F); speed *= 0.6F; }
     }
 
     private void tickHeli(@Nullable LivingEntity driver) {
-        float rot = throttle();
-        rot = driver != null ? Math.min(1.0F, rot + 0.01F) : Math.max(0.0F, rot - 0.01F);
-        this.entityData.set(THROTTLE, rot);
+        throttle = driver != null ? Math.min(1.0F, throttle + 0.01F) : Math.max(0.0F, throttle - 0.01F);
+        float rot = throttle;
         Vec3 v = this.getDeltaMovement().scale(0.93D);
         if (rot >= 0.6F && driver != null) {
             float yaw = this.getYRot();
@@ -286,7 +296,7 @@ public class VehicleEntity extends Entity {
             Vec3 right = new Vec3(-fwd.z, 0, fwd.x);
             v = v.add(fwd.scale(driver.zza * kind.accel)).add(right.scale(-driver.xxa * kind.accel * 0.7F));
             double vy = v.y;
-            if (driver.jumping) vy += 0.045D;
+            if (driver.jumping || clientJumpHook.test(driver)) vy += 0.045D;
             else if (driver.getXRot() > 25.0F) vy -= 0.03D;
             else vy += 0.006D; // hover: the rotor holds the weight, drifts up a hair so it feels lively
             vy = Mth.clamp(vy, -0.5D, 0.45D);
@@ -304,8 +314,8 @@ public class VehicleEntity extends Entity {
         this.setDeltaMovement(v);
         Vec3 before = v;
         this.move(MoverType.SELF, v);
-        if (this.horizontalCollision && before.horizontalDistance() > 0.4D) { this.hurt(this.damageSources().flyIntoWall(), (float) (before.horizontalDistance() * 25.0D)); }
-        if (this.verticalCollision && before.y < -0.45D) { this.hurt(this.damageSources().fall(), (float) (-before.y * 40.0D)); }
+        if (this.horizontalCollision && before.horizontalDistance() > 0.4D) crash(this.damageSources().flyIntoWall(), (float) (before.horizontalDistance() * 25.0D));
+        if (this.verticalCollision && before.y < -0.45D) crash(this.damageSources().fall(), (float) (-before.y * 40.0D));
         if (driver != null && this.onGround()) this.setDeltaMovement(this.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
     }
 
@@ -379,9 +389,14 @@ public class VehicleEntity extends Entity {
         wheelSpinO = wheelSpin;
         rotorO = rotor;
         rollO = roll;
-        float s = syncedSpeed();
-        wheelSpin += s * 60.0F;
-        rotor += throttle() * 40.0F;
+        float s = (float) new Vec3(this.getX() - this.xo, 0, this.getZ() - this.zo).length();
+        Vec3 fwd = Vec3.directionFromRotation(0, this.getYRot());
+        boolean reversing = new Vec3(this.getX() - this.xo, 0, this.getZ() - this.zo).dot(fwd) < 0;
+        wheelSpin += (reversing ? -s : s) * 60.0F;
+        // engines wind up while someone is aboard; the driver's client knows the real throttle
+        float engine = this.isControlledByLocalInstance() ? throttle : (this.getFirstPassenger() != null ? 1.0F : 0.0F);
+        spinUp = Mth.lerp(0.03F, spinUp, engine);
+        rotor += spinUp * 40.0F;
         float targetRoll = kind == VehicleKind.PLANE ? Mth.clamp(Mth.wrapDegrees(this.getYRot() - this.yRotO) * -6.0F, -45.0F, 45.0F)
                 : kind == VehicleKind.HELI ? Mth.clamp(Mth.wrapDegrees(this.getYRot() - this.yRotO) * -2.0F, -15.0F, 15.0F) : 0.0F;
         roll = Mth.lerp(0.15F, roll, targetRoll);
@@ -394,7 +409,6 @@ public class VehicleEntity extends Entity {
     }
 
     private void tickLerp() {
-        if (this.isControlledByLocalInstance()) { this.lerpSteps = 0; this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ()); }
         if (this.lerpSteps > 0) {
             this.lerpPositionAndRotationStep(this.lerpSteps, this.lerpX, this.lerpY, this.lerpZ, this.lerpYRot, this.lerpXRot);
             this.lerpSteps--;

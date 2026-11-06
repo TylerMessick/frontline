@@ -45,7 +45,7 @@ public class Bullet extends Projectile {
         super(type, level);
     }
 
-    /** style 0 = normal tracer, 1 = heavy (sniper/lmg), 2 = pellet, 3 = cannon shell / rocket, 4 = bomb (falls, no tracer). */
+    /** style 0 = normal tracer, 1 = heavy (sniper/lmg), 2 = pellet, 3 = cannon shell / rocket, 4 = bomb (falls, no tracer), 5 = grenade (arcs). */
     public static Bullet fire(ServerLevel level, @Nullable Entity owner, Vec3 from, Vec3 dir, float speed, float damage, int life, int style) {
         Bullet b = new Bullet(ModRegistries.BULLET.get(), level);
         b.setOwner(owner);
@@ -88,6 +88,7 @@ public class Bullet extends Projectile {
             if (--this.life <= 0) { this.discard(); return; }
             // bullets fly flat for the first second, then start to drop
             if (this.style() == 4) v = v.add(0, -0.06D, 0).scale(0.99D);
+            else if (this.style() == 5) v = v.add(0, -0.035D, 0).scale(0.995D);
             else if (this.tickCount > 20 && this.style() != 3) v = v.add(0, -0.012D, 0);
             this.setDeltaMovement(v);
             HitResult hit = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);

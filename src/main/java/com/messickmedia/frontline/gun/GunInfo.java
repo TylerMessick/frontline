@@ -14,11 +14,13 @@ package com.messickmedia.frontline.gun;
  * @param muzzleX     muzzle position in model units (x across, y up, z along the gun; the muzzle is at the low-Z end)
  * @param sightY      height (model units) of the sight line the camera looks along when aiming
  * @param gripY       centre of the pistol grip (model units); the hand holds the gun here
+ * @param blast       explosion power of each projectile (0 = plain bullet; the grenade launcher uses this)
+ * @param zoom        default magnification of a scoped weapon (the scroll wheel changes it in game)
  */
 public record GunInfo(String id, Kind kind, String ammo, int magSize, int fireTicks, boolean auto, float damage, int pellets,
                       float bulletSpeed, int bulletLife, float hipSpread, float adsSpread, float bloom, float recoilPitch, float recoilYaw,
                       int reloadTicks, float adsFov, boolean scope, float muzzleX, float muzzleY, float muzzleZ, Sound sound, float moveSpeed,
-                      float sightY, float gripY, float gripZ) {
+                      float sightY, float gripY, float gripZ, float blast, float zoom) {
 
     public enum Kind { PISTOL, SMG, RIFLE, SHOTGUN, SNIPER, LMG }
 

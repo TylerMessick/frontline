@@ -410,6 +410,185 @@ def lm249_lmg():
     return p, dict(muzzle=(8, 10.8, -31.0), sight_y=14.1, length=47)
 
 
+def r6_revolver():
+    p = []
+    cx = 8
+    box(p, 7.2, 8.4, -2.0, 8.8, 11.0, 3.4, 'steel_mid', name='frame')
+    box(p, 7.0, 11.0, -2.0, 9.0, 11.6, 3.0, 'steel_mid', name='top_strap')
+    # fluted cylinder: an octagon with dark flutes
+    tube(p, cx, 9.7, -1.8, 1.6, 1.55, 'steel_light', name='cylinder')
+    for ang_x, ang_y in ((-1.6, 10.9), (1.6, 10.9), (-1.6, 8.5), (1.6, 8.5)):
+        box(p, cx + ang_x - 0.2, ang_y - 0.3, -1.5, cx + ang_x + 0.2, ang_y + 0.3, 1.3, 'black', name='flute')
+    box(p, 7.0, 8.2, -1.9, 7.3, 11.2, 1.7, 'steel_mid', name='crane')
+    # barrel with underlug and rib
+    tube(p, cx, 10.2, -9.0, -2.0, 0.6, 'steel_mid', name='barrel')
+    box(p, 7.2, 8.6, -9.0, 8.8, 9.8, -2.0, 'steel_mid', name='underlug')
+    box(p, 7.6, 10.7, -8.8, 8.4, 11.2, -2.0, 'steel_dark', name='rib')
+    tube(p, cx, 9.0, -8.6, -2.5, 0.3, 'steel_light', name='ejector_rod')
+    box(p, 7.8, 11.2, -8.6, 8.2, 12.0, -8.0, 'steel_dark', name='front_sight')
+    box(p, 7.88, 11.9, -8.55, 8.12, 12.2, -8.05, 'tritium', name='front_dot')
+    box(p, 7.3, 11.6, 2.0, 8.7, 12.2, 2.8, 'steel_dark', name='rear_sight')
+    box(p, 7.8, 11.8, 1.95, 8.2, 12.25, 2.1, 'black', name='rear_notch')
+    # hammer, trigger, grip
+    box(p, 7.6, 10.6, 3.0, 8.4, 12.2, 4.2, 'steel_dark', rot=('x', -22.5, (8, 11.0, 3.4)), name='hammer')
+    box(p, 7.6, 6.6, -1.0, 8.4, 7.0, 2.6, 'steel_dark', name='trigger_guard')
+    box(p, 7.6, 6.6, -1.0, 8.4, 8.4, -0.6, 'steel_dark', name='guard_front')
+    box(p, 7.8, 7.0, 0.6, 8.2, 8.4, 1.0, 'steel_light', rot=('x', 22.5, (8, 8.4, 0.8)), name='trigger')
+    box(p, 7.2, 3.0, 1.6, 8.8, 8.4, 4.2, 'wood', rot=('x', -22.5, (8, 8.4, 2.9)), name='grip')
+    box(p, 7.1, 2.8, 1.4, 8.9, 3.4, 4.4, 'steel_dark', rot=('x', -22.5, (8, 8.4, 2.9)), name='grip_cap')
+    return p, dict(muzzle=(8, 10.2, -9.0), sight_y=12.2, length=16)
+
+
+def bp5_bullpup():
+    p = []
+    cx = 8
+    # one long polymer body: the action sits behind the grip
+    box(p, 6.9, 7.4, -6.0, 9.1, 11.4, 12.0, 'polymer_dark', name='body')
+    box(p, 7.0, 6.2, 4.0, 9.0, 7.4, 12.0, 'polymer_dark', name='lower_rear')
+    box(p, 6.8, 7.0, 12.0, 9.2, 11.8, 12.8, 'rubber', name='butt_pad')
+    box(p, 7.3, 11.4, 6.0, 8.7, 12.2, 11.0, 'polymer', name='cheek')
+    box(p, 7.2, -1.0, 6.0, 8.8, 6.2, 8.8, 'steel_mid', rot=('x', -22.5, (8, 6.2, 7.4)), name='magazine')
+    box(p, 7.1, -1.4, 5.8, 8.9, -0.7, 9.0, 'polymer', rot=('x', -22.5, (8, 6.2, 7.4)), name='mag_base')
+    box(p, 9.1, 9.0, 4.0, 9.35, 10.4, 8.0, 'black', name='ejection_port')
+    box(p, 7.15, 3.0, -1.6, 8.85, 7.4, 0.2, 'polymer', rot=('x', -22.5, (8, 7.4, -0.7)), name='grip')
+    box(p, 7.6, 5.8, -4.6, 8.4, 6.2, -1.4, 'polymer', name='trigger_guard')
+    box(p, 7.6, 5.8, -4.6, 8.4, 7.4, -4.2, 'polymer', name='guard_front')
+    box(p, 7.8, 6.0, -3.0, 8.2, 7.4, -2.6, 'steel_light', rot=('x', 22.5, (8, 7.4, -2.8)), name='trigger')
+    # carry handle / optic rail
+    box(p, 7.4, 11.4, -5.5, 8.6, 12.4, -4.5, 'polymer_dark', name='rail_post_f')
+    box(p, 7.4, 11.4, 2.5, 8.6, 12.4, 3.5, 'polymer_dark', name='rail_post_r')
+    rail(p, 7.3, 8.7, 12.4, -6.0, 4.0)
+    box(p, 7.2, 13.2, 2.0, 8.8, 14.2, 3.4, 'steel_dark', name='rear_sight')
+    box(p, 7.75, 13.6, 2.4, 8.25, 14.1, 2.9, 'black', name='aperture')
+    box(p, 7.6, 13.2, -5.4, 8.4, 14.4, -4.6, 'steel_dark', name='front_sight')
+    box(p, 7.88, 14.3, -5.2, 8.12, 14.8, -4.8, 'tritium', name='front_dot')
+    # short handguard, vents, barrel and brake
+    box(p, 6.95, 8.0, -12.0, 9.05, 11.2, -6.0, 'polymer', name='handguard')
+    for z in (-11.0, -9.4, -7.8):
+        box(p, 6.8, 8.6, z, 6.95, 10.6, z + 0.9, 'black', name='vent_l')
+        box(p, 9.05, 8.6, z, 9.2, 10.6, z + 0.9, 'black', name='vent_r')
+    box(p, 7.4, 7.4, -11.0, 8.6, 8.0, -7.0, 'steel_dark', name='bottom_rail')
+    tube(p, cx, 10.2, -16.0, -12.0, 0.6, 'steel_mid', name='barrel')
+    tube(p, cx, 10.2, -17.4, -15.8, 0.85, 'steel_dark', name='brake')
+    box(p, 7.2, 10.9, -17.2, 8.8, 11.1, -16.0, 'black', name='brake_slot')
+    box(p, 6.6, 9.4, 1.0, 6.9, 10.0, 4.0, 'steel_mid', name='charging_handle')
+    return p, dict(muzzle=(8, 10.2, -17.4), sight_y=14.8, length=30)
+
+
+def uc45_smg():
+    p = []
+    cx = 8
+    box(p, 6.9, 8.0, -7.0, 9.1, 11.6, 6.0, 'polymer_dark', name='receiver')
+    box(p, 7.0, 11.6, -6.0, 9.0, 12.1, 5.0, 'polymer', name='top_cover')
+    for z in (-5.0, -3.0, -1.0, 1.0, 3.0):
+        box(p, 6.8, 8.6, z, 6.9, 11.0, z + 0.4, 'black', name='groove_l')
+        box(p, 9.1, 8.6, z, 9.2, 11.0, z + 0.4, 'black', name='groove_r')
+    box(p, 7.0, 6.4, -2.0, 9.0, 8.0, 5.0, 'polymer', name='lower')
+    box(p, 7.1, -1.5, -1.4, 8.9, 6.4, 1.0, 'polymer', name='magazine')
+    box(p, 7.0, -2.0, -1.6, 9.0, -1.3, 1.2, 'polymer_dark', name='mag_base')
+    box(p, 7.15, 2.6, 2.6, 8.85, 6.4, 4.6, 'polymer', rot=('x', -22.5, (8, 6.4, 3.6)), name='grip')
+    box(p, 7.6, 5.4, -1.2, 8.4, 5.8, 2.4, 'polymer', name='trigger_guard')
+    box(p, 7.6, 5.4, -1.2, 8.4, 6.4, -0.8, 'polymer', name='guard_front')
+    box(p, 7.8, 5.6, 0.8, 8.2, 6.6, 1.2, 'steel_light', rot=('x', 22.5, (8, 6.4, 1.0)), name='trigger')
+    box(p, 9.1, 9.2, -4.0, 9.35, 10.6, -1.0, 'black', name='ejection_port')
+    box(p, 6.5, 9.6, -5.6, 6.9, 10.4, -3.6, 'steel_mid', name='charging_handle')
+    rail(p, 7.3, 8.7, 12.1, -7.0, 5.0)
+    box(p, 7.2, 12.9, 2.8, 8.8, 14.0, 3.8, 'steel_dark', name='rear_sight')
+    box(p, 7.75, 13.4, 3.1, 8.25, 13.9, 3.5, 'black', name='aperture')
+    box(p, 7.6, 12.9, -6.6, 8.4, 13.9, -5.8, 'steel_dark', name='front_sight')
+    box(p, 7.88, 13.8, -6.4, 8.12, 14.2, -6.0, 'steel_light', name='front_post')
+    box(p, 7.2, 6.8, -7.0, 8.8, 8.0, -3.0, 'polymer_dark', name='handstop')
+    tube(p, cx, 10.1, -13.0, -7.0, 0.65, 'steel_mid', name='barrel')
+    tube(p, cx, 10.1, -14.6, -12.8, 0.9, 'steel_dark', name='flash_hider')
+    box(p, 7.3, 10.8, -14.4, 8.7, 11.0, -13.0, 'black', name='hider_slot')
+    # folding stock, extended
+    box(p, 7.4, 9.4, 6.0, 8.6, 10.4, 13.0, 'steel_mid', name='stock_bar')
+    box(p, 7.2, 7.4, 12.4, 8.8, 12.0, 14.0, 'polymer', name='butt')
+    box(p, 7.1, 7.2, 14.0, 8.9, 12.2, 14.5, 'rubber', name='butt_pad')
+    return p, dict(muzzle=(8, 10.1, -14.6), sight_y=14.2, length=29)
+
+
+def br20_dmr():
+    p = []
+    cx = 8
+    box(p, 6.9, 8.6, -8.0, 9.1, 11.6, 6.0, 'steel_dark', name='receiver')
+    box(p, 7.0, 7.2, -4.0, 9.0, 8.6, 6.0, 'steel_dark', name='lower')
+    box(p, 7.2, 1.0, -3.0, 8.8, 7.2, -0.2, 'steel_mid', rot=('x', -22.5, (8, 7.2, -1.6)), name='magazine')
+    box(p, 7.15, 2.8, 3.4, 8.85, 7.2, 5.4, 'polymer', rot=('x', -22.5, (8, 7.2, 4.4)), name='grip')
+    box(p, 7.6, 5.8, 0.4, 8.4, 6.2, 3.6, 'steel_dark', name='trigger_guard')
+    box(p, 7.6, 5.8, 0.4, 8.4, 7.2, 0.8, 'steel_dark', name='guard_front')
+    box(p, 7.8, 6.0, 1.8, 8.2, 7.2, 2.2, 'steel_light', rot=('x', 22.5, (8, 7.2, 2.0)), name='trigger')
+    box(p, 9.1, 9.4, -4.5, 9.35, 10.8, -1.0, 'black', name='ejection_port')
+    box(p, 9.1, 10.0, 0.5, 10.2, 10.8, 2.5, 'steel_light', name='charging_handle')
+    # stock with cheek riser and adjustable butt
+    box(p, 7.2, 8.4, 6.0, 8.8, 11.0, 8.0, 'steel_mid', name='stock_hinge')
+    box(p, 7.0, 7.0, 8.0, 9.0, 11.6, 15.0, 'polymer_dark', name='stock')
+    box(p, 7.2, 11.6, 9.0, 8.8, 12.6, 14.0, 'polymer', name='cheek_riser')
+    box(p, 6.9, 6.6, 15.0, 9.1, 12.0, 15.9, 'rubber', name='butt_pad')
+    box(p, 7.4, 5.6, 11.0, 8.6, 7.0, 13.5, 'polymer_dark', name='stock_hook')
+    # long free-float handguard with slots, long barrel, brake
+    box(p, 6.95, 8.3, -22.0, 9.05, 11.5, -8.0, 'polymer_dark', name='handguard')
+    for z in (-20.5, -18.0, -15.5, -13.0, -10.5):
+        box(p, 6.8, 9.0, z, 6.95, 10.8, z + 1.2, 'black', name='slot_l')
+        box(p, 9.05, 9.0, z, 9.2, 10.8, z + 1.2, 'black', name='slot_r')
+        box(p, 7.5, 8.15, z, 8.5, 8.3, z + 1.2, 'black', name='slot_b')
+    tube(p, cx, 10.4, -31.0, -22.0, 0.7, 'steel_mid', name='barrel')
+    tube(p, cx, 10.4, -33.0, -30.8, 1.0, 'steel_dark', name='brake')
+    for z in (-32.6, -31.8):
+        box(p, 6.85, 10.0, z, 7.05, 10.8, z + 0.4, 'black', name='port_l')
+        box(p, 8.95, 10.0, z, 9.15, 10.8, z + 0.4, 'black', name='port_r')
+    # low-power scope on the receiver rail
+    rail(p, 7.3, 8.7, 11.6, -8.0, 5.0)
+    for z in (-5.0, 1.5):
+        box(p, 7.2, 12.5, z, 8.8, 13.7, z + 1.2, 'steel_dark', name='ring_base')
+        box(p, 7.15, 13.6, z - 0.1, 8.85, 15.9, z + 1.3, 'steel_dark', name='ring')
+    tube(p, cx, 14.8, -4.0, 2.5, 1.0, 'gunmetal', name='scope_tube')
+    tube(p, cx, 14.8, -8.6, -4.0, 1.3, 'gunmetal', name='objective')
+    tube(p, cx, 14.8, 2.5, 5.6, 1.2, 'gunmetal', name='ocular')
+    box(p, 6.95, 13.75, -8.8, 9.05, 15.85, -8.55, 'lens', name='objective_lens')
+    box(p, 7.05, 13.85, 5.6, 8.95, 15.75, 5.85, 'glass', name='ocular_lens')
+    box(p, 7.5, 15.6, -1.5, 8.5, 16.6, -0.3, 'steel_dark', name='elevation')
+    box(p, 8.9, 14.3, -1.5, 9.9, 15.3, -0.3, 'steel_dark', name='windage')
+    # folded bipod
+    box(p, 6.7, 7.5, -20.0, 7.2, 8.15, -9.5, 'steel_dark', name='bipod_l')
+    box(p, 8.8, 7.5, -20.0, 9.3, 8.15, -9.5, 'steel_dark', name='bipod_r')
+    return p, dict(muzzle=(8, 10.4, -33.0), sight_y=14.8, length=49)
+
+
+def gl40_launcher():
+    p = []
+    cx = 8
+    # six-shot revolving launcher: big cylinder, fat barrel, frame, folding stock
+    tube(p, cx, 10.0, -4.0, 4.0, 3.0, 'steel_dark', name='cylinder')
+    for ang in range(6):
+        import math as _m
+        a = _m.radians(ang * 60 + 30)
+        ox, oy = _m.cos(a) * 1.9, _m.sin(a) * 1.9
+        box(p, cx + ox - 0.7, 10.0 + oy - 0.7, -4.2, cx + ox + 0.7, 10.0 + oy + 0.7, -3.8, 'black', name='chamber')
+    box(p, 7.0, 6.5, 4.0, 9.0, 13.2, 6.0, 'steel_dark', name='breech_plate')
+    box(p, 7.0, 6.6, -5.5, 9.0, 8.0, 4.0, 'steel_dark', name='frame_bottom')
+    tube(p, cx, 10.0, -12.0, -4.0, 1.6, 'steel_mid', name='barrel')
+    box(p, 7.2, 11.6, -11.8, 8.8, 12.4, -4.5, 'steel_dark', name='barrel_rib')
+    box(p, 7.4, 8.0, -12.0, 8.6, 8.4, -4.0, 'steel_mid', name='barrel_lug')
+    box(p, 7.15, 2.6, 2.2, 8.85, 6.6, 4.2, 'polymer', rot=('x', -22.5, (8, 6.6, 3.2)), name='grip')
+    box(p, 7.6, 5.4, -1.8, 8.4, 5.8, 1.8, 'steel_dark', name='trigger_guard')
+    box(p, 7.6, 5.4, -1.8, 8.4, 6.6, -1.4, 'steel_dark', name='guard_front')
+    box(p, 7.8, 5.6, 0.2, 8.2, 6.6, 0.6, 'steel_light', rot=('x', 22.5, (8, 6.6, 0.4)), name='trigger')
+    box(p, 7.0, 6.8, -11.5, 9.0, 8.0, -7.0, 'polymer', name='foregrip')
+    # ladder sight and rear sight
+    box(p, 7.3, 12.4, -11.0, 8.7, 12.9, -9.6, 'steel_dark', name='sight_base')
+    box(p, 7.4, 12.9, -10.6, 8.6, 15.4, -10.2, 'steel_dark', rot=('x', -22.5, (8, 12.9, -10.4)), name='ladder')
+    for y in (13.4, 14.0, 14.6):
+        box(p, 7.5, y, -10.7, 8.5, y + 0.2, -10.1, 'black', rot=('x', -22.5, (8, 12.9, -10.4)), name='ladder_rung')
+    box(p, 7.4, 13.2, 4.8, 8.6, 14.4, 5.8, 'steel_dark', name='rear_sight')
+    box(p, 7.8, 13.6, 5.1, 8.2, 14.1, 5.5, 'black', name='aperture')
+    # stock
+    box(p, 7.4, 9.4, 6.0, 8.6, 10.4, 14.0, 'steel_mid', name='stock_bar')
+    box(p, 7.2, 7.4, 13.4, 8.8, 12.2, 15.0, 'polymer', name='butt')
+    box(p, 7.1, 7.2, 15.0, 8.9, 12.4, 15.5, 'rubber', name='butt_pad')
+    return p, dict(muzzle=(8, 10.0, -12.0), sight_y=14.1, length=28)
+
+
 GUNS = [
     ('p9_sidearm', p9_sidearm, 'P9 Sidearm', 0.95),
     ('mp9_smg', mp9_smg, 'MP9 Submachine Gun', 0.55),
@@ -418,6 +597,11 @@ GUNS = [
     ('sg12_shotgun', sg12_shotgun, 'SG-12 Pump Shotgun', 0.38),
     ('r7_marksman', r7_marksman, 'R7 Marksman Rifle', 0.33),
     ('lm249_lmg', lm249_lmg, 'LM-249 Light Machine Gun', 0.35),
+    ('r6_revolver', r6_revolver, 'R6 Revolver', 0.85),
+    ('bp5_bullpup', bp5_bullpup, 'BP-5 Bullpup Carbine', 0.5),
+    ('uc45_smg', uc45_smg, 'UC-45 Submachine Gun', 0.52),
+    ('br20_dmr', br20_dmr, 'BR-20 Marksman Rifle', 0.34),
+    ('gl40_launcher', gl40_launcher, 'GL-40 Grenade Launcher', 0.55),
 ]
 
 # A gun's length along Z spans more than 16 units; item models allow -16..32, so everything stays inside that.

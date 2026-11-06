@@ -24,6 +24,10 @@ public final class ClientState {
     /** The camera type the player had before mounting a vehicle, restored on dismount (-1 = not riding). */
     public static int cameraBeforeRide = -1;
     public static int vehicleFireCd;
+    /** Scope magnification (scroll wheel while scoped) and the mouse sensitivity to restore when leaving the scope. */
+    public static float zoom = 4.0F;
+    public static double baseSensitivity = Double.NaN;
+    public static String lastGun = "";
 
     // local
     public static boolean ots;

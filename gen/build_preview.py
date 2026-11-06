@@ -28,7 +28,7 @@ for line in open(os.path.join(ROOT, 'src', 'main', 'java', 'com', 'messickmedia'
         parts = [p.strip() for p in body.split(',')]
         gid = parts[0].strip('"')
         kind = parts[1]
-        nums = parts[-3:]
+        nums = parts[-5:-2]
         stats[gid] = {'kind': kind, 'sightY': float(nums[0].rstrip('F')), 'gripY': float(nums[1].rstrip('F')), 'gripZ': float(nums[2].rstrip('F')),
                       'muzzle': [float(parts[18].rstrip('F')), float(parts[19].rstrip('F')), float(parts[20].rstrip('F'))], 'scope': parts[17] == 'true'}
 

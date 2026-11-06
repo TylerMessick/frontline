@@ -276,7 +276,7 @@ def models():
     json.dump({'variants': {'facing=north': {'model': 'frontline:block/command_flag'}, 'facing=south': {'model': 'frontline:block/command_flag', 'y': 180},
                             'facing=west': {'model': 'frontline:block/command_flag', 'y': 270}, 'facing=east': {'model': 'frontline:block/command_flag', 'y': 90}}},
               open(os.path.join(bs, 'command_flag.json'), 'w'))
-    for name in ('ammo_9mm', 'ammo_556', 'ammo_762', 'ammo_12g', 'ammo_308', 'enlistment_papers', 'command_baton', 'gun_parts', 'command_flag'):
+    for name in ('ammo_9mm', 'ammo_556', 'ammo_762', 'ammo_12g', 'ammo_308', 'ammo_45', 'ammo_44', 'ammo_40mm', 'enlistment_papers', 'command_baton', 'gun_parts', 'command_flag'):
         json.dump({'parent': 'minecraft:item/generated', 'textures': {'layer0': f'frontline:item/{name}'}}, open(os.path.join(itm, f'{name}.json'), 'w'))
     part = ensure(os.path.join(ROOT, 'particles'))
     for name in ('muzzle_flash', 'gun_smoke', 'brass', 'spark'):
@@ -291,6 +291,9 @@ def main():
     ammo_box('ammo_762', rgb(0x8A1C1C), rgb(0xB08A3A), 4)
     ammo_box('ammo_12g', rgb(0xC08A1C), rgb(0xC0302A), 3)
     ammo_box('ammo_308', rgb(0x3A3A3A), rgb(0x9A9EA6), 4)
+    ammo_box('ammo_45', rgb(0x5A3A8A), rgb(0xB08A3A), 4)
+    ammo_box('ammo_44', rgb(0x8A5A1C), rgb(0xC9A227), 3)
+    ammo_box('ammo_40mm', rgb(0x2F6B2F), rgb(0xC0302A), 2)
     papers(); baton(); gun_parts(); flag_item(); flag_block_tex()
     models()
     print('assets written')
